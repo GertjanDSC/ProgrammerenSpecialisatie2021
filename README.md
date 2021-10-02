@@ -63,8 +63,8 @@ Tussendoortjes:
 2. [Demo Database-First](./Documents/EF_1_DbFirstDemo.md)
 3. [Demo Code-First](./Documents/EF_1_CodeFirst.md)
 4. Database-First of Code-First? Video.
-5. Opdracht EF 1: volg tutorial.
-6. Opdracht EF 2: [Partzy "Code-First"](./Documents/PartzyCodeFirst1.pdf).
+5. Opdracht EF 1: volg [tutorial](./Pdf/1_EntityFramework_GetStarted.pdf).
+6. Thuisopdracht 1: [Partzy "Code-First"](./Documents/PartzyCodeFirst1.pdf).
 
 ## 5. Asynchroon programmeren
 
