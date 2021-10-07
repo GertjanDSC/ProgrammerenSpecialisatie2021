@@ -46,7 +46,7 @@ namespace DbFirstDemo.Models
                     .IsRequired()
                     .HasMaxLength(500);
             });
-
+            
             OnModelCreatingPartial(modelBuilder);
         }
 

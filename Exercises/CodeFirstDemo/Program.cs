@@ -4,14 +4,6 @@ using System;
 
 namespace CodeFirstDemo
 {
-    // TODO: refactor this!
-    public class Post
-    {
-        public int Id { get; set; }
-        public DateTime DatePublished { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
-    }
 
     // Abstration to load/save data
     public class BlogDbContext : DbContext

@@ -18,13 +18,22 @@ Installeer via Nuget Package Manager:
 
 ![image-20211001134356302](./EFImages/EF4.png)
 
+In Nuget Package Manager.Console:
+
+```C#
+Install-Package Microsoft.EntityFrameworkCore
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Install-Package Microsoft.Extensions.Logging.Debug
+```
+
 Omdat we Code First werken maken we eerst een klasse "Post" aan:
 
 ![image-20211001121444564](./EFImages/EF5.png)
 
 
 
-We hebben een DbContext klasse nodig die overerft van DbContext. Hierin moet minstens een enkele DbSet<> opgenomen zijn:
+We hebben een DbContext klasse nodig die overerft van DbContext. Hierin moet **minstens een enkele DbSet<>** opgenomen zijn:
 
 ![image-20211001121615096](./EFImages/EF6.png)
 
@@ -46,8 +55,7 @@ Een connection string opgegeven kan veel eenvoudiger dan vroeger in het geval va
 
 ```xml
 <connectionStrings>
-    <add name="BlogDbContext"
-         connectionString="Server=localhost,1436;database=CodeFirstDemo;Trusted_Connection=False;user ID=sa;Password=1Secure*Password1" providerName="System.Data.SqlClient"/>
+    <add name="BlogDbContext"  connectionString="Server=localhost,1436;database=CodeFirstDemo;Trusted_Connection=False;user ID=sa;Password=1Secure*Password1" providerName="System.Data.SqlClient"/>
 </connectionStrings>
 ```
 
@@ -410,6 +418,8 @@ modelBuilder.Entity<Post>().OwnsOne(p => p.AuthorName).HasData(
 Goede oefening ...
 
 ## Referentiemateriaal
+
+Zie https://www.connectionstrings.com/
 
 Zie https://www.entityframeworktutorial.net/efcore/entity-framework-core.aspx.
 
