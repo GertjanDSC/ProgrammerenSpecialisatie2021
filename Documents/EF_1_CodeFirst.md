@@ -161,7 +161,7 @@ of voor SQLServer onder Docker:
 Scaffold-DbContext "Server=localhost,1436;database=EfPs;Trusted_Connection=False;user ID=sa;Password=1Secure*Password1" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 ```
 
-![image-20211002095059386](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211002095059386.png)
+![image-20211002095059386](./EFImages/image-20211002095059386.png)
 
 Merk op: vroeger werd code gegenereerd voor stored procedures, maar vanaf EF Core niet meer. Mogelijkheden om deze toch uit te voeren:
 

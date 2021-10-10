@@ -5,8 +5,8 @@
 | Datum      | Inhoud                                                       |
 | ---------- | ------------------------------------------------------------ |
 | 29/9/2021  | [Kennismaking](./Documents/Kennismaking.md), afspraken en inhoudsbepaling, setup omgeving SQLServer 2019/SSMS, introductie Entity Framework |
-| 6/10/2021  | EF (1) - Db First, Code First                                |
-| 13/10/2021 | EF (2) - Code First                                          |
+| 6/10/2021  | [EF (1) - Db First, Code First](./Documents/EF_1_CodeFirst.md) |
+| 13/10/2021 | [EF (2) - Code First](./Documents/EF_2.md)                   |
 | 20/10/2021 | EF (3) - Repository pattern                                  |
 | 27/10/2021 | Async, threads, tasks (1)                                    |
 | 3/11/2021  | Async, threads, tasks (2)                                    |
