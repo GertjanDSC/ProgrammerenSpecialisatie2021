@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeFirstFromDbDemo.Models;
+using System;
 
 namespace CodeFirstFromDbDemo
 {
@@ -6,7 +7,7 @@ namespace CodeFirstFromDbDemo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var context = new EfPsContext();
         }
     }
 }
