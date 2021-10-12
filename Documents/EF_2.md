@@ -393,12 +393,6 @@ Bedenk hierbij:
 * als je "eur" omrekent naar een andere muntcode, dan moet je vermenigvuldigen en reken je een andere muntcode om naar "eur" dan moet je delen.
 * wat als geen van beide muntcodes "eur" is? De rekenformule wordt ingewikkelder: (hoeveelheid * waarde_doelmunt) / waarde_vertrekmunt.
 
-# Git
-
-1. [Cheat Sheet](./GitCheatSheet.pdf)
-
-2. Video's: What is Git?
-
 # Oefening: volg EF Core tutorials 
 
 1. [Get started](./1_EntityFrameworkCore_GetStarted.pdf)

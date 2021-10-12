@@ -27,6 +27,8 @@ Tussendoortjes:
 * Events/Delegates: een herhaling
 * GraphQL
 * Git
+  * [Cheat sheet](./Documents/GitCheatSheet.pdf)
+  * Videos
 
 ## 2. SqlServer 2019
 
@@ -63,8 +65,8 @@ Tussendoortjes:
 2. [Demo Database-First](./Documents/EF_1_DbFirstDemo.md)
 3. [Demo Code-First](./Documents/EF_1_CodeFirst.md)
 4. Database-First of Code-First? Video.
-5. Opdracht EF 1: volg [tutorial](./Pdf/1_EntityFramework_GetStarted.pdf).
-6. Thuisopdracht 1: [Partzy "Code-First"](./Documents/PartzyCodeFirst1.pdf).
+5. EF [attributes en Fluent API, LINQ; eindopdracht: muntwaarden](./Documents/EF_2.md)
+6. Opdracht "EF tutorial": volg [tutorial](./Documents/1_EntityFrameworkCore_GetStarted.pdf) en [tutorial](./Documents/2_EntityFrameworkCore_DataModelling.pdf), werk de EF attributen weg en dien het resultaat in onder [Chamilo](https://chamilo.hogent.be/index.php?go=CourseViewer&application=Chamilo%5CApplication%5CWeblcms&course=47725&tool=Assignment&browser=Table&tool_action=Display&publication=1875737).
 
 ## 5. Asynchroon programmeren
 
