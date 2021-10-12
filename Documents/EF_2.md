@@ -318,7 +318,7 @@ ECB stelt muntkoersen beschikbaar in RDF/XML formaat: https://en.wikipedia.org/w
 /// </summary>
 public static decimal GetCurrencyRateInEuro(string currency)
 {
-  if (currency.ToLower() == "")
+  if (currency.ToLower().IsNullOrEmpty())
     throw new ArgumentException("Invalid argument: currency parameter must be specified.");
   if (currency.ToLower() == "eur")
     return (decimal)1.0;
