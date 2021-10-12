@@ -13,6 +13,7 @@ namespace CodeFirstFromDbDemo.Models
         //public EfPsContext()
         //{
         //}
+
         // This constructor obtains the connection string from your appsettings.json file.
         // Tell LINQPad to use it if you don't want to specify a connection string in LINQPad's dialog.
         // Install Microsoft.Extensions.Configuration and Microsoft.Extensions.Configuration.Json Nuget packages

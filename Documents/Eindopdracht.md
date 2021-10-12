@@ -17,7 +17,7 @@
 
    * Currency tags voor de ECB xml gegevens: eur, usd, jpy, bgn, czk, dkk, gbp, huf, ltl, lvl, pln, ron, sek, chf, nok, hrk, rub, try, aud, brl, cad, cny, hkd, idr, ils , inr, krw, mxn, myr, nzd, php, sgd, zar
 
-   * Xml kan opgevraagd worden via url http://www.ecb.int/rss/fxref-eur.html
+   * Xml kan opgevraagd worden via url http://www.ecb.int/rss/fxref-usd.html (eur is altijd 1.0 als omrekening en komt als pagina bij ECB niet voor)
 
    * Inspiratie:
 

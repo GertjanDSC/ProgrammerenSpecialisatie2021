@@ -6,6 +6,7 @@ namespace CodeFirstFromDbDemo.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            /*
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -21,6 +22,7 @@ namespace CodeFirstFromDbDemo.Migrations
 
             migrationBuilder.Sql("INSERT INTO Categories (Name) VALUES ('Web Development')");
             migrationBuilder.Sql("INSERT INTO Categories (Name) VALUES ('Programming Languages')");
+            */
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
