@@ -224,6 +224,21 @@ namespace Queries
                 var author = unitOfWork.Authors.GetAuthorWithCourses(1);
                 unitOfWork.Courses.RemoveRange(author.Courses);
                 unitOfWork.Authors.Remove(author);
+
+                var trackedAuthors = dbContext.ChangeTracker.Entries<Author>();
+                foreach(var a in trackedAuthors)
+                {
+                    System.Diagnostics.Debug.Write(a.CurrentValues["Id"]);
+                    System.Diagnostics.Debug.WriteLine(") " + a.Entity.Name + ": " + a.State);
+                    // a.Reload(); // reloads from the database - overwriting data!
+                    // System.Diagnostics.Debug.WriteLine(a.Entity.Name + ": " + a.State);
+                }
+                var trackedObjects = dbContext.ChangeTracker.Entries();
+                foreach (var o in trackedObjects)
+                {
+                    System.Diagnostics.Debug.WriteLine(o.Entity.GetType().ToString() + ": " + o.State);
+                }
+
                 unitOfWork.Complete();
             }
         }

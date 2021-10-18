@@ -5,7 +5,6 @@ using System;
 
 #nullable disable
 
-
 namespace Queries.Persistence
 {
     public partial class CourseContext : DbContext

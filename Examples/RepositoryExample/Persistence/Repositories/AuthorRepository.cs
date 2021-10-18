@@ -13,12 +13,7 @@ namespace Queries.Persistence.Repositories
 
         public Author GetAuthorWithCourses(int id)
         {
-            return CourseContext.Authors.Include(a => a.Courses).SingleOrDefault(a => a.Id == id);
-        }
-
-        public CourseContext CourseContext
-        {
-            get { return Context as CourseContext; }
+            return ((CourseContext)DbContext).Authors.Include(a => a.Courses).SingleOrDefault(a => a.Id == id);
         }
     }
 }

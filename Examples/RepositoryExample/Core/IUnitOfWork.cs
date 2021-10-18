@@ -1,12 +1,11 @@
 using Queries.Core.Repositories;
-using System;
 
 namespace Queries.Core
 {
-    public interface IUnitOfWork : IDisposable
+
+    public interface IUnitOfWork : IUnitOfWorkBase
     {
         ICourseRepository Courses { get; }
         IAuthorRepository Authors { get; }
-        int Complete();
     }
 }

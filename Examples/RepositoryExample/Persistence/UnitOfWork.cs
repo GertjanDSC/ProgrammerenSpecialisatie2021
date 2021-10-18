@@ -6,7 +6,11 @@ namespace Queries.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
+        // DbContext is wrapped: not exposed
         private readonly CourseContext _context;
+
+        public ICourseRepository Courses { get; private set; }
+        public IAuthorRepository Authors { get; private set; }
 
         public UnitOfWork(CourseContext context)
         {
@@ -14,9 +18,6 @@ namespace Queries.Persistence
             Courses = new CourseRepository(_context);
             Authors = new AuthorRepository(_context);
         }
-
-        public ICourseRepository Courses { get; private set; }
-        public IAuthorRepository Authors { get; private set; }
 
         public int Complete()
         {

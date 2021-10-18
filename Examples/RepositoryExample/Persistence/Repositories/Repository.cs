@@ -68,5 +68,10 @@ namespace Queries.Persistence.Repositories
         {
             Context.Set<TEntity>().RemoveRange(entities);
         }
+
+        public DbContext DbContext
+        {
+            get { return Context; }
+        }
     }
 }

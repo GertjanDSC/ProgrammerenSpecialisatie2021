@@ -4,22 +4,22 @@
 
 | Datum      | Inhoud                                                       |
 | ---------- | ------------------------------------------------------------ |
-| 29/9/2021  | [Kennismaking](./Documents/Kennismaking.md), afspraken en inhoudsbepaling, setup omgeving SQLServer 2019/SSMS, introductie Entity Framework |
-| 6/10/2021  | [EF (1) - Db First, Code First](./Documents/EF_1_CodeFirst.md) |
+| 29/09/2021 | [Kennismaking](./Documents/Kennismaking.md), afspraken en inhoudsbepaling, setup omgeving SQLServer 2019/SSMS, introductie Entity Framework Core |
+| 06/10/2021 | [EF (1) - Db First, Code First](./Documents/EF_1_CodeFirst.md) |
 | 13/10/2021 | [EF (2) - Code First](./Documents/EF_2.md)                   |
-| 20/10/2021 | EF (3) - Repository pattern                                  |
+| 20/10/2021 | [EF (3) - CRUD, Change Tracker en Repository pattern](./Documents/EF_3.md) |
 | 27/10/2021 | Async, threads, tasks (1)                                    |
-| 3/11/2021  | Async, threads, tasks (2)                                    |
+| 03/11/2021 | Async, threads, tasks (2)                                    |
 | 10/11/2021 | TCP/UDP client/server, Wireshark                             |
 | 17/11/2021 | Design patterns: WPF MVVM                                    |
 | 24/11/2021 | Design patterns: DDD (Domain Driven Development) in de praktijk |
-| 1/12/2021  | Design patterns: SOLID in de praktijk (1)                    |
-| 8/12/2021  | Design patterns: SOLID in de praktijk (2)                    |
+| 01/12/2021 | Design patterns: SOLID in de praktijk (1)                    |
+| 08/12/2021 | Design patterns: SOLID in de praktijk (2)                    |
 | 15/12/2021 | Security: OAuth 2.0 en OpenID Connect (IdentityServer, OpenIddict) |
-| 5/1/2022   | Blok                                                         |
-| 12/1/2022  | Eerste kans finale evaluatieoefening                         |
-| 19/1/2022  | Blok                                                         |
-| 26/1/2022  | Tweede kans finale evaluatieoefening                         |
+| 05/01/2022 | Blok                                                         |
+| 12/01/2022 | Eerste kans finale evaluatieoefening                         |
+| 19/01/2022 | Blok                                                         |
+| 26/01/2022 | Tweede kans finale evaluatieoefening                         |
 
 Tussendoortjes:
 
@@ -65,8 +65,9 @@ Tussendoortjes:
 2. [Demo Database-First](./Documents/EF_1_DbFirstDemo.md)
 3. [Demo Code-First](./Documents/EF_1_CodeFirst.md)
 4. Database-First of Code-First? Video.
-5. EF [attributes en Fluent API, LINQ; eindopdracht: muntwaarden](./Documents/EF_2.md)
-6. Opdracht "EF tutorial": volg [tutorial](./Documents/1_EntityFrameworkCore_GetStarted.pdf) en [tutorial](./Documents/2_EntityFrameworkCore_DataModelling.pdf), werk de EF attributen weg en dien het resultaat in onder [Chamilo](https://chamilo.hogent.be/index.php?go=CourseViewer&application=Chamilo%5CApplication%5CWeblcms&course=47725&tool=Assignment&browser=Table&tool_action=Display&publication=1875737).
+5. EF [attributes en Fluent API, LINQ](./Documents/EF_2.md)
+6. [EF CRUD, Change Tracker en Repository pattern](./Documents/EF_3.md)
+7. Opdrachten "EF tutorial": volg [tutorial](./Documents/1_EntityFrameworkCore_GetStarted.pdf), [tutorial](./Documents/2_EntityFrameworkCore_DataModelling.pdf) en [tutorial](./Documents/4_EntityFramework_CRUD.pdf) werk de EF attributen weg en dien de resultaten in onder [Chamilo](https://chamilo.hogent.be/index.php?go=CourseViewer&application=Chamilo%5CApplication%5CWeblcms&course=47725&tool=Assignment&browser=Table&tool_action=Display&publication=1875737).
 
 ## 5. Asynchroon programmeren
 
