@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "0af66c15-9882-40a9-9b14-9ffa81c614bd": {
+      "ProjectGuid": "0af66c15-9882-40a9-9b14-9ffa81c614bd",
+      "DisplayName": "Stock",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

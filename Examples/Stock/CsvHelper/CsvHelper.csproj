@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Compile Update="CsvFieldReader.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>CsvFieldReader.tt</DependentUpon>
+		</Compile>
+		<Compile Update="CsvParser.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>CsvParser.tt</DependentUpon>
+		</Compile>
+		<Compile Update="T4Methods.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>T4Methods.tt</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="CsvFieldReader.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>CsvFieldReader.cs</LastGenOutput>
+		</None>
+		<None Update="CsvParser.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>CsvParser.cs</LastGenOutput>
+		</None>
+		<None Update="T4Methods.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>T4Methods.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+
+</Project>

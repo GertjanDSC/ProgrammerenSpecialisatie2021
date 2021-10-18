@@ -20,13 +20,15 @@ namespace CodeFirstFromDbDemo.Models
         public EfPsContext()
         {
             IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            _connectionString = config.GetConnectionString("DefaultConnection");
+            _connectionString = config.GetConnectionString("DefaultConnection");            
         }
 
         // The constructor that ASP.NET Core expects. LINQPad can use it too.
         public EfPsContext(DbContextOptions<EfPsContext> options)
             : base(options)
         {
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            _connectionString = config.GetConnectionString("DefaultConnection");
         }
 
         // This constructor is simpler and more robust. Use it if LINQPad errors on the constructor above.
@@ -46,6 +48,8 @@ namespace CodeFirstFromDbDemo.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+                optionsBuilder.UseLazyLoadingProxies(true); // Enables lazy loading; off by default!!
+
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 //                optionsBuilder.UseSqlServer("Server=localhost,1436;database=EfPs;Trusted_Connection=False;user ID=sa;Password=1Secure*Password1");
                 // Assign _connectionString to the optionsBuilder:
@@ -200,6 +204,10 @@ namespace CodeFirstFromDbDemo.Models
     public class SampleDbContextFactory : Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory<EfPsContext>
     {
         public EfPsContext CreateDbContext(string[] args)
-            => new EfPsContext("...design-time connection string...");
+        {
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            var connectionString = config.GetConnectionString("DesignTimeConnection");
+            return new EfPsContext(connectionString); // design-time connection string
+        }
     }
 }

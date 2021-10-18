@@ -398,3 +398,289 @@ Bedenk hierbij:
 1. [Get started](./1_EntityFrameworkCore_GetStarted.pdf)
 2. [Data modelling](./2_EntityFrameworkCore_DataModelling.pdf)
 
+# Loading Related Objects
+
+## Strategie 1: Lazy Loading
+
+Vereenvoudigde voorstelling:
+
+![image-20211014160423981](./EFImages/EF_3_1.png)
+
+
+
+![image-20211014160445004](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\EFImages\EF_3_2.png)
+
+Visual Studio Watch window kan bedrieglijk werken: haalt de onderliggende data op bij het openen. Je kan bestuderen met SQL Profiler wanneer je Visual Studio in combinatie met je code welke queries uitvoert door met de debugger door je code te stappen en te kijken in SQL Profiler wanneer er welke queries uitgevoerd worden.
+
+Om "lazy loading" te activeren, pas je DbContext OnConfiguring() methode aan:
+
+```c#
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+{
+  if (!optionsBuilder.IsConfigured)
+  {
+    optionsBuilder.UseLazyLoadingProxies(true); // Enables lazy loading; off by default!!
+  }
+}
+```
+
+## Best Practices
+
+- Gebruik Lazy Loading wanneer het kostelijk is om je volledige object graph (een object met alle onderliggende objecten) op te vragen.
+- Desktop applicaties kunnen wel varen bij lazy loading: de gebruiker klikt door en de minimale set van benodigde objecten wordt opgevraagd en getoond.
+- Bij web applicaties heeft Lazy Loading doorgaans een ongunstig effect: wanneer een web client gegevens opvraagt, is het beter dat de service volledig zicht heeft op alle gegevens die doorgegeven moeten worden.
+
+## Het N+1 loading effect
+
+```c#
+var courses = context.Courses.ToList();
+foreach(var course in courses)
+{
+    System.Diagnostics.Debug.WriteLine("{0} door {1}", course.Name, course.Author.Name);
+}
+```
+
+1. Eerst worden alle cursussen opgehaald.
+2. De kans bestaat dat vervolgens voor elke cursus de auteurinformatie apart opgehaald (nu is dit wel niet meer het geval bij Entity Framework Core: er wordt gebruik gemaakt van een enkele stored procedure).
+
+Je kan effect dit bestuderen in SQL Profiler.
+
+![image-20211014165501204](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\EFImages\EF_3_3.png)
+
+## Strategie 2: Eager Loading
+
+Eager Loading is precies het omgekeerde van lazy loading. 
+
+```c#
+var courses = context.Courses.Include("Author").ToList();
+```
+
+De string versie van .Include() gebruiken is geen goede praktijk. Microsoft toont dit nochtans vaak zo. Men noemt een dergelijke string een "magic string". Problemen treden op wanneer je je klasse anders noemt. Gebruik de lambda versie:
+
+```c#
+using System.Data.Entity;
+
+var courses = context.Courses.Include(c => c.Author).ToList();
+```
+
+Wanneer je "refactoring" toepast, blijft je code in orde.
+
+### Eager loading met meer niveau's
+
+![image-20211014170229351](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\EFImages\EF_3_4.png)
+
+Gebruik .Select():
+
+![image-20211014170244653](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014170244653.png)
+
+Ook Eager Loading kan een goede zaak zijn en een slechte: des te meer je .Include() toepast, des te ingewikkelder/groter worden de gegenereerde queries (je introduceert joins) en des te meer gegevens haal je op in het geheugen, wat vertragend kan werken.
+
+Je moet dus goed nadenken wanneer je Lazy Loading of Eager Loading gebruikt.
+
+## Strategie 3: Explicit Loading
+
+MSDN: 
+
+```c#
+var author = context.Authors.Single(a => a.Id == 1);
+context.Entry(author).Collection(a => a.Courses).Load();
+```
+
+Nadelen: 
+
+- veel API te onthouden.
+- werkt enkel voor "single entity" (bijvoorbeeld niet voor een hele serie auteurs).
+
+Alternatief:
+
+```c#
+var author = context.Authors.Single(a => a.Id == 1);
+// Alle cursussen voor deze auteur:
+context.Courses.Where(c => c.AuthorId == author.Id).Load();
+```
+
+Resultaat in beide gevallen: 2 queries naar de databank.
+
+Een round trip meer kan sneller zijn dan een enorme grote en zware query uitvoeren.
+
+Een filter bij MSDN:
+
+```c#
+var author = context.Authors.Single(a => a.Id == 1).Query().Where(c => c.FullPrice == 0).Load();
+```
+
+Alternatief:
+
+```c#
+context.Courses.Where(c => c.AuthorId == author.Id && c.FullPrice == 0).Load();
+```
+
+Conclusie: enkel .Load() onthouden en je queries met Linq schrijven zoals je altijd al deed.
+
+# Change Tracker
+
+![image-20211014173613736](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014173613736.png)
+
+![image-20211014173631251](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014173631251.png)
+
+![image-20211014174537786](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014174537786.png)
+
+```C#
+// Add
+            {
+                var course = new Course
+                {
+                    Name = "New Course",
+                    Description = "New Description",
+                    Price = 19,
+                    Level = 1,
+                    LevelString = "L",
+                    Author = new Author() {  /*AuthorId = 1,*/ Name = "Luc Vervoort" } // Change tracker always sees this as a new object! Vroeger kon AuthorId = 1 erbij, nu niet meer
+                };
+                context.Courses.Add(course);
+                context.SaveChanges();
+                // Drie oplossingen voor nieuwe auteur:
+                // 1. Bestaand object gebruiken: beter voor WPF
+                var authors = context.Authors.ToList();
+                var author = context.Authors.Single(a => a.AuthorId == 1);
+                var course2 = new Course
+                {
+                    Name = "New Course 2",
+                    Description = "New Description",
+                    Price = 19,
+                    Level = 1,
+                    LevelString = "L",
+                    Author = author // Change tracker always sees this as a new object!
+                };
+                context.Courses.Add(course2);
+                context.SaveChanges();
+                // 2. Foreign key property gebruiken: beter voor web?
+                var course3 = new Course
+                {
+                    Name = "New Course 3",
+                    Description = "New Description",
+                    Price = 19,
+                    Level = 1,
+                    LevelString = "L",
+                    AuthorId = 1 // Change tracker always sees this as a new object!
+                };
+                context.Courses.Add(course3);
+                context.SaveChanges();
+                // 3. Attach object: normaal niet nodig; je gebruikt EF intern en dit is een nadeel
+                try
+                {
+                    var attachedAuthor = new Author() { AuthorId = 1, Name = "Luc Vervoort" }; // genereert tegenwoordig een fout als het object met Id al tracked wordt, bijvoorbeeld 1
+                    context.Authors.Attach(attachedAuthor);
+                }
+                catch(System.Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                    // The instance of entity type 'Author' cannot be tracked because another instance with the same key value for {'AuthorId'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached.
+                    // Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+                }
+```
+
+Update met Find method
+
+Find() beter dan Single met lambda: korter
+
+```c#
+var course = context.Courses.Find(4); // Single(c => c.Id == 4)
+course.Name = "New Name";
+course.AuthorId = 2;
+context.SaveChanges();
+```
+
+Verwijderen
+
+Cascade delete
+
+![image-20211014175614309](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014175614309.png)
+
+Enabled by default. .WillCascadeOnDelete(false)
+
+Eerst in context ophalen zodat het object tracked wordt. Met .Remove() methode. State gaat naar Deleted. 
+
+Zonder cascade delete
+
+![image-20211014175629484](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014175629484.png)
+
+Expliciet te doen: eerst Course, dan parent Author. 
+
+Ik kan niet meteen een auteur verwijderen omwille van referentiele integriteit. 
+
+Oplossing Eager Loading van auteur met Courses. Find() kan niet met Include(): we moeten .Single() terug gebruiken. Een lijst verwijderen kan beter met RemoveRange() in plaats van met een meervoudige Remove(). 
+
+```c#
+var author = context.Authors.Include(a => a.Courses).Single(a => a.AuthorId == 2);
+context.Authors.Remove(author);
+context.SaveChanges();
+```
+
+## Best practices
+
+Vooraleer je echt objecten verwijdert uit een databank: denk na! Soms wil je een verwijderd object terughalen, soms wil je historiek. Daarom beter een booleaanse **IsDeleted** property bij elke klasse zodat je een delete logisch kan uitvoeren en niet "fysisch".
+
+# Change Tracker
+
+State of objects van Change Tracker kan naar een audit trail. Laat toe om te bekijken wat er aan de hand is in een DbContext.
+
+```c#
+context.ChangeTracker.Entries<Author>();
+context.ChangeTracker.Entries();
+Console.WriteLine(entry.State);
+```
+
+- DbEntityEntry
+
+- CurrentValues
+
+- PropertyNames
+
+- OriginalValues
+
+
+```c#
+entry.CurrentValues["Name"]
+entry.CurrentValues["AuthorId"];
+```
+
+- States: Added, Modified, Updated,Unchanged leiden tot SQL queries.
+
+- entry.OriginalValues["Name"] heeft property "Entity"
+
+- entry.Reload(); // laat toe terug op te vragen van de databank
+
+
+# Repository Pattern
+
+Favoriet onderwerp. Veel opinies en alternatieven.
+
+![image-20211014181132755](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181132755.png)
+
+![image-20211014181247272](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181247272.png)
+
+![image-20211014181341270](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181341270.png)
+
+![image-20211014181418820](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181418820.png)
+
+Het gaat over objecten in het geheugen:
+
+![image-20211014181541577](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181541577.png)
+
+... dus niet Update(), Save(), ... . 
+
+![image-20211014181622094](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181622094.png)
+
+Je moet je "frameworks" als tools kunnen gebruiken en nastreven er niet afhankelijk van te zijn:
+
+![image-20211014181757307](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181757307.png)
+
+![image-20211014181819333](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181819333.png)
+
+![image-20211014181915599](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181915599.png)
+
+![image-20211014181943137](C:\Users\u2389\AppData\Roaming\Typora\typora-user-images\image-20211014181943137.png)
+
+
+
