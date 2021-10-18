@@ -509,8 +509,9 @@ namespace Queries.Persistence
 }
 ```
 
-# Oefening: volg EF Core tutorials 
+# Oefeningen in te dienen onder Chamilo: EF Core tutorials 
 
 1. [Get started](./1_EntityFrameworkCore_GetStarted.pdf)
 2. [Data modelling](./2_EntityFrameworkCore_DataModelling.pdf)
+3. [CRUD](./4_EntityFramework_CRUD.pdf)
 
