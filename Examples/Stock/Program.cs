@@ -13,7 +13,8 @@ namespace Stock
     {
         private static Dictionary<string, ShareData> _shares = new()
         {
-            { "ABI.BR", new ShareData { Count = 160, Value = 0 }},
+            // Afkortingen te zoeken via: https://finance.yahoo.com/quote/ABI.BR/?p=ABI.BR
+            { "ABI.BR", new ShareData { Count = 160, Value = 150 }}, // dit wil zeggen: ik kocht 160 aandelen, oorspronkelijk tegen een waarde van 150 euro
             { "ALC", new ShareData { Count = 40, Value = 0 }},
             { "AAPL", new ShareData { Count = 280, Value = 0 }},
             { "MTS.MC", new ShareData { Count = 333, Value = 0 }},
@@ -38,13 +39,13 @@ namespace Stock
 
         private async static void Execute(object sender, EventArgs e)
         {
+            var keys = _shares.Keys.ToArray();
             var securities = await Yahoo
-                .Symbols(_shares.Keys.ToArray()) // LINQ: ToArray()
+                .Symbols(keys) // LINQ: ToArray()
                 .Fields(Field.Symbol, Field.RegularMarketOpen, Field.RegularMarketPrice, Field.RegularMarketTime, Field.Currency, Field.LongName)
                 .QueryAsync();
 
             var total = (decimal)0.0;
-            //var html = "<html><body><table border=1><tr><th>Key</th><th>Value bought</th><th>Current value</th><th>Delta</th></tr>";
             foreach (var tick in securities)
             {
                 if (_shares.ContainsKey(tick.Key))
@@ -53,53 +54,8 @@ namespace Stock
                     total += v;
                     var u = _shares[tick.Key].Count * ConvertCurrency(tick.Value.Currency, _shares[tick.Key].Value);
                     System.Diagnostics.Debug.WriteLine(tick.Key + ": " + u + " -> " + v + " (delta: " + (v - u) + ")");
-                    //html += "<tr><td>" + tick.Key + "</td><td>" + u + "</td><td>" + v + "</td><td>" + (v - u) + "</td></tr>";
                 }
             }
-
-            /*
-            html += "</body></html>";
-            try
-            {
-                using (SmtpClient smtpClient = new SmtpClient())
-                {
-                    var basicCredential = new NetworkCredential("user", "pwd");
-                    using (MailMessage message = new MailMessage())
-                    {
-                        MailAddress fromAddress = new MailAddress("luc.vervoort@telenet.be");
-
-                        smtpClient.Host = "smtp.telenet.be";
-                        smtpClient.Port = 587;
-                        smtpClient.UseDefaultCredentials = false;
-                        smtpClient.EnableSsl = true;
-                        smtpClient.Credentials = basicCredential;
-
-                        message.From = fromAddress;
-                        message.Subject = "Shares report";
-                        // Set IsBodyHtml to true means you can send HTML email.
-                        message.IsBodyHtml = true;
-
-                        message.Body = htmlLvet;
-                        message.To.Add("lcvervoort@yahoo.com");
-
-                        try
-                        {
-                            smtpClient.Send(message);
-                        }
-                        catch (Exception ex)
-                        {
-                            //Error, could not send the message
-                            System.Diagnostics.Debug.WriteLine(ex.Message);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
-            */
-
             // You should be able to query data from various markets including US, HK, TW
             // The startTime & endTime here defaults to EST timezone
             var history = await Yahoo.GetHistoricalAsync("KBC.BR", new DateTime(2021, 1, 1), new DateTime(2021, 6, 30), Period.Daily);
@@ -125,16 +81,19 @@ namespace Stock
 
         static void Main(string[] args)
         {
-            _timer = new Timer(5000);
+            _timer = new Timer(5000); // Timer loopt af elke 5 seconden - 5000 milliseconden
             // To add the elapsed event handler:
-            // ... Type "_timer.Elapsed += " and press tab twice.
+            // ... Type "_timer.Elapsed += " and press tab twice.            
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
-            _timer.Enabled = true;
+            _timer.Enabled = true; // Activeert de timer bij het starten
             _timer.Start();
 
+            // Om de applicatie niet meteen te laten stoppen en de timer te onderbreken, organiseren
+            // we een eindeloze loop die telkens 1 seconde pauseert: "busy form of waiting"
             while(true)
             {
-                System.Threading.Thread.Sleep(10000);
+                System.Threading.Thread.Sleep(10000); // de timer blijft doorlopen
+                System.Console.WriteLine("Waiting...");
             }
         }
     }

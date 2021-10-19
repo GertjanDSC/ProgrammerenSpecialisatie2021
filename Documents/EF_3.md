@@ -135,11 +135,11 @@ Conclusie: enkel .Load() onthouden en je queries met Linq schrijven zoals je alt
                     Price = 19,
                     Level = 1,
                     LevelString = "L",
-                    Author = new Author() {  /*AuthorId = 1,*/ Name = "Luc Vervoort" } // Change tracker always sees this as a new object! Vroeger kon AuthorId = 1 erbij, nu niet meer
+                    Author = new Author() { Name = "Luc Vervoort" } // Change tracker always sees this as a new object!
                 };
                 context.Courses.Add(course);
                 context.SaveChanges();
-                // Drie oplossingen voor nieuwe auteur:
+                // Drie oplossingen voor bestaand auteur object:
                 // 1. Bestaand object gebruiken: beter voor WPF
                 var authors = context.Authors.ToList();
                 var author = context.Authors.Single(a => a.AuthorId == 1);
@@ -150,7 +150,7 @@ Conclusie: enkel .Load() onthouden en je queries met Linq schrijven zoals je alt
                     Price = 19,
                     Level = 1,
                     LevelString = "L",
-                    Author = author // Change tracker always sees this as a new object!
+                    Author = author
                 };
                 context.Courses.Add(course2);
                 context.SaveChanges();
@@ -162,7 +162,7 @@ Conclusie: enkel .Load() onthouden en je queries met Linq schrijven zoals je alt
                     Price = 19,
                     Level = 1,
                     LevelString = "L",
-                    AuthorId = 1 // Change tracker always sees this as a new object!
+                    AuthorId = 1
                 };
                 context.Courses.Add(course3);
                 context.SaveChanges();
@@ -174,7 +174,8 @@ Conclusie: enkel .Load() onthouden en je queries met Linq schrijven zoals je alt
                 }
                 catch(System.Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine(e.Message);
+                    // System.Console.WriteLine("Op console output");
+                    System.Diagnostics.Debug.WriteLine(e.Message); // output komt in debug venster van Visual Studio
                     // The instance of entity type 'Author' cannot be tracked because another instance with the same key value for {'AuthorId'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached.
                     // Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
                 }

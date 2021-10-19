@@ -233,6 +233,10 @@ namespace Queries
                     // a.Reload(); // reloads from the database - overwriting data!
                     // System.Diagnostics.Debug.WriteLine(a.Entity.Name + ": " + a.State);
                 }
+
+                // unitOfWork.Complete();
+                ///// From now on all objects are unchanged
+
                 var trackedObjects = dbContext.ChangeTracker.Entries();
                 foreach (var o in trackedObjects)
                 {
