@@ -99,6 +99,7 @@ Tussendoortjes:
 ## 10. Eindopdracht
 
 * [Beschrijving](./Documents/Eindopdracht.md)
+* [Uitwerking](./Documents/EindopdrachtUitwerking.md)
 
 ## 11. Aanvullende informatie
 

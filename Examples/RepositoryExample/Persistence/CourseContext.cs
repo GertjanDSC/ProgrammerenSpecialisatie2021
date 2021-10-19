@@ -68,7 +68,7 @@ namespace Queries.Persistence
 
             modelBuilder.Entity<Author>(entity =>
             {
-                entity.Property(e => e.Id).HasColumnName("AuthorID");
+                entity.Property(e => e.Id).HasColumnName("AuthorID").ValueGeneratedOnAdd().UseIdentityColumn();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
