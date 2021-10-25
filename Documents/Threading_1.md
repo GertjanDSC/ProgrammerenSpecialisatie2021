@@ -31,7 +31,7 @@ class ThreadTest
 }
 ```
 
-![image-20211020101556993](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\ThreadingImages\image-20211020101556993.png)
+![image-20211020101556993](./ThreadingImages/image-20211020101556993.png)
 
 De hoofd-draad (main thread) creëert een nieuwe draad (thread) t waarop hij een methode uitvoert die herhaaldelijk het teken "y" afdrukt. Tegelijkertijd drukt de hoofddraad herhaaldelijk het teken "x" af:
 
@@ -55,7 +55,7 @@ static void Go()
 }
 ```
 
-![image-20211020102050616](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\ThreadingImages\TH_3.png)
+![image-20211020102050616](./ThreadingImages/TH_3.png)
 
 Een aparte kopie van de variabele wordt aangemaakt op de geheugenstapel van elke thread, en dus is de output, voorspelbaar, tien vraagtekens.
 
@@ -83,7 +83,7 @@ class ThreadTest
 
 Omdat beide threads Go() aanroepen op dezelfde ThreadTest instantie, delen ze het done veld. Dit resulteert in "Done" dat één keer wordt afgedrukt in plaats van twee keer:
 
-![image-20211020102239266](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\ThreadingImages\TH_4.png)
+![image-20211020102239266](./ThreadingImages/TH_4.png)
 
 Statische velden bieden een andere manier om gegevens te delen tussen threads. Hier is hetzelfde voorbeeld met done als een statisch veld:
 
@@ -114,7 +114,7 @@ static void Go()
 }
 ```
 
-![image-20211020102431273](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\ThreadingImages\TH_5.png)
+![image-20211020102431273](./ThreadingImages/TH_5.png)
 
 Het probleem is dat de ene thread de if-instructie kan evalueren op het moment dat de andere thread de WriteLine-instructie uitvoert - voordat deze de kans heeft gehad om done op true te zetten.
 
@@ -346,7 +346,7 @@ for (int i = 0; i < 10; i++)
 
 De uitvoer is nondeterministisch! Hier is een typisch resultaat:
 
-![image-20211020110224978](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\ThreadingImages\TH_6.png)
+![image-20211020110224978](./ThreadingImages/TH_6.png)
 
 Het probleem is dat de variabele i tijdens de hele duur van de lus naar dezelfde geheugenplaats verwijst. Daarom roept elke thread Console.Write aan op een variabele waarvan de waarde kan veranderen tijdens de uitvoering!
 
@@ -375,7 +375,7 @@ t2.Start();
 
 Omdat beide lambda-expressies dezelfde tekstvariabele vangen, wordt t2 tweemaal afgedrukt:
 
-![image-20211020110522073](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\ThreadingImages\TH_7.png)
+![image-20211020110522073](./ThreadingImages/TH_7.png)
 
 ## Threads een naam geven
 
