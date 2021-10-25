@@ -35,7 +35,7 @@ class ThreadTest
 
 De hoofd-draad (main thread) creëert een nieuwe draad (thread) t waarop hij een methode uitvoert die herhaaldelijk het teken "y" afdrukt. Tegelijkertijd drukt de hoofddraad herhaaldelijk het teken "x" af:
 
-![Starting a new Thread](C:\Users\u2389\source\repos\ProgrammerenSpecialisatie2021\Documents\ThreadingImages\NewThread.png)
+![Starting a new Thread](./ThreadingImages/NewThread.png)
 
 Eenmaal gestart, wordt de eigenschap **IsAlive** van een thread waar, tot het punt waarop de thread eindigt. Een thread eindigt wanneer de delegate die aan de constructor van de Thread is doorgegeven, klaar is met uitvoeren. Eenmaal beëindigd, kan een thread niet opnieuw starten.
 
