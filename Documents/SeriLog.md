@@ -29,9 +29,9 @@ CreateLogger();
 
 * Vele andere mogelijkheden: zie website SeriLog!
 
-  ## Afsluiten
+## Afsluiten
 
-  ```c#
-  Log.CloseAndFlush();
-  ```
+```c#
+Log.CloseAndFlush();
+```
 
