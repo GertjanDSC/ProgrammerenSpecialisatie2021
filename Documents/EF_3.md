@@ -292,7 +292,7 @@ Je moet je "frameworks" als tools kunnen gebruiken en nastreven er niet afhankel
 
 We bespreken het voorbeeld onder [github](https://github.com/lucvervoort/ProgrammerenSpecialisatie2021/tree/main/Examples/RepositoryExample).
 
-Generiek:
+Generiek: kan gecopieerd worden in alle applicaties die een ORM gebruiken (los van EF)
 
 ```C#
 using System;
@@ -322,7 +322,7 @@ namespace Queries.Core.Repositories
 }
 ```
 
-Implementatie:
+Implementatie voor EF: kan gecopieerd worden in alle applicaties die onderliggend EF wensen te gebruiken
 
 ```C#
 using Microsoft.EntityFrameworkCore;
@@ -404,7 +404,7 @@ namespace Queries.Persistence.Repositories
 }
 ```
 
-Specifiek voor je project (per klasse):
+Specifiek voor je project (per klasse bij EF gebruikt voor een DbSet<>):
 
 ```C#
 using Queries.Core.Domain;
@@ -412,7 +412,7 @@ using Queries.Core.Domain;
 namespace Queries.Core.Repositories
 {
     // LVET: IRepository is generic, but here we specify project class related methods
-    public interface IAuthorRepository : IRepository<Author>
+    public interface IAuthorRepository : IRepository<Author> // contract dat we opleggen aan wie de interface implementeert
     {
         Author GetAuthorWithCourses(int id);
     }
@@ -443,7 +443,7 @@ namespace Queries.Persistence.Repositories
 }
 ```
 
-Generiek:
+IUnitOfWork Generiek:
 
 ```C#
 using System;

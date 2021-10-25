@@ -4,8 +4,7 @@ using System.Linq;
 using System.Timers;
 using YahooFinanceApi;
 
-//using System.Net;
-//using System.Net.Mail;
+// https://github.com/zkavtaskin/Domain-Driven-Design-Example
 
 namespace Stock
 {
