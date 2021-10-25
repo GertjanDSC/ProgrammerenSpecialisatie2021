@@ -100,6 +100,7 @@ Tussendoortjes:
 
 * [Beschrijving](./Documents/Eindopdracht.md)
 * [Uitwerking](./Documents/EindopdrachtUitwerking.md)
+* [Logging](./Documents/SeriLog.md)
 
 ## 11. Aanvullende informatie
 
