@@ -12,7 +12,7 @@
 | 03/11/2021 | Async, threads, tasks (2)                                    |
 | 10/11/2021 | TCP/UDP client/server, Wireshark                             |
 | 17/11/2021 | Design patterns: WPF MVVM                                    |
-| 24/11/2021 | Design patterns: DDD (Domain Driven Development) in de praktijk |
+| 24/11/2021 | [Design patterns: DDD (Domain Driven Development) in de praktijk](./Documents/DDD.md) |
 | 01/12/2021 | Design patterns: SOLID in de praktijk (1)                    |
 | 08/12/2021 | Design patterns: SOLID in de praktijk (2)                    |
 | 15/12/2021 | Security: OAuth 2.0 en OpenID Connect (IdentityServer, OpenIddict) |
