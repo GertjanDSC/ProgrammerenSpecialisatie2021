@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a42be9fc-29c5-4c65-a7f9-482566b30929": {
+      "ProjectGuid": "a42be9fc-29c5-4c65-a7f9-482566b30929",
+      "DisplayName": "GqlClientServer",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

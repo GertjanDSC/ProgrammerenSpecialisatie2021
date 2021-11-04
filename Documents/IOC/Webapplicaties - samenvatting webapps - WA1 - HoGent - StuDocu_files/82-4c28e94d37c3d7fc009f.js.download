@@ -1,0 +1,1 @@
+(window.__LOADABLE_LOADED_CHUNKS__=window.__LOADABLE_LOADED_CHUNKS__||[]).push([[82],{pF64:function(_,E,D){"use strict";var A=D("Ts+D");E.a=_=>({type:A.SET_GENERIC_EVENT,payload:{events:_}})}}]);

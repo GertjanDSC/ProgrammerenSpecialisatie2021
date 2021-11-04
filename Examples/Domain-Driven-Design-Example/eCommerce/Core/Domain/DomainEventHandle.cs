@@ -1,17 +1,13 @@
 ﻿using eCommerce.Helpers.Logging;
 using eCommerce.Helpers.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace eCommerce.Helpers.Domain
 {
     public class DomainEventHandle<TDomainEvent> : Handles<TDomainEvent>
         where TDomainEvent : DomainEvent
     {
-        private IDomainEventRepository _domainEventRepository;
-        private IRequestCorrelationIdentifier _requestCorrelationIdentifier;
+        private readonly IDomainEventRepository _domainEventRepository;
+        private readonly IRequestCorrelationIdentifier _requestCorrelationIdentifier;
 
         public DomainEventHandle(IDomainEventRepository domainEventRepository, 
             IRequestCorrelationIdentifier requestCorrelationIdentifier)

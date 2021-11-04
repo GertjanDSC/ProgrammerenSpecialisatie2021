@@ -41,7 +41,8 @@ namespace eCommerce.Helpers.Domain
         {
             if (_container != null)
             {
-                foreach (var handler in _container.ResolveAll<Handles<T>>())
+                var handlers = _container.ResolveAll<Handles<T>>();
+                foreach (var handler in handlers)
                 {
                     handler.Handle(args);
                 }

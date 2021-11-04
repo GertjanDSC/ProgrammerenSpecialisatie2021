@@ -2,30 +2,25 @@
 
 ## 1. Planning
 
-| Datum      | Inhoud                                                       |
-| ---------- | ------------------------------------------------------------ |
-| 29/09/2021 | [Kennismaking](./Documents/Kennismaking.md), afspraken en inhoudsbepaling, setup omgeving SQLServer 2019/SSMS, introductie Entity Framework Core |
-| 06/10/2021 | [EF (1) - Db First, Code First](./Documents/EF_1_CodeFirst.md) |
-| 13/10/2021 | [EF (2) - Code First](./Documents/EF_2.md)                   |
-| 20/10/2021 | [EF (3) - CRUD, Change Tracker en Repository pattern](./Documents/EF_3.md) |
-| 27/10/2021 | [Async, threads, tasks (1)](./Documents/Threading_1.md)      |
-| 03/11/2021 | Async, threads, tasks (2)                                    |
-| 10/11/2021 | TCP/UDP client/server, Wireshark                             |
-| 17/11/2021 | Design patterns: WPF MVVM                                    |
-| 24/11/2021 | [Design patterns: DDD (Domain Driven Development) in de praktijk](./Documents/DDD.md) |
-| 01/12/2021 | Design patterns: SOLID in de praktijk (1)                    |
-| 08/12/2021 | Design patterns: SOLID in de praktijk (2)                    |
-| 15/12/2021 | Security: OAuth 2.0 en OpenID Connect (IdentityServer, OpenIddict) |
-| 05/01/2022 | Blok                                                         |
-| 12/01/2022 | Eerste kans finale evaluatieoefening                         |
-| 19/01/2022 | Blok                                                         |
-| 26/01/2022 | Tweede kans finale evaluatieoefening                         |
+| Datum        | Inhoud                                                       |
+| ------------ | ------------------------------------------------------------ |
+| 28/09/2021   | [Kennismaking](./Documents/Kennismaking.md), afspraken en inhoudsbepaling, setup omgeving SQLServer 2019/SSMS, introductie Entity Framework Core |
+| 05/10/2021   | [EF (1) - Db First, Code First](./Documents/EF_1_CodeFirst.md) |
+| 12/10/2021   | [EF (2) - Code First](./Documents/EF_2.md)                   |
+| 19/10/2021   | [EF (3) - CRUD, Change Tracker en Repository pattern](./Documents/EF_3.md) |
+| 26/10/2021   | [Async, threads, tasks (1)](./Documents/Threading_1.md)      |
+| 09/11/2021   | Design patterns: [WPF MVVM](./Documents/MVVM.md), [live charting](./Documents/LiveCharting.md) |
+| 16/11/2021   | [Async, threads, tasks (2)](./Documents/threading_2.md)      |
+| 23/11/2021   | [TCP/UDP client/server](./Documents/SimpleTCP.md), [Protocol Buffers, encryptie, compressie](./Serialisatie.md), WireShark |
+| 30/11/2021   | [IOC](./Documents/ioc.md)                                    |
+| 07/12/2021   | Design patterns: [DDD (Domain Driven Development) in de praktijk](./Documents/DDD.md) |
+| 14/12/2021   | Design patterns: [SOLID in de praktijk](./Documents/SOLID.md) |
+| *21/12/2021* | *Inhaalweek*                                                 |
+| 11/01/2022   | Blok                                                         |
+| 18/01/2022   | Eerste kans finale evaluatieoefening                         |
+| 25/01/2022   | Blok                                                         |
+| 01/02/2022   | Tweede kans finale evaluatieoefening                         |
 
-Tussendoortjes:
-
-* Oefening workflow "Code first"
-* Events/Delegates: een herhaling
-* GraphQL
 * Git
   * [Cheat sheet](./Documents/GitCheatSheet.pdf)
   * Videos
@@ -71,9 +66,13 @@ Tussendoortjes:
 
 ## 5. Asynchroon programmeren
 
+1. [Threads](./Documents/Threading_1.md)
+2. [Timers, Tasks](./Documents/threading_2.md)
+
 ## 6. TCP/UDP Client/Server
 
 1. [TCP/IP en C#: een inleiding](./Documents/SimpleTCP.md)
+2. [Serialisatie, encryptie, compressie](./Documents/Serialisatie.md)
 
 ## 7. Design Patterns
 
@@ -83,34 +82,105 @@ Tussendoortjes:
 
 ### 7.2. DDD (Domain Driven Development)
 
+1.   [Design patterns: DDD (Domain Driven Development) in de praktijk](./Documents/DDD.md)
+
 ### 7.3. SOLID
 
 2. [Inleiding](./Documents/SOLID.md)
+3.   [IOC](./Documents/ioc.md)
 
-## 8. OAuth 2.0 en OpenID Connect
-
-* Principe van Kerckhoffs
-
-## 9. Reflection
-
-- [Reflection](./Documents/Reflection.md)
-- [Dynamic](./Documents/Dynamic.md)
-
-## 10. Eindopdracht
+## 8. Eindopdracht
 
 * [Beschrijving](./Documents/Eindopdracht.md)
 * [Uitwerking](./Documents/EindopdrachtUitwerking.md)
 * [Logging](./Documents/SeriLog.md)
 
-## 11. Aanvullende informatie
+## 9. Aanvullende informatie
 
-1. [Null coalescing](./Documents/NullCoalescing.md)
-2. [Null conditional operator](./Documents/NullConditionalOperator.md)
-3. [Switch statement](./Documents/switch.md)
-4. [Delegates en events](./Documents/DelegatesEvents.pdf)
-5. ADO .NET
+- [Null coalescing](./Documents/NullCoalescing.md)
+
+- [Null conditional operator](./Documents/NullConditionalOperator.md)
+
+- [Switch statement](./Documents/switch.md)
+
+- [Delegates en events (oud)](./Documents/DelegatesEvents.pdf)
+
+- [Delegates en events](./Documents/delegate.md)
+
+- ADO .NET
    1. Installeer MySQL en SQLServer (docker)
    2. [Eerste stappen](./Documents/adonet1.md)
    3. [Transacties](./Documents/adonetTransactions.md)
    4. [Disconnected](./Documents/adonet3.md)
-6. WPF
+
+- ### WPF
+
+  #### Eerste stappen
+
+  - [Walkthrough](./Documents/WPF/WPFIntro.md)
+  - [Inleiding](./Documents/WPF/WPF_1_XAML.md)
+
+  #### Basis
+
+  [Events](./Documents/WPF/WPF_2_Events.md)              
+
+  [Application](./Documents/WPF/WPF_3_AppCommandLine.md)
+
+  [Resources](./Documents/WPF/WPF_4_Resources.md)   
+
+  [Exceptions](./Documents/WPF/WPF_5_Exceptions.md)
+
+  [Basic Controls](./Documents/WPF/WPF_6_ControlsBasic.md): Button, TextBlock, TextBox
+
+  [Layout Management](./Documents/WPF/WPF_7_LayoutManagement.md): Grid "basics"
+
+  [List Controls](./Documents/WPF/WPF_11_ControlsList.md): DataGrid "basics"
+
+  [Basic Controls](./Documents/WPF/WPF_6_ControlsBasic.md)
+
+  [Menu and Status Bar](./Documents/WPF/WPF_13_MenuStatusBar.md)
+
+  [Interfaces](./Documents/Interfaces1.md)
+
+  [MaterialDesign (14:02)](https://www.youtube.com/watch?v=F0V01mYER5E&list=PLM3q9wWBZWb-_ZzoI8AFDxJRLYWTXDyYE&index=1)
+
+  [Debugging (8:59)](https://www.youtube.com/watch?v=CHhgN5DoOMM&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=1)
+
+  [Debugging Binding Problems (8:21)](https://www.youtube.com/watch?v=gr4Ye8EvvU0&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=2)
+
+  [Debugging Binding Problems Revisited (3:37)](https://www.youtube.com/watch?v=TMpHLmDDwQo&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=3)
+
+  [Styles (4:54)](https://www.youtube.com/watch?v=kC9-Xow-aEg&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=4)
+
+    - Vertaling en taalinstelling:
+
+      - public class in Translations.resx
+      - Per alternatieve taal: een bijkomend .resx bestand zonder code behind
+      - Editeer je vertalingen via Visual Studio
+      - In App.xaml.cs (vergelijk globale exception handler): 
+
+      ```c#
+      Translations.Culture = new System.Globalization.CultureInfo("nl-BE"); // en-US nl-BE
+      ```
+
+  ### Laatste loodjes
+
+    - DataGrid: hoe synchroniseren we met de databank?
+
+  2. [ValueConverter](./Documents/WPF/WPF_9_ValueConverter.md)
+  3. [Advanced Controls](./Documents/WPF/WPF_10_ControlsAdvanced.md)   
+  4. [List Controls](./Documents/WPF/WPF_11_ControlsList.md)
+  5. [Styles](./Documents/WPF/WPF_12_Styles.md)            
+
+- Introspection
+
+  1. [Reflection](./Documents/Reflection.md)
+  2. [Dynamic](./Documents/Dynamic.md)
+
+## 10. OAuth 2.0 en OpenID Connect
+
+* Principe van Kerckhoffs
+
+# Notes
+
+- GraphQL: REST, zie cursus Web4. https://cloud-trends.medium.com/grpc-vs-restful-api-vs-graphql-web-socket-tcp-sockets-and-udp-beyond-client-server-43338eb02e37 en https://blog.logrocket.com/why-you-shouldnt-use-graphql/.

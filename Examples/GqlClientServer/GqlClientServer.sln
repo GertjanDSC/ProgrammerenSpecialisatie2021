@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31815.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GqlClientServer", "GqlClientServer.csproj", "{A42BE9FC-29C5-4C65-A7F9-482566B30929}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A42BE9FC-29C5-4C65-A7F9-482566B30929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42BE9FC-29C5-4C65-A7F9-482566B30929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42BE9FC-29C5-4C65-A7F9-482566B30929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42BE9FC-29C5-4C65-A7F9-482566B30929}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43858A8F-095A-4B4F-A931-45CD5CF28EC1}
+	EndGlobalSection
+EndGlobal

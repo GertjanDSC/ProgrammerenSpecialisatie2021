@@ -1,0 +1,1 @@
+(window.__LOADABLE_LOADED_CHUNKS__=window.__LOADABLE_LOADED_CHUNKS__||[]).push([[11],{MpcI:function(_,i,t){"use strict";var n=t("kwZe");i.a=_=>({type:n.a.SET_CURRENT,institution:_})}}]);

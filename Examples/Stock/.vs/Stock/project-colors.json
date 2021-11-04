@@ -5,7 +5,47 @@
       "ProjectGuid": "0af66c15-9882-40a9-9b14-9ffa81c614bd",
       "DisplayName": "Stock",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "c1031ec3-83ce-4234-8e1e-1562e84c0caf": {
+      "ProjectGuid": "c1031ec3-83ce-4234-8e1e-1562e84c0caf",
+      "DisplayName": "ConsoleApp",
+      "ColorIndex": 1
+    },
+    "71af9b67-3f44-495a-98ff-546ff414bd8c": {
+      "ProjectGuid": "71af9b67-3f44-495a-98ff-546ff414bd8c",
+      "DisplayName": "Stock.Domain",
+      "ColorIndex": 2
+    },
+    "4152eb6e-f450-4b55-affb-6c4b8ab8dc3b": {
+      "ProjectGuid": "4152eb6e-f450-4b55-affb-6c4b8ab8dc3b",
+      "DisplayName": "Stock.Infrastructure",
+      "ColorIndex": 3
+    },
+    "672c0c6a-167d-49d1-8617-8cb21e0507aa": {
+      "ProjectGuid": "672c0c6a-167d-49d1-8617-8cb21e0507aa",
+      "DisplayName": "WpfApp",
+      "ColorIndex": 4
+    },
+    "a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7": {
+      "ProjectGuid": "a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7",
+      "DisplayName": "LiveChartsCore",
+      "ColorIndex": 5
+    },
+    "d0886626-5ef8-42a4-84ce-e1e04ade413c": {
+      "ProjectGuid": "d0886626-5ef8-42a4-84ce-e1e04ade413c",
+      "DisplayName": "LiveChartsCore.SkiaSharpView",
+      "ColorIndex": 6
+    },
+    "e702e547-44f4-4970-bcad-7203f33c9e1e": {
+      "ProjectGuid": "e702e547-44f4-4970-bcad-7203f33c9e1e",
+      "DisplayName": "LiveChartsCore.SkiaSharpView.WPF",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 8
 }

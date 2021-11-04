@@ -44,11 +44,11 @@ UDP werkt op basis van best-effort. Dit betekent dat het protocol foutdetectie w
 
 ## SimpleTCP
 
-SimpleTcp is een leuke bibliotheek, die veel kan. [Hier](https://github.com/BrandonPotter/SimpleTCP) zie je enkele ideeën. 
+SimpleTcp is een leuke bibliotheek, die veel kan, maar enkel met TCP ([zie hier](https://github.com/BrandonPotter/SimpleTCP)).
 
 ### Client-server chat programma
 
-We maken een klein , eenvoudige applicatie zodat meerdere clients berichten naar de server kunnen sturen. We gaan hiervoor gebruik maken van een bestaande Nuget-Bibliotheek `SimpleTcp`
+We maken een klein , eenvoudige applicatie zodat meerdere clients berichten naar de server kunnen sturen. We gaan hiervoor gebruik maken van een bestaande Nuget-Bibliotheek `SimpleTcp` ... of nemen de source code op in onze oplossing om te bestuderen hoe SimpleTcp met .NET werkt.
 
 Voer volgende stappen uit:
 
@@ -60,8 +60,7 @@ Voer volgende stappen uit:
    4. Zoek naar `SimpleTcp`
    5. Klik op de eerste hit (die van BrandonPotter) en kies rechts op "Install"
 3. Als alles goed is verlopen zie je bij de references in beide projecten nu ook `SimpleTcp` staan.
-4. Voeg in iedere Program.cs bovenaan `using SimpleTCP;` toe
-5. Profit!
+4. Voeg in iedere Program.cs bovenaan `using SimpleTCP;` toe.
 
 ### Beide projecten starten
 
@@ -78,7 +77,7 @@ Als je nu je programma start (F5) of debugt dan zullen steeds beide projecten ui
 
 ### Server-code
 
-Telkens de server een string krijgt die eindigt op een enter zal de server deze boodschap op het scherm tonen. Om te voorkomen dat de server afsluit van zodra hij lijn 2 heeft uitgevoerd plaatsen we een ``ReadLine```achteraan. Op die manier zal de server blijven reageren op events tot de gebruiker op enter duwt om alles af te sluiten:
+Telkens de server een string krijgt die eindigt op een enter zal de server deze boodschap op het scherm tonen. Om te voorkomen dat de server afsluit van zodra hij lijn 2 heeft uitgevoerd plaatsen we een ReadLine() achteraan. Op die manier zal de server blijven reageren op events tot de gebruiker op de entertoets duwt om alles af te sluiten:
 
 ```csharp
 static void Main(string[] args)

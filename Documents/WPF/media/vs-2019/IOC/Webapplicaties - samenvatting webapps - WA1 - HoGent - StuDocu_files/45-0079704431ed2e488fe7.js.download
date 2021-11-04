@@ -1,0 +1,1 @@
+(window.__LOADABLE_LOADED_CHUNKS__=window.__LOADABLE_LOADED_CHUNKS__||[]).push([[45],{qsz7:function(_,E,O){"use strict";var A=O("jiZR");E.a=(_,E)=>({type:A.REMOVE_FROM_DOCUMENTS_IN_CATEGORY,categoryId:_,documentId:E})}}]);

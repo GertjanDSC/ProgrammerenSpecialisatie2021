@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Assemblies\Domain\Stock.Domain.csproj" />
+    <ProjectReference Include="..\..\Assemblies\Infrastructure\Stock.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\SupportLibraries\skiasharp\LiveChartsCore.SkiaSharp.WPF\LiveChartsCore.SkiaSharpView.WPF.csproj" />
+  </ItemGroup>
+
+</Project>
