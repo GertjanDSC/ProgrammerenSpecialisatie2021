@@ -1,7 +1,7 @@
 ﻿using LiveChartsCore.SkiaSharpView;
 using System;
 
-namespace WpfApp
+namespace WpfApp.ViewModels
 {
     public class ViewModel
     {

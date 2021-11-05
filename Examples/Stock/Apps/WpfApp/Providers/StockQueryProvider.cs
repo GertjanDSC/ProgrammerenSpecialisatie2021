@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace WpfApp
+namespace WpfApp.Providers
 {
     public class StockQueryProvider : Stock.Domain.Contracts.IStockQuery
     {
-        public IReadOnlyList<Stock.Domain.Candle> GetHistoricalData(string tick, DateTime from, DateTime to, Stock.Domain.Period period = Stock.Domain.Period.Daily)
+        public IReadOnlyList<Candle> GetHistoricalData(string tick, DateTime from, DateTime to, Period period = Period.Daily)
         {
-            List<Stock.Domain.Candle> result = new();
+            List<Candle> result = new();
             Stock.Infrastructure.YahooFinanceApi.Period yahooPeriod = (Stock.Infrastructure.YahooFinanceApi.Period)period;
 
             var historicalData = Stock.Infrastructure.YahooFinanceApi.Yahoo.GetHistoricalAsync(tick, from, to, yahooPeriod);
@@ -29,7 +29,7 @@ namespace WpfApp
 
         public IReadOnlyList<Security> GetSecurities(string[] shares)
         {
-            List<Stock.Domain.Security> result = new();
+            List<Security> result = new();
             var securities = Stock.Infrastructure.YahooFinanceApi.Yahoo
                 .Symbols(shares)
                 .Fields(Stock.Infrastructure.YahooFinanceApi.Field.Symbol, Stock.Infrastructure.YahooFinanceApi.Field.RegularMarketOpen, Stock.Infrastructure.YahooFinanceApi.Field.RegularMarketPrice, Stock.Infrastructure.YahooFinanceApi.Field.RegularMarketTime, Stock.Infrastructure.YahooFinanceApi.Field.Currency, Stock.Infrastructure.YahooFinanceApi.Field.LongName)
@@ -48,7 +48,7 @@ foreach (var tick in securities)
     }
 }
 */
-            foreach(var s in securities.Result)
+            foreach (var s in securities.Result)
             {
                 Security security = new(s.Value.Fields);
                 result.Add(security);

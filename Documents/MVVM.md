@@ -207,6 +207,62 @@ namespace ViewModel
 }
 ```
 
+"Magic": [CallerMemberName]
+
+[CallerMemberName] is een attribuut dat in C# 5.0 is geïntroduceerd en waarmee je de methode- of eigenschapsnaam van de aanroeper van de methode kunt verkrijgen. Je kunt dit attribuut met de naam "CallerMemberNameAttribute" vinden onder de namespace System.Runtime.CompilerServices.
+
+ Je kunt het [CallerMemberName] attribuut gebruiken om te vermijden dat je de membernaam specificeert als een String argument voor de aangeroepen methode. Dit is vooral nuttig voor de volgende taken:
+
+- Het gebruik van tracing en diagnostische routines.
+
+- De INotifyPropertyChanged-interface implementeren bij het binden van gegevens. Met deze interface kan een eigenschap van een object aan een gebonden besturingselement melden dat de eigenschap is gewijzigd, zodat het besturingselement de bijgewerkte informatie kan weergeven. Zonder het [CallerMemberName]-attribuut moet u de naam van de eigenschap opgeven als een letterlijke naam.
+
+  
+
+  De volgende tabel toont de lidnamen die worden geretourneerd wanneer je het [CallerMemberName]-attribuut gebruikt:
+
+  | **Origin**                            | **Member Name Result**                                   |
+  | ------------------------------------- | -------------------------------------------------------- |
+  | Method, property or event             | The name of the method, property or event                |
+  | Constructor                           | The string ".ctor"                                       |
+  | Static constructor                    | The string ".cctor"                                      |
+  | Destructor                            | The string "Finalize"                                    |
+  | User-defined operators or conversions | The generated name for the member                        |
+  | Attribute constructor                 | The name of the member to which the attribute is applied |
+  | No containing member                  | The default value of the optional parameter              |
+
+  Onthoud dat je het [CallerMemberName] attribuut kan toepassen op een optionele parameter die een standaard waarde heeft. Je moet een expliciete standaardwaarde opgeven voor de optionele parameter. Je kunt dit attribuut niet toepassen op parameters die niet als optioneel zijn gespecificeerd.
+
+  Voorbeeld:
+
+  ```c#
+  public static class Trace
+  {
+  	public static void Write([CallerMemberName] string memberName = "")
+  	{
+  		Console.WriteLine("Called by: " + memberName);	
+  	}
+  }
+  ```
+
+  ```c#
+  class Program
+  {
+  	private static string +myProperty;
+  	public static string MyProperty
+  	{
+  		get { return _myProperty; }
+  		set { _myProperty = value; Trace.Write(); }
+  	}
+  	
+  	static void Main(string[] args)
+  	{
+  		Trace.Write();
+  		MyProperty = "Luc Vervoort";
+  	}
+  }
+  ```
+
 ### ComputedViewModelBase
 
 ```c#
@@ -275,7 +331,9 @@ namespace ViewModel
 }
 ```
 
-### RelayCommand
+### RelayCommand: te plaatsen in WPF app, not in a separate assembly!
+
+In .NET 5.0 en .NET 6.0 zijn assemblies vereist die automatisch meegenomen worden bij een "WPF" applicatie en niet kunnen opgegeven worden met Nuget Package Manager.
 
 ```C#
 using System;

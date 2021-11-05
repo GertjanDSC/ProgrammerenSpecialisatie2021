@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WpfApp
+namespace WpfApp.ViewModels
 {
     internal class TickData
     {
