@@ -97,6 +97,8 @@
 
 ## 9. Aanvullende informatie
 
+### C#
+
 - [Null coalescing](./Documents/NullCoalescing.md)
 - [Null conditional operator](./Documents/NullConditionalOperator.md)
 - [Switch statement](./Documents/switch.md)
@@ -141,7 +143,7 @@
 ```c#
 Translations.Culture = new System.Globalization.CultureInfo("nl-BE"); // en-US nl-BE
 ```
-### Laatste loodjes
+#### Laatste loodjes
 
 1. [ValueConverter](./Documents/WPF/WPF_9_ValueConverter.md)
 2. [Advanced Controls](./Documents/WPF/WPF_10_ControlsAdvanced.md)   
