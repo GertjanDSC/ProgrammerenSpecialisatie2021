@@ -98,89 +98,67 @@
 ## 9. Aanvullende informatie
 
 - [Null coalescing](./Documents/NullCoalescing.md)
-
 - [Null conditional operator](./Documents/NullConditionalOperator.md)
-
 - [Switch statement](./Documents/switch.md)
-
 - [Delegates en events (oud)](./Documents/DelegatesEvents.pdf)
-
 - [Delegates en events](./Documents/delegate.md)
-
 - ADO .NET
-   1. Installeer MySQL en SQLServer (docker)
-   2. [Eerste stappen](./Documents/adonet1.md)
-   3. [Transacties](./Documents/adonetTransactions.md)
-   4. [Disconnected](./Documents/adonet3.md)
+1. Installeer MySQL en SQLServer (docker)
+2. [Eerste stappen](./Documents/adonet1.md)
+3. [Transacties](./Documents/adonetTransactions.md)
+4. [Disconnected](./Documents/adonet3.md)
 
-- ### WPF
+### WPF
 
-  #### Eerste stappen
+#### Eerste stappen
 
-  - [Walkthrough](./Documents/WPF/WPFIntro.md)
-  - [Inleiding](./Documents/WPF/WPF_1_XAML.md)
+- [Walkthrough](./Documents/WPF/WPFIntro.md)
+- [Inleiding](./Documents/WPF/WPF_1_XAML.md)
 
-  #### Basis
+#### Basis
 
-  [Events](./Documents/WPF/WPF_2_Events.md)              
+- [Events](./Documents/WPF/WPF_2_Events.md)              
+- [Application](./Documents/WPF/WPF_3_AppCommandLine.md)
+- [Resources](./Documents/WPF/WPF_4_Resources.md)   
+- [Exceptions](./Documents/WPF/WPF_5_Exceptions.md)
+- [Basic Controls](./Documents/WPF/WPF_6_ControlsBasic.md): Button, TextBlock, TextBox
+- [Layout Management](./Documents/WPF/WPF_7_LayoutManagement.md): Grid "basics"
+- [List Controls](./Documents/WPF/WPF_11_ControlsList.md): DataGrid "basics"
+- [Basic Controls](./Documents/WPF/WPF_6_ControlsBasic.md)
+- [Menu and Status Bar](./Documents/WPF/WPF_13_MenuStatusBar.md)
+- [Interfaces](./Documents/Interfaces1.md)
+- [MaterialDesign (14:02)](https://www.youtube.com/watch?v=F0V01mYER5E&list=PLM3q9wWBZWb-_ZzoI8AFDxJRLYWTXDyYE&index=1)
+- [Debugging (8:59)](https://www.youtube.com/watch?v=CHhgN5DoOMM&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=1)
+- [Debugging Binding Problems (8:21)](https://www.youtube.com/watch?v=gr4Ye8EvvU0&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=2)
+- [Debugging Binding Problems Revisited (3:37)](https://www.youtube.com/watch?v=TMpHLmDDwQo&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=3)
+- [Styles (4:54)](https://www.youtube.com/watch?v=kC9-Xow-aEg&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=4)
+- Vertaling en taalinstelling:
+  - public class in Translations.resx
+  - Per alternatieve taal: een bijkomend .resx bestand zonder code behind
+  - Editeer je vertalingen via Visual Studio
+  - In App.xaml.cs (vergelijk globale exception handler): 
 
-  [Application](./Documents/WPF/WPF_3_AppCommandLine.md)
+```c#
+Translations.Culture = new System.Globalization.CultureInfo("nl-BE"); // en-US nl-BE
+```
+### Laatste loodjes
 
-  [Resources](./Documents/WPF/WPF_4_Resources.md)   
+1. [ValueConverter](./Documents/WPF/WPF_9_ValueConverter.md)
+2. [Advanced Controls](./Documents/WPF/WPF_10_ControlsAdvanced.md)   
+3. [List Controls](./Documents/WPF/WPF_11_ControlsList.md)
+4. [Styles](./Documents/WPF/WPF_12_Styles.md)            
 
-  [Exceptions](./Documents/WPF/WPF_5_Exceptions.md)
+<!-- 
+## Introspection
 
-  [Basic Controls](./Documents/WPF/WPF_6_ControlsBasic.md): Button, TextBlock, TextBox
-
-  [Layout Management](./Documents/WPF/WPF_7_LayoutManagement.md): Grid "basics"
-
-  [List Controls](./Documents/WPF/WPF_11_ControlsList.md): DataGrid "basics"
-
-  [Basic Controls](./Documents/WPF/WPF_6_ControlsBasic.md)
-
-  [Menu and Status Bar](./Documents/WPF/WPF_13_MenuStatusBar.md)
-
-  [Interfaces](./Documents/Interfaces1.md)
-
-  [MaterialDesign (14:02)](https://www.youtube.com/watch?v=F0V01mYER5E&list=PLM3q9wWBZWb-_ZzoI8AFDxJRLYWTXDyYE&index=1)
-
-  [Debugging (8:59)](https://www.youtube.com/watch?v=CHhgN5DoOMM&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=1)
-
-  [Debugging Binding Problems (8:21)](https://www.youtube.com/watch?v=gr4Ye8EvvU0&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=2)
-
-  [Debugging Binding Problems Revisited (3:37)](https://www.youtube.com/watch?v=TMpHLmDDwQo&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=3)
-
-  [Styles (4:54)](https://www.youtube.com/watch?v=kC9-Xow-aEg&list=PLM3q9wWBZWb9ZkhEDkQLqQ43qtDSL_ANJ&index=4)
-
-    - Vertaling en taalinstelling:
-
-      - public class in Translations.resx
-      - Per alternatieve taal: een bijkomend .resx bestand zonder code behind
-      - Editeer je vertalingen via Visual Studio
-      - In App.xaml.cs (vergelijk globale exception handler): 
-
-      ```c#
-      Translations.Culture = new System.Globalization.CultureInfo("nl-BE"); // en-US nl-BE
-      ```
-
-  ### Laatste loodjes
-
-    - DataGrid: hoe synchroniseren we met de databank?
-
-  2. [ValueConverter](./Documents/WPF/WPF_9_ValueConverter.md)
-  3. [Advanced Controls](./Documents/WPF/WPF_10_ControlsAdvanced.md)   
-  4. [List Controls](./Documents/WPF/WPF_11_ControlsList.md)
-  5. [Styles](./Documents/WPF/WPF_12_Styles.md)            
-
-- Introspection
-
-  1. [Reflection](./Documents/Reflection.md)
-  2. [Dynamic](./Documents/Dynamic.md)
+1. [Reflection](./Documents/Reflection.md)
+2. [Dynamic](./Documents/Dynamic.md)
 
 ## 10. OAuth 2.0 en OpenID Connect
 
-* Principe van Kerckhoffs
+* Principe van Kerckhoffs 
+-->
 
 # Notes
 
-- GraphQL: REST, zie cursus Web4. https://cloud-trends.medium.com/grpc-vs-restful-api-vs-graphql-web-socket-tcp-sockets-and-udp-beyond-client-server-43338eb02e37 en https://blog.logrocket.com/why-you-shouldnt-use-graphql/.
+<!-- - GraphQL: REST, zie cursus Web4. https://cloud-trends.medium.com/grpc-vs-restful-api-vs-graphql-web-socket-tcp-sockets-and-udp-beyond-client-server-43338eb02e37 en https://blog.logrocket.com/why-you-shouldnt-use-graphql/. -->

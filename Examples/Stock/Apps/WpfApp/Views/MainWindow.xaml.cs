@@ -52,6 +52,8 @@ namespace WpfApp.Views
             _stockManager.Shares.Add("SOLB.BR", new ShareData { Count = 137, Value = 0 });
             _stockManager.Shares.Add("TNET.BR", new ShareData { Count = 500, Value = 0 });
             _stockManager.Shares.Add("UCB.BR", new ShareData { Count = 500, Value = 0 });
+
+            // Poor man's IoC:
             _stockManager.StockQueryProvider = new StockQueryProvider();
 
             var result = _stockManager.GetHistoricalData(new System.DateTime(2021, 7, 1), System.DateTime.Now.Date);
@@ -199,6 +201,8 @@ namespace WpfApp.Views
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
             _timer.Enabled = true; // Activeert de timer bij het starten
             _timer.Start();
+
+            // Execute update immediately, at startup time:
             _timer_Elapsed(null, null);
         }
 
@@ -217,7 +221,9 @@ namespace WpfApp.Views
                     System.Diagnostics.Debug.WriteLine("Market is closed: no need to update");
                     continue;
                 }
-                // runs in a thread, so need to switch to main thread
+                // ---------------------------------------------------
+                // runs in a thread, so need to switch to main thread:
+                // ---------------------------------------------------
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     // TODO: if market is closed, do not update
