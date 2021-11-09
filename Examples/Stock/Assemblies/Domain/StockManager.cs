@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
-// https://github.com/zkavtaskin/Domain-Driven-Design-Example
 
 namespace Stock.Domain
 {

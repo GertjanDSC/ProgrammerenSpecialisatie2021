@@ -4,25 +4,35 @@ using System.Collections.Generic;
 
 namespace WpfApp.Providers
 {
+    /// <summary>
+    /// This provider implements the IStockQuery interface using the Yahoo Finance API
+    /// </summary>
     public class StockQueryProvider : Stock.Domain.Contracts.IStockQuery
     {
         public IReadOnlyList<Candle> GetHistoricalData(string tick, DateTime from, DateTime to, Period period = Period.Daily)
         {
             List<Candle> result = new();
-            Stock.Infrastructure.YahooFinanceApi.Period yahooPeriod = (Stock.Infrastructure.YahooFinanceApi.Period)period;
-
-            var historicalData = Stock.Infrastructure.YahooFinanceApi.Yahoo.GetHistoricalAsync(tick, from, to, yahooPeriod);
-            foreach (var t in historicalData.Result)
+            try
             {
-                Candle c = new();
-                c.Open = t.Open;
-                c.Close = t.Close;
-                c.Low = t.Low;
-                c.High = t.High;
-                c.Volume = t.Volume;
-                c.DateTime = t.DateTime;
-                c.AdjustedClose = t.AdjustedClose;
-                result.Add(c);
+                Stock.Infrastructure.YahooFinanceApi.Period yahooPeriod = (Stock.Infrastructure.YahooFinanceApi.Period)period;
+
+                var historicalData = Stock.Infrastructure.YahooFinanceApi.Yahoo.GetHistoricalAsync(tick, from, to, yahooPeriod);
+                foreach (var t in historicalData.Result)
+                {
+                    Candle c = new();
+                    c.Open = t.Open;
+                    c.Close = t.Close;
+                    c.Low = t.Low;
+                    c.High = t.High;
+                    c.Volume = t.Volume;
+                    c.DateTime = t.DateTime;
+                    c.AdjustedClose = t.AdjustedClose;
+                    result.Add(c);
+                }
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
             }
             return result;
         }
@@ -35,7 +45,7 @@ namespace WpfApp.Providers
                 .Fields(Stock.Infrastructure.YahooFinanceApi.Field.Symbol, Stock.Infrastructure.YahooFinanceApi.Field.RegularMarketOpen, Stock.Infrastructure.YahooFinanceApi.Field.RegularMarketPrice, Stock.Infrastructure.YahooFinanceApi.Field.RegularMarketTime, Stock.Infrastructure.YahooFinanceApi.Field.Currency, Stock.Infrastructure.YahooFinanceApi.Field.LongName)
                 .QueryAsync();
 
-            /*
+/*
 var total = (decimal)0.0;
 foreach (var tick in securities)
 {

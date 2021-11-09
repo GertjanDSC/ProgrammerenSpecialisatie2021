@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using Stock.Domain;
 using Stock.Infrastructure.YahooFinanceApi;
 
-// https://github.com/zkavtaskin/Domain-Driven-Design-Example
-
 namespace Stock
 {
     public class StockManager

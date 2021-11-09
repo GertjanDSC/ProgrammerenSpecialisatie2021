@@ -6,7 +6,7 @@ namespace WpfApp.ViewModels
     {
         public LiveChartsCore.SkiaSharpView.WPF.CartesianChart CandleStickChart { get; set; } = new();
         public LiveChartsCore.SkiaSharpView.WPF.CartesianChart LineChart { get; set; } = new();
-        public StackPanel Container { get; set; } = new StackPanel();
+        public StackPanel Container { get; set; } = new StackPanel(); // beter: wijzigen naar een Grid
         public TextBlock Name { get; set; } = new();
         public TextBlock Currency { get; set; } = new();
         public TextBlock ExchangeName { get; set; } = new();

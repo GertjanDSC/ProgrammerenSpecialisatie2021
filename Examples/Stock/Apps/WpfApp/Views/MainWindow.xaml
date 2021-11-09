@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:WpfApp.ViewModels"
         mc:Ignorable="d"
         Title="VBSBank Stock" Height="450" Width="800"             
-        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF" 
         Loaded="Window_Loaded">
     <Window.DataContext>
         <local:ViewModel/>
@@ -33,7 +32,6 @@
                     <MenuItem Header="_Show portfolio" IsCheckable="True" IsChecked="True" />
                 </MenuItem>
             </Menu>
-            <TextBox AcceptsReturn="True" />
         </DockPanel>
         <TabControl Grid.Row="1" Name="StockTabControl"/>
         <DockPanel Grid.Row="2">

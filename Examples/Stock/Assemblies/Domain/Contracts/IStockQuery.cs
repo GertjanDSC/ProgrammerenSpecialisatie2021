@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// https://github.com/zkavtaskin/Domain-Driven-Design-Example
-
 namespace Stock.Domain.Contracts
 {
     public interface IStockQuery

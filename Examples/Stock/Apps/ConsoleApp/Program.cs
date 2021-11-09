@@ -5,11 +5,8 @@ using System.Timers;
 using Stock.Domain;
 using Stock.Infrastructure.YahooFinanceApi;
 
-// https://github.com/zkavtaskin/Domain-Driven-Design-Example
-
 namespace Stock
 {
-
     internal class Program
     {
         private static Dictionary<string, ShareData> _shares = new()

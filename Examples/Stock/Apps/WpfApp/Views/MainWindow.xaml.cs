@@ -31,9 +31,12 @@ namespace WpfApp.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            lblCursorPosition.Text = "[" + DateTime.Now.ToString() + "] Loading shares...";
+
+            // De volgende aandelen moeten uit de databank komen via EF:
             _stockManager.Shares.Add("ABI.BR", new ShareData { Count = 160, Value = 150 });
             _stockManager.Shares.Add("ALC", new ShareData { Count = 40, Value = 0 });
-            _stockManager.Shares.Add("AAPL", new ShareData { Count = 280, Value = 0 });
+            _stockManager.Shares.Add("AAPL", new ShareData { Count = 280, Value = 0 });            
             _stockManager.Shares.Add("MTS.MC", new ShareData { Count = 333, Value = 0 });
             _stockManager.Shares.Add("ASML.AS", new ShareData { Count = 345, Value = 0 });
             _stockManager.Shares.Add("BNB.BR", new ShareData { Count = 14, Value = 0 });
@@ -56,9 +59,11 @@ namespace WpfApp.Views
             // Poor man's IoC:
             _stockManager.StockQueryProvider = new StockQueryProvider();
 
+            // In plaats van een vaste datum mee te geven, moet de datum die de gebruiker opgeeft, genomen wordt
             var result = _stockManager.GetHistoricalData(new System.DateTime(2021, 7, 1), System.DateTime.Now.Date);
             if (DataContext is ViewModel viewModel)
             {
+                // WPF .NET 5 en hoger: om een control te gebruiken, moeten we deze opzoeken met FindName():
                 if (this.FindName("StockTabControl") is TabControl stockTabControl)
                 {
                     // Show portfolio evolution
@@ -73,13 +78,13 @@ namespace WpfApp.Views
                     {
 
                         TickData tickData = new();
-                        tickData.Currency.Text = "EUR".PadRight(64);
-                        tickData.Name.Text = "My Portfolio".PadRight(155);                        
+                        tickData.Currency.Text = "EUR".PadRight(64); // eindopdracht: dit moet configureerbaar zijn (vb. EUR, USD, ...)
+                        tickData.Name.Text = "My Portfolio".PadRight(155); // moet configureerbaar zijn                  
                         tickData.Container.Children.Add(tickData.Name);
                         tickData.Container.Children.Add(tickData.Currency);
                         tickData.Container.Children.Add(tickData.ExchangeName);
                         tickData.Container.Children.Add(tickData.MarketState);
-                        tickData.Container.Orientation = Orientation.Horizontal;
+                        tickData.Container.Orientation = Orientation.Horizontal; // beter: wijzigen naar Grid
 
                         _dictionary.Add("Portfolio", tickData);
                         portfolioGrid.Children.Add(tickData.Container);
@@ -98,7 +103,7 @@ namespace WpfApp.Views
                         };
                         o.Add(css);
                         candleStickChart.Series = o;
-                        candleStickChart.SetValue(Grid.RowProperty, 1);
+                        candleStickChart.SetValue(Grid.RowProperty, 1); // we plaatsen de chart op rij 1; vergelijk xaml: Grid.Row="1"
                         portfolioGrid.Children.Add(candleStickChart);
                         _dictionary["Portfolio"].CandleStickChart = candleStickChart;
                     }
@@ -123,6 +128,10 @@ namespace WpfApp.Views
                     }
                     portfolioTab.Content = portfolioGrid;
                     stockTabControl.Items.Add(portfolioTab);
+
+                    // -----------------------------------------------------------------------------------
+                    // We starten met de visualisatie van alle afzonderlijke aandelen van de portefeuille:
+                    // -----------------------------------------------------------------------------------
 
                     // Show tick evolutions
                     foreach (var s in result)
@@ -221,11 +230,12 @@ namespace WpfApp.Views
                     System.Diagnostics.Debug.WriteLine("Market is closed: no need to update");
                     continue;
                 }
-                // ---------------------------------------------------
-                // runs in a thread, so need to switch to main thread:
-                // ---------------------------------------------------
+                // -------------------------------------------------------
+                // runs in a thread, so need to switch to main WPF thread:
+                // -------------------------------------------------------
                 Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
+                    // We delegeren deze code naar de WPF thread!
                     // TODO: if market is closed, do not update
                     if (_dictionary[s.Key].LineChart.Series is ObservableCollection<LineSeries<DateTimePoint>> chart)
                     {
