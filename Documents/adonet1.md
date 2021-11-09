@@ -14,7 +14,7 @@ Microsoft Docs: ADO.NET Overview (Development Guide, Data and Modeling): http://
 
 
 
-![ADO.NET and class library](./adonet001.jpg)
+![ADO.NET and class library](./ado/adonet001.jpg)
 
 
 
@@ -156,7 +156,7 @@ Zie **[wikipedia](https://nl.wikipedia.org/wiki/CRUD)**.
 
   
 
-  ![What is CRUD? - PUT vs PATCH - D-BLOG](./crud.jpg)
+  ![What is CRUD? - PUT vs PATCH - D-BLOG](./ado/crud.jpg)
 
 ### Visual Studio Tooling
 
@@ -164,45 +164,45 @@ Zie **[wikipedia](https://nl.wikipedia.org/wiki/CRUD)**.
 
 Open het *Server Explorer* toolbox venster door in *Visual Studio* in de *View* menu te kiezen voor *Server Explorer*. Rechterklik op de *Data Connections* node en kies voor *Add Connection...*.
 
-​     ![image-20210311145402584](./image-20210311145402584.png)                          
+​     ![image-20210311145402584](./ado/image-20210311145402584.png)                          
 
 Verifiëer of het *Data source* veld staat ingesteld op *Microsoft SQL Server (SqlClient)*.
 
-![image-20210311151928738](./image-20210311151928738.png)
+![image-20210311151928738](./ado/image-20210311151928738.png)
 
 Indien dit niet zo is, klik je op de *Change...* knop om deze instelling aan te passen.
 
- ![image-20210311145459814](./image-20210311145459814.png)
+ ![image-20210311145459814](./ado/image-20210311145459814.png)
 
 
 
 Dit venster biedt je eventueel ook de mogelijkheid de hiermee samengestelde *connection string* op te vragen, via de knop "Advanced...". Deze waarde zou je kunnen kopiëren en straks inzetten in onze broncode.
 
-![image-20210311152146076](./image-20210311152146076.png)
+![image-20210311152146076](./ado/image-20210311152146076.png)
 
 
 
  Klik je in het *Add Connection* venster op *OK* dan wordt een node toegevoegd aan het *Server Explorer* toolvenster. Tussendoor wordt om bevestiging van creatie gevraagd.
 
-![image-20210311152244885](./image-20210311152244885.png)
+![image-20210311152244885](./ado/image-20210311152244885.png)
 
 
 
 Resultaat:
 
-![image-20210311152324263](./image-20210311152324263.png)
+![image-20210311152324263](./ado/image-20210311152324263.png)
 
 ### Tabel creëren en opvullen
 
 Om vlot de nodige databank tabel te creëren maken we gebruik van *SQL creational language*. Rechterklik op de *PersonenDb.dbo node en kies voor *New Query*:
 
-![image-20210311152454251](./image-20210311152454251.png)
+![image-20210311152454251](./ado/image-20210311152454251.png)
 
 
 
 Neem volgende *SQL* over en kies in de *SQL* menu van *Visual Studio* voor *Execute* (in het venster bovenaan links de groene pijl):
 
-![image-20210311160245496](./image-20210311160245496.png)
+![image-20210311160245496](./ado/image-20210311160245496.png)
 
 Copieer de queries hier:
 
@@ -239,7 +239,7 @@ Aan de hand van deze werkwijze kan je ook andere *SQL* statements, zowel ter cre
 
 Indien je in de *Server Explorer* de *PersonenDb.dbo en *Tables* node uitvouwt vindt je een node terug voor de gecreëerde tabel. Rechterklik eventueel op de node en kies voor *Open Table Definition* of *Show Table Data* indien je het dataschema of de opgevulde informatie wil verkennen of zelfs aanpassen:
 
-![image-20210311145702098](./image-20210311145702098.png)
+![image-20210311145702098](./ado/image-20210311145702098.png)
 
 
 
@@ -249,7 +249,7 @@ Voor .NET 5.0, gebruik **nuget**: klik rechts op project, selecteer **“Manage 
 
 Vergeet niet de connection string aan te passen naar deze welke je kan vinden onder: **Server Explorer > Data Connections: rechterklik naar Properties en dan Connections > Connection string**.
 
-![image-20210311153420273](./image-20210311153420273.png)
+![image-20210311153420273](./ado/image-20210311153420273.png)
 
 
 
@@ -269,9 +269,28 @@ Om één gegeven in de databank onder te brengen, wordt de methode **ExecuteScal
 Interessant om een identity waarde terug te krijgen bij een insert query of delete query of update query. Voor een insert query kan dat op een paar manieren:
 
 * voeg bij je insert statement een tweede query "**SELECT CAST(scope_identity() AS int)**": werkt alleen in geval van een identity key
-* voeg **output inserted.<kolomnaam identity kolom>** toe: dit werkt ook voor een primary key kolom die geen identity kolom is en is met andere woorden een betere en algemenere aanpak.
 
-Je kan de waarde van eender welke kolom teruggeven via **output inserted.<kolomnaam>**.
+* voeg 
+
+  ```text
+  output inserted.<kolomnaam identity kolom>
+  ```
+
+   toe: dit werkt ook voor een primary key kolom die geen identity kolom is en is met andere woorden een betere en algemenere aanpak.
+
+Je kan de waarde van eender welke kolom teruggeven via 
+
+```text
+output inserted.<kolomnaam>
+```
+
+Voorbeeld:
+
+```sql
+INSERT INTO MyTable(Name, Address, PhoneNo)
+OUTPUT INSERTED.ID
+VALUES ('Yatrix', '1234 Address Stuff', '1112223333');
+```
 
 Bij een delete query kan je output deleted.<kolomnaam> teruggeven.
 
