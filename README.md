@@ -105,10 +105,10 @@
 - [Delegates en events (oud)](./Documents/DelegatesEvents.pdf)
 - [Delegates en events](./Documents/delegate.md)
 - ADO .NET
-1. Installeer MySQL en SQLServer (docker)
-2. [Eerste stappen](./Documents/adonet1.md)
-3. [Transacties](./Documents/adonetTransactions.md)
-4. [Disconnected](./Documents/adonet3.md)
+  1. Installeer MySQL en SQLServer (docker)
+  2. [Eerste stappen](./Documents/adonet1.md)
+  3. [Transacties](./Documents/adonetTransactions.md)
+  4. [Disconnected](./Documents/adonet3.md)
 
 ### WPF
 
