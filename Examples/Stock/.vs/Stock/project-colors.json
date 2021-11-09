@@ -45,7 +45,17 @@
       "ProjectGuid": "e702e547-44f4-4970-bcad-7203f33c9e1e",
       "DisplayName": "LiveChartsCore.SkiaSharpView.WPF",
       "ColorIndex": 7
+    },
+    "a4f82878-6ffa-4fdf-bcc9-4105315a5e1a": {
+      "ProjectGuid": "a4f82878-6ffa-4fdf-bcc9-4105315a5e1a",
+      "DisplayName": "MVVM",
+      "ColorIndex": 8
+    },
+    "21e81b8c-af75-4a95-a96a-8093a0abbd9c": {
+      "ProjectGuid": "21e81b8c-af75-4a95-a96a-8093a0abbd9c",
+      "DisplayName": "MVVM",
+      "ColorIndex": 9
     }
   },
-  "NextColorIndex": 8
+  "NextColorIndex": 10
 }

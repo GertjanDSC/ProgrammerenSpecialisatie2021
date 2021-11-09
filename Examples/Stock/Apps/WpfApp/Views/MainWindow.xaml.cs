@@ -7,9 +7,10 @@ using System.Collections.ObjectModel;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using WpfApp.Providers;
 using WpfApp.ViewModels;
 
-namespace WpfApp
+namespace WpfApp.Views
 {
 
     /// <summary>

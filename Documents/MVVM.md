@@ -207,7 +207,7 @@ namespace ViewModel
 }
 ```
 
-"Magic": [CallerMemberName]
+Magic: [CallerMemberName]
 
 [CallerMemberName] is een attribuut dat in C# 5.0 is geïntroduceerd en waarmee je de methode- of eigenschapsnaam van de aanroeper van de methode kunt verkrijgen. Je kunt dit attribuut met de naam "CallerMemberNameAttribute" vinden onder de namespace System.Runtime.CompilerServices.
 
@@ -217,9 +217,7 @@ namespace ViewModel
 
 - De INotifyPropertyChanged-interface implementeren bij het binden van gegevens. Met deze interface kan een eigenschap van een object aan een gebonden besturingselement melden dat de eigenschap is gewijzigd, zodat het besturingselement de bijgewerkte informatie kan weergeven. Zonder het [CallerMemberName]-attribuut moet u de naam van de eigenschap opgeven als een letterlijke naam.
 
-  
-
-  De volgende tabel toont de lidnamen die worden geretourneerd wanneer je het [CallerMemberName]-attribuut gebruikt:
+De volgende tabel toont de lidnamen die worden geretourneerd wanneer je het [CallerMemberName]-attribuut gebruikt:
 
   | **Origin**                            | **Member Name Result**                                   |
   | ------------------------------------- | -------------------------------------------------------- |
@@ -231,23 +229,23 @@ namespace ViewModel
   | Attribute constructor                 | The name of the member to which the attribute is applied |
   | No containing member                  | The default value of the optional parameter              |
 
-  Onthoud dat je het [CallerMemberName] attribuut kan toepassen op een optionele parameter die een standaard waarde heeft. Je moet een expliciete standaardwaarde opgeven voor de optionele parameter. Je kunt dit attribuut niet toepassen op parameters die niet als optioneel zijn gespecificeerd.
+Onthoud dat je het [CallerMemberName] attribuut kan toepassen op een optionele parameter die een standaard waarde heeft. Je moet een expliciete standaardwaarde opgeven voor de optionele parameter. Je kunt dit attribuut niet toepassen op parameters die niet als optioneel zijn gespecificeerd.
 
-  Voorbeeld:
+Voorbeeld:
 
-  ```c#
-  public static class Trace
-  {
-  	public static void Write([CallerMemberName] string memberName = "")
-  	{
-  		Console.WriteLine("Called by: " + memberName);	
-  	}
-  }
-  ```
+```c#
+public static class Trace
+{
+	public static void Write([CallerMemberName] string memberName = "")
+	{
+		Console.WriteLine("Called by: " + memberName);	
+	}
+}
+```
 
-  ```c#
-  class Program
-  {
+```c#
+class Program
+{
   	private static string +myProperty;
   	public static string MyProperty
   	{
@@ -260,8 +258,8 @@ namespace ViewModel
   		Trace.Write();
   		MyProperty = "Luc Vervoort";
   	}
-  }
-  ```
+}
+```
 
 ### ComputedViewModelBase
 
