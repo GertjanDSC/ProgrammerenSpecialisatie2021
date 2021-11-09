@@ -55,7 +55,12 @@
       "ProjectGuid": "21e81b8c-af75-4a95-a96a-8093a0abbd9c",
       "DisplayName": "MVVM",
       "ColorIndex": 9
+    },
+    "e603f018-1c66-4a5f-b4b0-479c690697f7": {
+      "ProjectGuid": "e603f018-1c66-4a5f-b4b0-479c690697f7",
+      "DisplayName": "WpfAppTest",
+      "ColorIndex": 10
     }
   },
-  "NextColorIndex": 10
+  "NextColorIndex": 11
 }

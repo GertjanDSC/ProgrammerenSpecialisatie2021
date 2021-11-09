@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Assemblies\Domain\Stock.Domain.csproj" />
     <ProjectReference Include="..\..\Assemblies\Infrastructure\Stock.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\SupportLibraries\MVVM\MVVM.csproj" />
     <ProjectReference Include="..\..\SupportLibraries\skiasharp\LiveChartsCore.SkiaSharp.WPF\LiveChartsCore.SkiaSharpView.WPF.csproj" />
   </ItemGroup>
 
