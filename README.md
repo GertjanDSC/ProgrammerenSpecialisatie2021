@@ -10,7 +10,7 @@
 | 19/10/2021   | [EF (3) - CRUD, Change Tracker en Repository pattern](./Documents/EF_3.md) |
 | 26/10/2021   | [Async, threads, tasks (1)](./Documents/Threading_1.md)      |
 | 09/11/2021   | Design patterns: [WPF MVVM](./Documents/MVVM.md), [live charting](./Documents/LiveCharting.md) |
-| 16/11/2021   | [Async, threads, tasks (2)](./Documents/threading_2.md)      |
+| 16/11/2021   | [Async, threads, tasks (2)](./Documents/Threading_2.md)      |
 | 23/11/2021   | [TCP/UDP client/server](./Documents/SimpleTCP.md), [Protocol Buffers, encryptie, compressie](./Serialisatie.md), WireShark |
 | 30/11/2021   | [IOC](./Documents/ioc.md)                                    |
 | 07/12/2021   | Design patterns: [DDD (Domain Driven Development) in de praktijk](./Documents/DDD.md) |

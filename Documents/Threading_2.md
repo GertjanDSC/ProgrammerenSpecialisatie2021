@@ -1,12 +1,14 @@
 # Het Event-Based Asynchronous Pattern
 
-Het event-based asynchronous pattern (EAP) biedt een eenvoudige manier waarmee klassen multithreading-mogelijkheden kunnen bieden zonder dat gebruikers expliciet threads hoeven te starten of te beheren. Het biedt ook de volgende mogelijkheden:
+Het event-based asynchronous pattern (EAP) biedt een eenvoudige manier waarmee klassen multithreading-mogelijkheden kunnen bieden zonder dat gebruikers expliciet threads hoeven te starten of te beheren. Het patroon biedt ook volgende mogelijkheden:
 
 - Een coöperatief annuleringsmodel
-- De mogelijkheid om WPF of Windows Forms besturingselementen veilig bij te werken wanneer de werker is voltooid
-- Doorsturen van uitzonderingen naar de completion event
+- De mogelijkheid om WPF of Windows Forms besturingselementen veilig bij te werken wanneer de *worker* voltooid is
+- Doorsturen van uitzonderingen naar de *completion event*
 
-De EAP is slechts een patroon, dus deze functies moeten worden geschreven door de programmeur. Slechts enkele klassen in het Framework volgen dit patroon, met name BackgroundWorker (die we niet zullen behandelen), en WebClient in System.Net. In essentie is het patroon als volgt: een klasse biedt een familie van leden die intern multithreading beheren, vergelijkbaar met het volgende (de gemarkeerde secties geven code aan die deel uitmaakt van het patroon):
+EAP is slechts een patroon, dus deze functionaliteit moet worden geschreven door de programmeur. Slechts enkele klassen in het Framework volgen dit patroon, met name **BackgroundWorker** (zullen we niet behandelen), en **WebClient** in System.Net. 
+
+In essentie is het patroon als volgt: een klasse biedt een familie van members die intern multithreading beheren, vergelijkbaar met het volgende (de gemarkeerde secties geven code aan die deel uitmaakt van het patroon):
 
 ```c#
 // These members are from the WebClient class:
@@ -20,11 +22,13 @@ public void CancelAsync (object userState);  // Cancels an operation
 public bool IsBusy { get; }                  // Indicates if still running
 ```
 
-De *Async methodes voeren asynchroon uit: met andere woorden, ze starten een operatie op een andere thread en keren dan onmiddellijk terug naar de aanroeper. Wanneer de bewerking is voltooid, vuurt de *Completed gebeurtenis - automatisch Invoke aanroepen indien nodig door een WPF of Windows Forms toepassing. Deze gebeurtenis geeft een object met gebeurtenisargumenten terug dat het volgende bevat
+De *Async methodes voeren asynchroon uit: met andere woorden, ze starten een operatie op een andere thread en keren dan onmiddellijk terug naar de aanroeper. Wanneer de bewerking is voltooid, vuurt de *Completed gebeurtenis - automatisch Invoke aanroepen indien nodig door een WPF of Windows Forms toepassing. Deze gebeurtenis geeft een object met event arguments terug dat het volgende bevat:
 
-Een vlag die aangeeft of de bewerking werd geannuleerd (door de consument die CancelAsync oproept)
-Een Error-object dat aangeeft dat er een uitzondering werd gegooid (indien van toepassing)
-Het userToken object indien geleverd bij het aanroepen van de Async methode
+- Een vlag die aangeeft of de bewerking werd geannuleerd (door de consument die CancelAsync oproept).
+
+- Een Error-object dat aangeeft dat er een uitzondering werd gegooid (indien van toepassing).
+- Het userToken object indien geleverd bij het aanroepen van de Async methode.
+
 Hier is hoe we de EAP-leden van WebClient kunnen gebruiken om een webpagina te downloaden:
 
 ```c#
@@ -44,7 +48,9 @@ wc.DownloadStringCompleted += (sender, args) =>
 wc.DownloadStringAsync (new Uri ("http://www.linqpad.net"));  // Start it
 ```
 
-Een klasse die het EAP volgt, kan extra groepen asynchrone methoden aanbieden. Bijvoorbeeld:
+Een klasse die het EAP volgt, kan extra groepen asynchrone methoden aanbieden. 
+
+Bijvoorbeeld:
 
 ```c#
 public string DownloadString (Uri address);
@@ -53,7 +59,7 @@ public void DownloadStringAsync (Uri address, object userToken);
 public event DownloadStringCompletedEventHandler DownloadStringCompleted;
 ```
 
-Deze zullen echter dezelfde CancelAsync en IsBusy leden delen. Daarom kan slechts één asynchrone operatie tegelijk plaatsvinden.
+Deze zullen echter dezelfde CancelAsync en IsBusy leden delen. Daarom kan **slechts één asynchrone operatie tegelijk** plaatsvinden.
 
 Tasks zijn beter geschikt.
 
@@ -71,7 +77,7 @@ new Thread (delegate() {
                        }).Start();
 ```
 
-Niet alleen wordt hierdoor een thread resource permanent vastgezet, maar zonder extra codering zal DoSomeAction elke dag op een later tijdstip plaatsvinden. Timers lossen deze problemen op.
+Niet alleen wordt hierdoor een thread resource permanent vastgezet, maar zonder extra codering zal *DoSomeAction* elke dag op een later tijdstip plaatsvinden. Timers lossen deze problemen op.
 
 Het .NET Framework biedt vier timers. Twee daarvan zijn general-purpose multithreaded timers:
 
@@ -93,7 +99,7 @@ Het .NET Framework biedt vier timers. Twee daarvan zijn general-purpose multithr
 
 ## Multithreaded Timers
 
-**System.Threading.Timer** is de eenvoudigste multithreaded timer: hij heeft slechts een constructor en twee methoden (een genot voor minimalisten, maar ook voor schrijvers van boeken!). In het volgende voorbeeld roept een timer de methode **Tick** aan, die "tick..." schrijft nadat vijf seconden zijn verstreken, en dan elke seconde daarna, tot de gebruiker op Enter drukt:
+**System.Threading.Timer** is de eenvoudigste multithreaded timer: hij heeft slechts een constructor en twee methoden (een genot voor minimalisten, maar ook voor schrijvers van boeken!). In het volgende voorbeeld roept een timer de methode **Tick** aan, die "tick..." schrijft nadat vijf seconden zijn verstreken, en vervolgens elke seconde daarna, tot de gebruiker op Enter drukt:
 
 ```c#
 using System;
@@ -119,9 +125,11 @@ class Program
 
 Je kan het interval van een timer later wijzigen door de Change methode aan te roepen. Als u wilt dat een timer slechts eenmaal afgaat, specificeer je **Timeout.Infinite** in het laatste argument van de constructor.
 
-Het .NET Framework biedt een andere timer-klasse met dezelfde naam in de **System.Timers** namespace. Deze wrapt eenvoudigweg de System.Threading.Timer, en biedt extra gemak terwijl gebruik wordt gemaakt van dezelfde onderliggende engine. Hier is een samenvatting van de toegevoegde mogelijkheden:
+Het .NET Framework biedt een andere timer-klasse met dezelfde naam in de **System.Timers** namespace. Deze wrapt eenvoudigweg de System.Threading.Timer, en biedt extra gemak terwijl gebruik wordt gemaakt van dezelfde onderliggende engine. 
 
-- Een Component implementatie, waardoor het in Visual Studio's designer kan worden geplaatst
+Samenvatting van de toegevoegde mogelijkheden:
+
+- Een *Component* implementatie, waardoor het in Visual Studio's designer kan worden geplaatst
 - Een interval eigenschap in plaats van een Change methode
 - Een **Elapsedevent** in plaats van een callback delegate
 - Een **Enabled** eigenschap om de timer te starten en te stoppen (de standaardwaarde is false)
@@ -129,7 +137,7 @@ Het .NET Framework biedt een andere timer-klasse met dezelfde naam in de **Syste
 - Een **AutoReset** vlag om een terugkerend event aan te duiden (standaardwaarde is true)
 - Een **SynchronizingObject** eigenschap met **Invoke** en **BeginInvoke** methoden voor het veilig aanroepen van methoden op WPF elementen en Windows Forms besturingselementen
 
-Hier is een voorbeeld:
+Een voorbeeld:
 
 ```c#
 using System;
@@ -174,16 +182,17 @@ Het .NET Framework biedt timers die zijn ontworpen om problemen met de veilighei
 
   De single-threaded timers zijn niet ontworpen om buiten hun respectieve omgevingen te werken. Als je bijvoorbeeld een Windows Forms timer gebruikt in een Windows Service toepassing, dan zal de Timer event niet afgaan!
 
-Beide zijn vergelijkbaar met System.Timers.Timer wat betreft de leden die ze tonen (Interval, Tick, Start, en Stop) en worden op een vergelijkbare manier gebruikt. Ze verschillen echter in hoe ze intern werken. In plaats van de thread pool te gebruiken om timer events te genereren, vertrouwen de WPF en Windows Forms timers op het message pumping mechanisme van hun onderliggend user interface model. Dit betekent dat de tick-event altijd afgaat op dezelfde thread die oorspronkelijk de timer heeft aangemaakt - wat in een normale toepassing dezelfde thread is die wordt gebruikt om alle gebruikersinterface-elementen en besturingselementen te beheren. Dit heeft een aantal voordelen:
+Beide zijn vergelijkbaar met System.Timers.Timer wat betreft de leden die ze tonen (Interval, Tick, Start, en Stop) en worden op een vergelijkbare manier gebruikt. 
 
-Je kunt thread safety vergeten.
+Ze verschillen echter in hoe ze intern werken. In plaats van de thread pool te gebruiken om timer events te genereren, vertrouwen de WPF en Windows Forms timers op het *message pumping* mechanisme van hun onderliggend user interface model. Dit betekent dat de tick-event altijd afgaat op dezelfde thread die oorspronkelijk de timer heeft aangemaakt - wat in een normale toepassing dezelfde thread is die wordt gebruikt om alle gebruikersinterface-elementen en besturingselementen te beheren. Dit heeft een aantal voordelen:
 
-Een nieuwe **Tick** zal nooit afgaan voordat de vorige **Tick** klaar is met verwerken.
+Je kunt thread safety met andere woorden negeren: een nieuwe **Tick** zal nooit afgaan voordat de vorige **Tick** klaar is met verwerken.
 
 U kunt gebruikersinterface-elementen en besturingselementen rechtstreeks vanuit Tick event handling code updaten, zonder **Control.Invoke** of **Dispatcher.Invoke** aan te roepen.
 
-Het klinkt te mooi om waar te zijn, totdat u zich realiseert dat een programma dat gebruik maakt van deze timers niet echt multithreaded is - er is geen parallelle uitvoering. Eén thread bedient alle timers - en ook de verwerking van UI events. Dit brengt ons bij het nadeel van single-threaded timers: tenzij de Tick event handler snel wordt uitgevoerd, wordt de gebruikersinterface onresponsief.
-Dit maakt de WPF en Windows Forms timers alleen geschikt voor kleine taken, meestal die waarbij een aspect van de gebruikersinterface wordt bijgewerkt (bv. een klok of aftel-display). Anders hebt u een multithreaded timer nodig.
+Het klinkt te mooi om waar te zijn, totdat je je realiseert dat een programma dat gebruik maakt van deze timers niet echt multithreaded is - er is geen parallelle uitvoering. Eén thread bedient alle timers - en ook de verwerking van UI events. Dit brengt ons bij het nadeel van single-threaded timers: tenzij de Tick event handler snel wordt uitgevoerd, wordt de gebruikersinterface onresponsief. Dit maakt de WPF en Windows Forms timers alleen geschikt voor kleine taken, meestal die waarbij een aspect van de gebruikersinterface wordt bijgewerkt (bv. een klok of aftel-display). 
+
+In het andere geval heb je een multithreaded timer nodig.
 
 In termen van nauwkeurigheid zijn de single-threaded timers vergelijkbaar met de multithreaded timers (tientallen milliseconden), hoewel ze gewoonlijk minder nauwkeurig zijn, omdat ze kunnen worden vertraagd terwijl andere gebruikersinterfaceverzoeken (of andere timergebeurtenissen) worden verwerkt.
 
@@ -245,10 +254,9 @@ static void task2() {
 }
 ```
 
-Maar wanneer je het t.Result probeert te lezen, zal de huidige thread wachten tot het resultaat van de taak beschikbaar is.
-Daarom is t.Wait() uitgecommentarieerd in methode task2().
+Maar wanneer je het t.Result probeert te lezen, zal de huidige thread wachten tot het resultaat van de taak beschikbaar is. Daarom is t.Wait() uitgecommentarieerd in methode task2().
 
-Laten we nu een vervolg-taak toevoegen. Dit betekent dat we wachten tot de eerste taak klaar is en dan een andere taak starten.
+Laten we nu een vervolgtaak toevoegen: we wachten tot de eerste taak klaar is en starten dan een andere taak.
 
 ```c#
 static void task3() {
@@ -269,7 +277,7 @@ static void task3() {
 }
 ```
 
-De output zou er zo uit kunnen zien:
+De uitvoer zou er zo uit kunnen zien:
 
 ```text
 14:33:31
@@ -279,7 +287,7 @@ task result is: 2
 14:33:36
 ```
 
-Het punt dat ik hier probeer te maken is dat de t.ContinueWith instructie de huidige thread niet stopt. Op deze manier kun je een keten van commando's construeren die in de toekomst worden uitgevoerd. Het t2.Result wacht dan impliciet tot de eerste en tweede opdracht voltooid zijn.
+Het punt dat we hier proberen te maken is dat de t.ContinueWith instructie de huidige thread niet stopt. Op deze manier kan je een keten van commando's construeren die in de toekomst worden uitgevoerd. Het t2.Result wacht dan impliciet tot de eerste en tweede opdracht voltooid zijn.
 
 Het volgende voorbeeld demonstreert het gedrag van ContinueWith wanneer een exceptie wordt gegooid tijdens de taakuitvoering. De code spreekt voor zich. Commentarieer de "throw new Exception();" uit en kijk wat er verandert.
 
@@ -295,10 +303,10 @@ static void task4() {
   t.ContinueWith((i) => { Console.WriteLine("Task Faulted"); }, TaskContinuationOptions.OnlyOnFaulted);
   var tasks = t.ContinueWith((i) => { Console.WriteLine("Task Completion"); }, TaskContinuationOptions.OnlyOnRanToCompletion);
   tasks.Wait();
-} //
+}
 ```
 
-Tot nu toe maakten we taakinstanties aan door het "new" sleutelwoord te gebruiken. Er is nog een andere optie. Je kunt ook een takenfabriek maken. Dit maakt herhaalde taakcreaties eenvoudiger. Ik voeg ook kindertaken toe om de snelheid wat op te voeren.
+Tot nu toe maakten we taakinstanties aan door het "new" sleutelwoord te gebruiken. Er is nog een andere optie. Je kunt ook een **task factory** maken. Dit maakt herhaalde taakcreaties eenvoudiger. We voegen ook *child tasks* toe om de snelheid wat op te voeren.
 
 ```c#
 static void task5() {
@@ -321,14 +329,14 @@ static void task5() {
  
   t.Wait();
   Console.ReadLine();
-} //
+}
 ```
 
 ## Klasse Parallel
 
-De parallelle klasse kan worden gevonden in de System.Threading.Tasks namespace. Het heeft een paar statische methodes die ontworpen zijn om code gelijktijdig uit te voeren. Het heeft zin om parallellisme te gebruiken als de lengte van je code het aanmaken van taken rechtvaardigt, de code elkaar niet te veel blokkeert (bv. lock(this) {}), de processoren vrije capaciteit hebben en de code niet in een sequentie moet lopen. Anders zal de prestatie er waarschijnlijk onder lijden.
+De klasse Parallel kan worden gevonden in de System.Threading.Tasks namespace. Deze heeft een paar statische methodes die ontworpen zijn om code gelijktijdig uit te voeren. Het heeft zin om parallellisme te gebruiken als de lengte van je code het aanmaken van taken rechtvaardigt, de code elkaar niet te veel blokkeert (bv. lock(this) {}), de processoren vrije capaciteit hebben en de code niet in een sequentie moet lopen, anders zal de performantie er waarschijnlijk onder lijden.
 
-Laten we eens kijken naar enkele voorbeelden:
+Enkele voorbeelden:
 
 ```c#
 public static void Parallel_For() {
@@ -338,7 +346,7 @@ public static void Parallel_For() {
         Console.WriteLine("parallel end " + i);
     });
     Console.ReadLine();
-} //
+}
 ```
 
 ```c#
@@ -350,7 +358,7 @@ public static void Parallel_ForEach() {
         Console.WriteLine("parallel end " + i);
     });
     Console.ReadLine();
-} //
+}
 ```
 
 ```c#
@@ -365,10 +373,10 @@ public static void Parallel_ForBreak() {
     Console.WriteLine("IsCompleted: " + result.IsCompleted);
     Console.WriteLine("LowestBreakIteration: " + result.LowestBreakIteration);
     Console.ReadLine();
-} //
+}
 ```
 
-Het veld IsCompleted retourneert false als de lus niet is voltooid. En LowestBreakIteration vertegenwoordigt het laagste iteratiegetal van waaruit de break-instructie werd aangeroepen. Alle lagere iteratienummers worden uitgevoerd. De functie breekt niet, de code na de break wordt nog steeds uitgevoerd! Het Break() statement kan worden gebruikt in zoek-gebaseerde algoritmen waar een ordening aanwezig is in de gegevensbron.
+Het veld **IsCompleted** retourneert false als de lus niet is voltooid. En **LowestBreakIteration** vertegenwoordigt het laagste iteratiegetal van waaruit de break-instructie werd aangeroepen. Alle lagere iteratienummers worden uitgevoerd. De functie breekt niet, de code na de break wordt nog steeds uitgevoerd! Het **Break()** statement kan worden gebruikt in zoek-gebaseerde algoritmen waar een ordening aanwezig is in de gegevensbron.
 
 ```c#
 public static void Parallel_ForBreak() {
@@ -387,11 +395,9 @@ public static void Parallel_ForBreak() {
 } //
 ```
 
-Het Stop() statement retourneert null in LowestBreakIteration. De code na Stop() wordt nog steeds uitgevoerd!
+Het **Stop()** statement retourneert null in LowestBreakIteration. De code na Stop() wordt nog steeds uitgevoerd!
 
-Break() voltooit alle iteraties op alle threads die voor de huidige iteratie op de huidige thread staan, en verlaat dan de lus.
-
-Stop() stopt alle iteraties zo snel als mogelijk is.
+Break() voltooit alle iteraties op alle threads die voor de huidige iteratie op de huidige thread staan, en verlaat dan de lus. Stop() stopt alle iteraties zo snel als mogelijk is.
 
 ## PLINQ
 
@@ -402,27 +408,36 @@ public static void PLINQ1() {
     int[] range = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
  
     Console.WriteLine("old school");
-    for (int i = 0, n = range.Length; i < n; i++) {         if (range[i] % 2 == 0) Console.WriteLine(range[i]);     }     Console.WriteLine("LINQ");     var linq = from i in range where (i % 2 == 0) select i;     foreach (int i in linq) Console.WriteLine(i);     Console.WriteLine("LINQ2");     var linq2 = range.Where(i => i % 2 == 0);
+    for (int i = 0, n = range.Length; i < n; i++) {         
+        if (range[i] % 2 == 0) 
+            Console.WriteLine(range[i]);   
+    }
+    Console.WriteLine("LINQ");     
+    
+    var linq = from i in range where (i % 2 == 0) select i;     
+    foreach (int i in linq) Console.WriteLine(i);     
+    Console.WriteLine("LINQ2");     
+    
+    var linq2 = range.Where(i => i % 2 == 0);
     foreach (int i in linq2) Console.WriteLine(i);
- 
     Console.WriteLine("PLINQ1");
+    
     var plinq = from i in range.AsParallel() where (i % 2 == 0) select i;
     foreach (int i in plinq) Console.WriteLine(i);
- 
     Console.WriteLine("PLINQ2");
+    
     var plinq2 = range.AsParallel().Where(i => i % 2 == 0);
-    foreach (int i in plinq2) Console.WriteLine(i);
- 
+    foreach (int i in plinq2) Console.WriteLine(i); 
     Console.WriteLine("PLINQ3");
+    
     var plinq3 = range.AsParallel().Where(i => { Thread.Sleep(1000); return (i % 2 == 0); });
-    foreach (int i in plinq3) Console.WriteLine(i);
- 
+    foreach (int i in plinq3) Console.WriteLine(i); 
     Console.WriteLine("PLINQ3 sorted");
+    
     var plinq3sorted = range.AsParallel().AsOrdered().Where(i => { Thread.Sleep(1000); return (i % 2 == 0); });
     foreach (int i in plinq3sorted) Console.WriteLine(i);
- 
     Console.ReadLine();
-} //
+}
 ```
 
 Interessant is dat de runtime zelf beslist of het zinvol is om je query parallel uit te voeren. Parallelle uitvoering is dus niet gegarandeerd, tenzij je WithExecutionMode(ParallelExecutionMode.ForceParallelism) specificeert.
@@ -437,11 +452,10 @@ public static void PLINQ2() {
     foreach (int i in result) Console.WriteLine(i);
  
     Console.ReadLine();
-} //
+}
 ```
 
 En nu worden we geconfronteerd met iets vreemds. We hebben een gesorteerd resultaat gemaakt, maar op de een of andere manier gaat de sortering verloren! De reden is dat in tegenstelling tot "foreach" ForAll() niet wacht op alle resultaten voordat het begint met uitvoeren.
-Vandaar dat we een onverwacht resultaat zien.
 
 ```c#
 public static void PLINQ3() {
@@ -454,10 +468,10 @@ public static void PLINQ3() {
     plinq2sorted.ForAll(i => Console.WriteLine(i));
  
     Console.ReadLine();
-} //
+}
 ```
 
-Parallelle queries kunnen mislukken en excepties werpen. Deze excepties zullen de uitvoering van de queries niet stoppen. Ze worden verzameld en geretourneerd in een enkele uitzondering die kan worden opgevangen door het gebruikelijke try/catch blok.
+Parallelle queries kunnen mislukken en uitzonderingen opwerpen. Deze uitzonderingen zullen de uitvoering van de queries niet stoppen. Ze worden verzameld en geretourneerd in een enkele uitzondering die kan worden opgevangen door het gebruikelijke try/catch blok.
 
 ```c#
 public static void PLINQ4() {
@@ -478,18 +492,18 @@ public static void PLINQ4() {
     }
  
     Console.ReadLine();
-} //
+}
 ```
 
 ## Concurrent collections
 
-Collecties benaderen kan lastig zijn in een multithreaded omgeving. Je kan "lock()" gebruiken om toegang te krijgen tot gegevens van verschillende threads. C# 4.0 introduceerde concurrent collections, deze vereisen geen expliciete synchronisatie. Wees voorzichtig met het gebruik ervan. Ik heb veel performantietesten uitgevoerd en concurrent collections bleken vaak trager te zijn. In feite moet je je persoonlijke aanpak benchmarken met de hoeveelheid en frequentie van gegevens die je verwacht. Alleen dan kun je zeggen wat voor soort collectie je moet gebruiken.
+Collecties benaderen kan lastig zijn in een multithreaded omgeving. Je kan "lock()" gebruiken om toegang te krijgen tot gegevens van verschillende threads. C# 4.0 introduceerde concurrent collections, deze vereisen geen expliciete synchronisatie. Concurrent collections blijken vaak trager te werken. In feite moet je je persoonlijke aanpak benchmarken met de hoeveelheid en frequentie van gegevens die je verwacht. Alleen dan kun je zeggen wat voor soort collectie je moet gebruiken.
 
 ### BlockingCollection
 
 Stel je voor dat er gegevens op je PC binnenkomen en je zou die gegevens in een wachtrij willen zetten, zodat de buffer niet overloopt. De gegevens worden dan verwerkt zodra de CPU's vrije capaciteit hebben. BlockingCollection is een wrapper voor andere collections. Het standaard verzameltype is ConcurrentQueue. De BlockingCollection wacht (blokkeert) tot er gegevens aankomen voor het geval hij leeg is.
 
-Zoals je weet hou ik ervan korte stukjes code te schrijven in plaats van veel uit te leggen. Door naar de resultaten te kijken kun je het mechanisme gemakkelijk begrijpen.
+Door naar de resultaten van volgende code te kijken kan je het mechanisme gemakkelijk begrijpen:
 
 ```c#
 public static void BlockingCollection1() {
@@ -528,7 +542,7 @@ Mogelijke uitvoer:
 exception thrown: The collection argument is empty and has been marked as complete with regards to additions.
 ```
 
-Elk nummer verschijnt met een vertraging van ongeveer 200 milliseconden na het vorige. lCollection.CompleteAdding() werpt dan een exceptie en vertelt dat er geen elementen meer zullen volgen. Dit kan nuttig zijn om een taak te beëindigen die zich in een wachtstand bevindt vanwege Take().
+Elk nummer verschijnt met een vertraging van ongeveer 200 milliseconden na het vorige. lCollection.CompleteAdding() werpt dan een uitzondering op en vertelt dat er geen elementen meer zullen volgen. Dit kan nuttig zijn om een taak te beëindigen die zich in een wachtstand bevindt vanwege Take().
 
 ```c#
 public static void BlockingCollection2() {
@@ -550,11 +564,11 @@ public static void BlockingCollection2() {
 } //
 ```
 
-De uitvoer van bovenstaande code gedraagt zich hetzelfde, alleen de exception wordt niet gegooid.
-En als je "lCollection.CompleteAdding();" weglaat, verandert het gedrag niet zichtbaar. Maar er is één groot verschil. De foreach weet niet dat je klaar bent met toevoegen aan de BlockingCollection. Daarom gedraagt "foreach" (in combinatie met .GetConsumingEnumerable()) zich als een eindeloze lus en komt het programma nooit aan bij Console.Readline().
-Je programma vertellen dat je klaar bent met het toevoegen aan de verzameling is van vitaal belang.
+De uitvoer van bovenstaande code gedraagt zich hetzelfde, alleen de exception wordt niet opgegooid.
 
-Laten we ".GetConsumingEnumerable()" vermijden en kijken wat er gebeurt:
+En als je "lCollection.CompleteAdding();" weglaat, verandert het gedrag niet zichtbaar. Er is echter één groot verschil. De foreach weet niet dat je klaar bent met toevoegen aan de BlockingCollection. Daarom gedraagt "foreach" (in combinatie met .GetConsumingEnumerable()) zich als een eindeloze lus en komt het programma nooit aan bij Console.Readline().
+
+Je programma vertellen dat je klaar bent met het toevoegen aan de verzameling is van vitaal belang. Laten we ".GetConsumingEnumerable()" vermijden en kijken wat er gebeurt:
 
 ```c#
 public static void BlockingCollection3() {
@@ -577,11 +591,11 @@ public static void BlockingCollection3() {
 } //
 ```
 
-Lieve hemel! Het programma wacht niet tot de collectie gevuld is. Het programma drukt geen uitvoer af. Haal het commentaar weg van "Thread.Sleep(2000);" en de verzameling wordt correct gevuld op het moment dat het programma de uitvoer afdrukt. De getallen 1 tot en met 4 worden in één keer afgedrukt, zonder vertraging ertussen.
+Het programma wacht niet tot de collectie gevuld is. Het programma drukt geen uitvoer af. Haal "Thread.Sleep(2000);" uit commentaar en de verzameling wordt correct gevuld op het moment dat het programma de uitvoer afdrukt. De getallen 1 tot en met 4 worden in één keer afgedrukt, zonder vertraging ertussen.
 
 ### ConcurrentBag
 
-Aangezien er geen wachtrij betrokken is bij de klasse ConcurrentBag, kan en zal ze IEnumerabe implementeren. TryTake() krijgt wel de volgende waarde. Het commando gebruikt een "out" parameter, wat vrij slim is. Je kunt de geldigheid van het resultaat testen en tegelijkertijd het resultaat zelf krijgen. Dat is erg handig in multithreading. Anders zou je eerst moeten testen en dan de waarde moeten ophalen. Maar om dat te doen, zou je de collectie moeten lock(). En dat is hier niet nodig.
+Aangezien er geen wachtrij betrokken is bij de klasse ConcurrentBag, kan en zal deze IEnumerabe implementeren. TryTake() krijgt wel de volgende waarde. Het commando gebruikt een "out" parameter, wat vrij slim is. Je kunt de geldigheid van het resultaat testen en tegelijkertijd het resultaat zelf krijgen. Dat is erg handig in multithreading. Anders zou je eerst moeten testen en dan de waarde moeten ophalen. Maar om dat te doen, zou je de collectie moeten lock()-en en dat is hier niet nodig.
 
 ConcurrentBag staat dubbele entries toe. De volgorde is willekeurig, verwacht niet dat het zich gedraagt als een lijst. Je kunt getallen 0 tot 5 toevoegen en ze kunnen bv. in omgekeerde volgorde worden afgedrukt. Maar dit hoeft niet noodzakelijkerwijs te gebeuren.
 
@@ -607,7 +621,7 @@ public static void ConcurrentBag1() {
     }
              
     Console.ReadLine();
-} //
+}
 ```
 
 Het programma wacht niet tot de collectie gevuld is. Als je geluk hebt zie je een "0" op het scherm verschijnen. TryTake() is helemaal niet aan het blokkeren (wachten). Speel met het commentaar en kijk naar de resultaten. Hoe langer je wacht, hoe meer getallen er verschijnen.
@@ -619,34 +633,33 @@ public static void ConcurrentBag2() {
     foreach (int r in lCollection) Console.WriteLine(r);
   
     Console.ReadLine();
-} //
+}
 ```
 
-Hierboven is een snelle demonstratie van de IEnumerable. Merk op dat de volgorde van de uitvoer willekeurig kan zijn.
+Hierboven een demonstratie van IEnumerable. Merk op dat de volgorde van de uitvoer willekeurig kan zijn.
 
-Het basisgedrag van concurrent collection is nu uitgelegd. Stacks en Queues zijn geen nieuwe ideeën in C#.
-Ik zal dus alleen de hoofdpunten opnoemen:
+Het basisgedrag van concurrent collection is nu uitgelegd. Stacks en Queues zijn geen nieuwe concepten in C#:
 
 ### ConcurrentStack
 
-- Push()/PushRange() om gegevens toe te voegen
-- TryPop()/TryPopRange() om gegevens te krijgen
+- **Push()/PushRange()** om gegevens toe te voegen
+- **TryPop()/TryPopRange()** om gegevens te krijgen
 - Last in first out (LIFO)
 
 ### ConcurrentQueue
 
-- Enqueue() om gegevens toe te voegen
-- TryDequeue() om gegevens te krijgen
+- **Enqueue()** om gegevens toe te voegen
+- **TryDequeue()** om gegevens te krijgen
 - Eerste in, eerste uit (FIFO)
 
 ### ConcurrentDictionary
 
-Ook de Dictionary is welbekend in C#. De concurrent versie ervan kan atomair gegevens toevoegen, ophalen en bijwerken. Atomic betekent dat operaties starten en eindigen als enkele stappen en zonder tussenkomst van andere threads.
+Ook Dictionary is welbekend in C#. De concurrent versie ervan kan atomair gegevens toevoegen, ophalen en bijwerken. Atomic betekent dat operaties starten en eindigen als enkele stappen en zonder tussenkomst van andere threads.
 
-TryAdd geeft true terug als de nieuwe invoer met succes werd toegevoegd. Als de sleutel al bestaat, retourneert deze methode false.
-TryUpdate vergelijkt de bestaande waarde voor de gespecificeerde sleutel met een gespecificeerde waarde, en als ze gelijk zijn, wordt de sleutel bijgewerkt met een derde waarde.
-AddOrUpdate voegt een record toe als de sleutel nog niet bestaat, of werkt deze bij als de sleutel al bestaat.
-GetOrAdd voegt een item toe als de sleutel nog niet bestaat.
+**TryAdd** geeft true terug als de nieuwe invoer met succes werd toegevoegd. Als de sleutel al bestaat, retourneert deze methode false.
+**TryUpdate** vergelijkt de bestaande waarde voor de gespecificeerde sleutel met een gespecificeerde waarde, en als ze gelijk zijn, wordt de sleutel bijgewerkt met een derde waarde.
+**AddOrUpdate** voegt een record toe als de sleutel nog niet bestaat, of werkt deze bij als de sleutel al bestaat.
+**GetOrAdd** voegt een item toe als de sleutel nog niet bestaat.
 
 ```c#
 public static void ConcurrentDictionary1() {
@@ -663,7 +676,7 @@ public static void ConcurrentDictionary1() {
     PrintConcurrentDictionary(lCollection);
  
     Console.ReadLine();
-} //
+}
 ```
 
 Mogelijke uitvoer:
@@ -683,6 +696,4 @@ a = 9
 b = 5
 a = 9
 ```
-
-## Deadlocks
 
