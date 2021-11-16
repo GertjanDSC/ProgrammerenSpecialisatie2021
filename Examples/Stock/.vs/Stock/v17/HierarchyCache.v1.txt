@@ -1,17 +1,18 @@
-﻿++Solution 'Stock' ‎(7 of 7 projects)
+﻿++Solution 'Stock' ‎(8 of 8 projects)
 i:{00000000-0000-0000-0000-000000000000}:Stock.sln
 ++Apps
 i:{00000000-0000-0000-0000-000000000000}:Apps
 ++ConsoleApp
 i:{a6729eb2-be75-4fe3-9b1c-16bc241cd374}:ConsoleApp
 ++Dependencies
-i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:>17094
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:>18032
-i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:>16990
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>17305
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:>18933
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:>18182
-i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:>18344
+i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:>2344
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:>2273
+i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:>603
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>602
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:>1164
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:>2933
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:>2343
+i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:>2274
 ++Program.cs
 i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\consoleapp\program.cs
 ++StockManager.cs
@@ -22,16 +23,18 @@ i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:analyzers
 i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:analyzers
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:analyzers
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:analyzers
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:analyzers
 i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:analyzers
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:analyzers
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:analyzers
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:analyzers
 ++Frameworks
 i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:frameworks
 i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:frameworks
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:frameworks
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:frameworks
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:frameworks
 i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:frameworks
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:frameworks
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:frameworks
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:frameworks
 ++Projects
 i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:projects
@@ -44,78 +47,118 @@ i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:c:\program files\dotnet\sdk\6.0.100-rc.
 i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 ++Microsoft.CodeAnalysis.NetAnalyzers
 i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\program files\dotnet\sdk\6.0.100-rc.2.21505.57\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:c:\users\u2389\.nuget\packages\microsoft.entityframeworkcore.analyzers\5.0.12\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\.nuget\packages\microsoft.entityframeworkcore.analyzers\5.0.12\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\.nuget\packages\microsoft.entityframeworkcore.analyzers\5.0.12\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
 ++Microsoft.NETCore.App
 i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\consoleapp\microsoft.netcore.app
 i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\microsoft.netcore.app
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\microsoft.netcore.app
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\microsoft.netcore.app
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\microsoft.netcore.app
 i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\microsoft.netcore.app
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\microsoft.netcore.app
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\mvvm\microsoft.netcore.app
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\microsoft.netcore.app
 ++Stock.Infrastructure
 i:{c1031ec3-83ce-4234-8e1e-1562e84c0caf}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\bin\debug\net5.0\stock.infrastructure.dll
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\bin\debug\net5.0\stock.infrastructure.dll
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\stock.infrastructure.csproj
 i:{73bceea5-9860-4dc4-897e-449568746b81}:Stock.Infrastructure
 ++WpfApp
 i:{a6729eb2-be75-4fe3-9b1c-16bc241cd374}:WpfApp
+++MVVM
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\mvvm\
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\mvvm\mvvm.csproj
+i:{f7757f42-8048-4192-9594-8d7c33c66715}:MVVM
+++RelayCommand.cs
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\mvvm\relaycommand.cs
+++Providers
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\providers\
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\kernel\providers\
+++StockQueryProvider.cs
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\providers\stockqueryprovider.cs
+++ViewModels
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\viewmodels\
+++StudentViewModel.cs
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\viewmodels\studentviewmodel.cs
+++TickData.cs
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\viewmodels\tickdata.cs
+++ViewModel.cs
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\viewmodels\viewmodel.cs
+++Views
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\views\
+++MainWindow.xaml
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\views\mainwindow.xaml
+++MainWindow.xaml.cs
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\views\mainwindow.xaml.cs
+++StudentView.xaml
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\views\studentview.xaml
+++StudentView.xaml.cs
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\views\studentview.xaml.cs
 ++App.xaml
 i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\app.xaml
+++App.xaml.cs
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\app.xaml.cs
 ++AssemblyInfo.cs
 i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\assemblyinfo.cs
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\csvhelper\properties\assemblyinfo.cs
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\assemblyinfo.cs
 i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\assemblyinfo.cs
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\assemblyinfo.cs
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\assemblyinfo.cs
-++MainWindow.xaml
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\mainwindow.xaml
-++MainWindow.xaml.cs
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\mainwindow.xaml.cs
-++StockQueryProvider.cs
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\stockqueryprovider.cs
-++ViewModel.cs
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\viewmodel.cs
-++App.xaml.cs
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\app.xaml.cs
 ++Microsoft.WindowsDesktop.App.WPF
 i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\microsoft.windowsdesktop.app.wpf
 i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\microsoft.windowsdesktop.app.wpf
 ++LiveChartsCore.SkiaSharpView.WPF
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\bin\debug\net5.0-windows\livechartscore.skiasharpview.wpf.dll
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\livechartscore.skiasharpview.wpf.csproj
 i:{f7757f42-8048-4192-9594-8d7c33c66715}:LiveChartsCore.SkiaSharpView.WPF
 ++Stock.Domain
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\bin\debug\net5.0\stock.domain.dll
+i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\stock.domain.csproj
 i:{73bceea5-9860-4dc4-897e-449568746b81}:Stock.Domain
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\bin\debug\net5.0\stock.domain.dll
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\stock.domain.csproj
 ++Assemblies
 i:{00000000-0000-0000-0000-000000000000}:Assemblies
 ++Contracts
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\contracts\
-++IStockQuery.cs
-i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\contracts\istockquery.cs
 ++Interfaces
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\interfaces\
-++ITick.cs
-i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\interfaces\itick.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\itick.cs
 ++Candle.cs
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\candle.cs
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\candle.cs
+++Field.cs
+i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\field.cs
 ++Period.cs
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\period.cs
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\period.cs
+++Security.cs
+i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\security.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\security.cs
 ++ShareData.cs
 i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\sharedata.cs
+++Student.cs
+i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\student.cs
+++IStockQuery.cs
+i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\contracts\istockquery.cs
+++ITick.cs
+i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\interfaces\itick.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\itick.cs
+++Packages
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:packages
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:packages
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:packages
+i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:packages
 ++CsvHelper
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\csvhelper\
 ++Configuration
@@ -208,58 +251,19 @@ i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmere
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\csvhelper\writingcontext.cs
 ++YahooFinanceApi
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\
-++DividendTick.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\dividendtick.cs
-++Fields.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\fields.cs
-++Helper.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\helper.cs
-++InternalsVisibleTo.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\internalsvisibleto.cs
-++RowExtension.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\rowextension.cs
-++Security.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\security.cs
-i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\security.cs
-++ShowOption.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\showoption.cs
-++SplitTick.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\splittick.cs
-++Yahoo - Historical.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\yahoo - historical.cs
-++Yahoo - Quote.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\yahoo - quote.cs
-++YahooClientFactory.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\yahooclientfactory.cs
 ++YahooHelper
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\
-++AdjStockData.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\adjstockdata.cs
-++AvFxEod.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\avfxeod.cs
-++AvSectorPerf.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\avsectorperf.cs
-++AvStockQuote.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\avstockquote.cs
-++IexStockQuote.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\iexstockquote.cs
-++IsdaRate.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\isdarate.cs
-++OptionData.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\optiondata.cs
-++OptionResult.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\optionresult.cs
-++ParRate.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\parrate.cs
-++YahooHelper.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\yahoohelper.cs
-++YahooStockData.cs
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\yahoostockdata.cs
-++Packages
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:packages
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:packages
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:packages
-i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:packages
+++AutoMapper (10.1.1)
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>2948
+++Flurl.Http (3.2.0)
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>2950
+++Microsoft.EntityFrameworkCore (5.0.12)
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>2946
+++Microsoft.EntityFrameworkCore.Tools (5.0.12)
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>2949
+++Newtonsoft.Json (13.0.1)
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>2947
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:>2989
 ++Attributes
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\csvhelper\configuration\attributes\
 ++ClassMap.cs
@@ -426,13 +430,48 @@ i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmere
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\csvhelper\typeconversion\uint64converter.cs
 ++UriConverter.cs
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\csvhelper\typeconversion\uriconverter.cs
-++AutoMapper (10.1.1)
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>18958
-++Flurl.Http (3.2.0)
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>18960
-++Newtonsoft.Json (13.0.1)
-i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:>18956
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:>18988
+++DividendTick.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\dividendtick.cs
+++Fields.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\fields.cs
+++Helper.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\helper.cs
+++InternalsVisibleTo.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\internalsvisibleto.cs
+++RowExtension.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\rowextension.cs
+++ShowOption.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\showoption.cs
+++SplitTick.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\splittick.cs
+++Yahoo - Historical.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\yahoo - historical.cs
+++Yahoo - Quote.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\yahoo - quote.cs
+++YahooClientFactory.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoofinanceapi\yahooclientfactory.cs
+++AdjStockData.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\adjstockdata.cs
+++AvFxEod.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\avfxeod.cs
+++AvSectorPerf.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\avsectorperf.cs
+++AvStockQuote.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\avstockquote.cs
+++IexStockQuote.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\iexstockquote.cs
+++IsdaRate.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\isdarate.cs
+++OptionData.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\optiondata.cs
+++OptionResult.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\optionresult.cs
+++ParRate.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\parrate.cs
+++YahooHelper.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\yahoohelper.cs
+++YahooStockData.cs
+i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\yahoohelper\yahoostockdata.cs
 ++BooleanFalseValuesAttribute.cs
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\csvhelper\configuration\attributes\booleanfalsevaluesattribute.cs
 ++BooleanTrueValuesAttribute.cs
@@ -471,6 +510,53 @@ i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmere
 i:{4152eb6e-f450-4b55-affb-6c4b8ab8dc3b}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\infrastructure\csvhelper\configuration\attributes\typeconverterattribute.cs
 ++SupportLibraries
 i:{00000000-0000-0000-0000-000000000000}:SupportLibraries
+++images
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\images\
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\images\
+i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\images\
+++Themes
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\themes\
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\themes\
+++CartesianChart.cs
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\cartesianchart.cs
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\cartesianchart.cs
+++Chart.cs
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\chart.cs
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\chart.cs
+++DefaultLegend.xaml
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\defaultlegend.xaml
+++DefaultTooltip.xaml
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\defaulttooltip.xaml
+++GeoMap.cs
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\geomap.cs
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\geomap.cs
+i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\geomap.cs
+++LiveChartsCore.SkiaSharpView.WPF.xml
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\livechartscore.skiasharpview.wpf.xml
+++MotionCanvas.cs
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\motioncanvas.cs
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\drawing\motioncanvas.cs
+++PieChart.cs
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\piechart.cs
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\piechart.cs
+++PolarChart.cs
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\polarchart.cs
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\polarchart.cs
+++icon.png
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\images\icon.png
+i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\images\icon.png
+i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\images\icon.png
+++Generic.xaml
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\themes\generic.xaml
+++DefaultLegend.xaml.cs
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\defaultlegend.xaml.cs
+++DefaultTooltip.xaml.cs
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\defaulttooltip.xaml.cs
+++SkiaSharp.Views.WPF (2.80.3)
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:>2999
+++LiveChartsCore.SkiaSharpView
+i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\bin\debug\net5.0\livechartscore.skiasharpview.dll
+i:{f7757f42-8048-4192-9594-8d7c33c66715}:LiveChartsCore.SkiaSharpView
 ++LiveChartsCore
 i:{f7757f42-8048-4192-9594-8d7c33c66715}:LiveChartsCore
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\bin\debug\net5.0\livechartscore.dll
@@ -486,10 +572,6 @@ i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmere
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\easing\
 ++Geo
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\geo\
-++images
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\images\
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\images\
-i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\images\
 ++Kernel
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\kernel\
 ++Measure
@@ -497,22 +579,13 @@ i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmere
 ++Motion
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\motion\
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\motion\
-++Themes
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\themes\
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\themes\
 ++Axis.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\axis.cs
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\axis.cs
 ++BarSeries.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\barseries.cs
-++CartesianChart.cs
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\cartesianchart.cs
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\cartesianchart.cs
 ++CartesianSeries.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\cartesianseries.cs
-++Chart.cs
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\chart.cs
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\chart.cs
 ++ChartSeries.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\chartseries.cs
 ++ColumnSeries.cs
@@ -525,10 +598,6 @@ i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmere
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\easingfunctions.cs
 ++FinancialSeries.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\financialseries.cs
-++GeoMap.cs
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\geomap.cs
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\geomap.cs
-i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\geomap.cs
 ++HeatFunctions.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\heatfunctions.cs
 ++HeatSeries.cs
@@ -545,18 +614,12 @@ i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmere
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\lineseries.cs
 ++LiveCharts.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\livecharts.cs
-++PieChart.cs
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\piechart.cs
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\piechart.cs
 ++PieSeries.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\pieseries.cs
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\pieseries.cs
 ++PolarAxis.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\polaraxis.cs
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\polaraxis.cs
-++PolarChart.cs
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\polarchart.cs
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\polarchart.cs
 ++PolarLineSeries.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\polarlineseries.cs
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\polarlineseries.cs
@@ -679,9 +742,6 @@ i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmere
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\drawing\lvcrectangle.cs
 ++LvcSize.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\drawing\lvcsize.cs
-++MotionCanvas.cs
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\drawing\motioncanvas.cs
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\motioncanvas.cs
 ++Padding.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\drawing\padding.cs
 ++StepLineVisualPoint.cs
@@ -750,16 +810,10 @@ i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmere
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\geo\world.geojson
 ++ZoomOnPointerView.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\geo\zoomonpointerview.cs
-++icon.png
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\images\icon.png
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\images\icon.png
-i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\images\icon.png
 ++Events
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\kernel\events\
 ++Helpers
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\kernel\helpers\
-++Providers
-i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\kernel\providers\
 ++Sketches
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\kernel\sketches\
 ++ActionThrottler.cs
@@ -942,23 +996,12 @@ i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmere
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\kernel\sketches\isteplineseries.cs
 ++IStrokedAndFilled.cs
 i:{a2eb15d9-6899-4ad0-a1b9-c401d73cd8f7}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\livechartscore\kernel\sketches\istrokedandfilled.cs
-++DefaultLegend.xaml
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\defaultlegend.xaml
-++DefaultTooltip.xaml
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\defaulttooltip.xaml
-++LiveChartsCore.SkiaSharpView.WPF.xml
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\livechartscore.skiasharpview.wpf.xml
-++Generic.xaml
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\themes\generic.xaml
-++DefaultLegend.xaml.cs
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\defaultlegend.xaml.cs
-++DefaultTooltip.xaml.cs
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp.wpf\defaulttooltip.xaml.cs
-++SkiaSharp.Views.WPF (2.80.3)
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:>18990
-++LiveChartsCore.SkiaSharpView
-i:{e702e547-44f4-4970-bcad-7203f33c9e1e}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\bin\debug\net5.0\livechartscore.skiasharpview.dll
-i:{f7757f42-8048-4192-9594-8d7c33c66715}:LiveChartsCore.SkiaSharpView
+++ComputedViewModelBase.cs
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\mvvm\computedviewmodelbase.cs
+++PropertySourceAttribute.cs
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\mvvm\propertysourceattribute.cs
+++ViewModelBase.cs
+i:{21e81b8c-af75-4a95-a96a-8093a0abbd9c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\mvvm\viewmodelbase.cs
 ++Painting
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\painting\
 ++SKCharts
@@ -1016,7 +1059,7 @@ i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmere
 ++SKPieChart.cs
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\skcharts\skpiechart.cs
 ++SkiaSharp (2.80.3)
-i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:>18981
+i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:>2988
 ++Segments
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\drawing\geometries\segments\
 ++CandlestickGeometry.cs
@@ -1073,7 +1116,3 @@ i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmere
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\drawing\geometries\segments\pathcommand.cs
 ++StepLineSegment.cs
 i:{d0886626-5ef8-42a4-84ce-e1e04ade413c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\supportlibraries\skiasharp\livechartscore.skiasharp\drawing\geometries\segments\steplinesegment.cs
-++Field.cs
-i:{71af9b67-3f44-495a-98ff-546ff414bd8c}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\assemblies\domain\field.cs
-++TickData.cs
-i:{672c0c6a-167d-49d1-8617-8cb21e0507aa}:c:\users\u2389\source\repos\programmerenspecialisatie2021\examples\stock\apps\wpfapp\tickdata.cs
