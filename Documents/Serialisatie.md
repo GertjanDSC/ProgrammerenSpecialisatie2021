@@ -2,11 +2,17 @@
 
 ## Json
 
-XML is (te) zeer "woordrijk". Dit leidt tot een hoger geheugengebruik en traagheid tijdens het (de-)serialisatieproces. Er zijn alternatieven op de markt die ook de cross-platform benadering ondersteunen. De meest eenvoudige, die onder web API's wordt gebruikt, is JSON. Het is goed geïntegreerd in JavaScript.
-Het .Net framework ondersteunt JSON. Dus JSON is een goed begin om je langzaam te verdiepen in berichten over netwerken. Er zijn meer geavanceerde cross-platform oplossingen. Jackson, GSON en BSON zijn enkele van de echt goede. Daarnaast kun je altijd nog de goede oude .Net data serialisatie (of remoting) gebruiken. Als je eerder snelheid dan flexibiliteit nodig hebt, dan zou ik je waarschijnlijk aanraden om je eigen binair protocol te gebruiken. Helaas zijn aangepaste binaire protocollen foutgevoelig, kan debugging een hel zijn en is de controle factor voor IT support mensen bijna nul in het geval het protocol corrupt is. Duurt het verzenden van gegevens langer dan het coderen/verpakken van gegevens? Dat is de fundamentele vraag. Protocol Buffers wordt waarschijnlijk de beste vriend van de "binary number cruncher". Het is een gratis (Apache Licentie) platformoverschrijdend product. Er is ook een specifieke versie voor de .Net omgeving. Protocol Buffers is niet de snelste tool op de markt, maar alle snellere tools die ik ken zijn (zoals kryo) alleen voor Java. Protocol Buffers wordt ondersteund door vele programmeertalen. De snelheid is behoorlijk goed.
-Zoals gewoonlijk liggen er nog genoeg berichten voor ons.
+XML is weliswaar geschikt om "cross-platform" gegevens door te sturen door de aard van de codering (leesbare tekst), maar is (te) zeer "woordrijk". Dit leidt tot een hoger geheugengebruik en traagheid tijdens het (de-)serialisatieproces. Er zijn alternatieven op de markt die ook de cross-platform benadering ondersteunen. De meest eenvoudige techniek, die onder meer in web API's wordt gebruikt, is [JSON](https://www.json.org/json-en.html). JSON is goed geïntegreerd in Javascript aangezien een JSON fragment Javascript "is".
 
-Terug naar Json, vertrekkende van een vergelijkbaar XML voorbeeld:
+Het .Net framework ondersteunt JSON. Dus JSON is een goed begin om je te verdiepen in het versturen van berichten overheen een netwerk in recente jaren. 
+
+Er zijn meer geavanceerde cross-platform oplossingen. [BSON](https://bsonspec.org/) is een echt goede. Daarnaast kun je altijd nog de goede oude .Net data serialisatie (of remoting - deprecated) gebruiken. Als je eerder snelheid dan flexibiliteit nodig hebt, raden we aan om je eigen binair protocol te gebruiken. Helaas zijn aangepaste binaire protocollen foutgevoelig, kan debugging een hel zijn en is de controlefactor bijna nul in het geval het protocol corrupt is. 
+
+Duurt het verzenden van gegevens langer dan het coderen/verpakken van gegevens? Dat is de fundamentele vraag die we ons altijd moeten stellen: dit is een "trade-off". 
+
+[Protocol Buffers](https://developers.google.com/protocol-buffers) is waarschijnlijk de beste vriend van de "binary number cruncher". Het is een gratis (Apache Licentie) platform-overschrijdend product. Er is ook een specifieke versie voor de .Net omgeving. Protocol Buffers is niet de snelste tool op de markt, maar alle snellere tools (zoals bijvoorbeeld [kryo](https://github.com/EsotericSoftware/kryo)) zijn er meer uitsluitend voor Java. Protocol Buffers wordt ondersteund door vele programmeertalen. De snelheid is behoorlijk goed.
+
+Terug naar JSON:
 
 ```xml
 <person>
@@ -26,7 +32,7 @@ Terug naar Json, vertrekkende van een vergelijkbaar XML voorbeeld:
 </person>
 ```
 
-of:
+wordt in JSON iets als:
 
 ```xml
 <person firstName="John" lastName="Smith" age="25">
@@ -38,7 +44,7 @@ of:
 </person>
 ```
 
-JSON lijkt meer op C#, is het niet (zie hieronder)? Er is een echt leuke JSON [online viewer](http://www.jsoneditoronline.org/) hier.
+JSON lijkt meer op C#, is het niet (zie hieronder)? Een echt leuke JSON viewer: [online json](http://www.jsoneditoronline.org/).
 
 ```json
 {
@@ -63,9 +69,9 @@ JSON lijkt meer op C#, is het niet (zie hieronder)? Er is een echt leuke JSON [o
 }
 ```
 
-Allereerst moeten we JavaScriptSerializer beschikbaar maken. Voeg de referentie "System.Web.Extensions" toe aan je project. De namespace "System.Web.Script.Serialization" is nu beschikbaar.
+Allereerst moeten we **JavaScriptSerializer** beschikbaar maken. Voeg de referentie "System.Web.Extensions" toe aan je project. De namespace "System.Web.Script.Serialization" is nu beschikbaar.
 
-(Als deze nog in je AssemblyInfo.cs staat, verwijder dan [assembly: AllowPartiallyTrustedCallersAttribute])
+(Als dit nog in je AssemblyInfo.cs staat, verwijder [assembly: AllowPartiallyTrustedCallersAttribute])
 
 ```json
 {
@@ -132,7 +138,7 @@ public static void LoadObjectJSON() {
     foreach (WalmartItem lItem in lWalmartWolrd.Food) Console.WriteLine(lItem);
              
     Console.ReadLine();
-} //
+}
 ```
 
 
@@ -146,7 +152,7 @@ public static void SaveObjectsJSON(WalmartWorld xWalmartWorld) {
     string lSerialized = lSerializer.Serialize(xWalmartWorld);
  
     File.WriteAllText(lFile, lSerialized);
-} //
+}
 ```
 
 ```text
@@ -158,13 +164,12 @@ Milk            1.43 from happy cows
 baked beans     1.35 very British
 ```
 
-Helaas hebben we dezelfde puinhoop als met XML. Er zijn verschillende klassen die zich bezighouden met JSON in het .Net framework.
-Er is nog een serializer in de System.Runtime.Serialization.Json namespace genaamd DataContractJsonSerializer. Deze is bedoeld voor gebruik met WCF client applicaties. Hij maakt wel gebruik van DataContractAttribute en DataMemberAttribute om de te serialiseren gegevens te identificeren. Als je geen van deze attributen toevoegt, wordt de data genegeerd.
-Voeg de "System.Runtime.Serialization" referentie toe aan je project.
+Helaas zien we dezelfde puinhoop als in het geval van XML: er zijn verschillende klassen die zich bezighouden met JSON in het .Net framework.
+Er is bijvoorbeeld een serializer in de System.Runtime.Serialization.Json namespace genaamd **DataContractJsonSerializer**. Deze is bedoeld voor gebruik met WCF client applicaties en maakt wel gebruik van DataContractAttribute en DataMemberAttribute om de te serialiseren gegevens te identificeren. Als je geen van deze attributen toevoegt, wordt de data genegeerd. Voor het gebruik van DataContractJsonSerializer voeg je de "System.Runtime.Serialization" referentie toe aan je project.
 
-Laten we onze Walmart klassen uitbreiden en de vereiste attributen toevoegen. Je kunt de XML attributen verwijderen als je niet meer met XML wilt werken. Je kunt ze in de code laten staan om de achterdeur open te houden voor een snelle en eenvoudige XML conversie. De XML attributen hebben geen invloed op het programma, het zijn alleen wat extra bytes.
+Laten we onze Walmart klassen uitbreiden en de vereiste attributen toevoegen. Je kunt de XML attributen verwijderen als je niet meer met XML wilt werken. Je kunt ze in de code laten staan om de achterdeur open te houden voor een snelle en eenvoudige XML conversie. De XML attributen hebben geen invloed op het programma, het betreft alleen wat extra bytes in je programmacode.
 
-Maar pas op voor een kleine typefout. Als je DataContractSerializer gebruikt in plaats van DataContractJsonSerializer, dan maak je per ongeluk XML en geen Json bestanden. Zulke kleine problemen in het leven kunnen je gek maken.
+Pas op voor een kleine typefout. Als je DataContractSerializer gebruikt in plaats van DataContractJsonSerializer, dan maak je per ongeluk XML en geen JSON aan.
 
 ```c#
 [Serializable]
@@ -243,7 +248,7 @@ public static WalmartWorld LoadObjectJSON2() {
 } //
 ```
 
-Je zou een aangepaste naam kunnen definiëren voor elk DataMember attribuut. Het JSON-bestand zou dan deze naam adresseren in plaats van de naam van de eigenschap.
+Je kan een aangepaste naam definiëren voor elk DataMember attribuut. Het JSON-bestand zal dan deze naam gebruiken in plaats van de naam van de property:
 
 ```c#
 [DataMember(Name = "UseWhateverYouLike")]
@@ -265,9 +270,9 @@ Protocol buffers is de naam van het binaire serialisatieformaat dat Google gebru
 
 Dit is beknopt.
 
-Voeg de protobuf-net.dll toe.
+Voeg protobuf-net.dll toe aan je assembly.
 
-Protocol Buffers gebruikt attributen om de te serialiseren typen te identificeren. Het ProtoMember attribuut heeft een positief geheel getal nodig. Dit kan pijnlijk zijn, omdat je overlapping moet vermijden als je overerving gebruikt. Maar gehele getallen hebben ook een duidelijk voordeel. Ze zijn veel sneller dan strings. Zoals u al weet, draait Protocol Buffers om snelheid.
+Protocol Buffers gebruikt attributen om de te serialiseren typen te identificeren. Het **ProtoMember** attribuut heeft een positief geheel getal nodig. Dit kan pijnlijk zijn, omdat je overlapping moet vermijden als je overerving gebruikt. Maar het gebruik van gehele getallen heeft ook een duidelijk voordeel: het is veel sneller dan strings. Zoals je al weet, draait Protocol Buffers om snelheid.
 
 ```c#
 [ProtoContract]
@@ -352,7 +357,6 @@ public static void SerializeData() {
 ```
 
 ```text
-example output:
 0A 05 41 65 73 6F 70 12 31 0A 14 54 68 65 20 46 6F 78 20 26
 20 74 68 65 20 47 72 61 70 65 73 11 66 66 66 66 66 66 E6 3F
 11 66 66 66 66 66 66 E6 3F 11 9A 99 99 99 99 99 E9 3F 12 49
@@ -389,7 +393,6 @@ public static void ToAndFro() {
 ```
 
 ```text
-example output:
 by Aesop, edition 13 Mar 1975, pages 203, price 1.99, isEbook False
 title The Fox & the Grapes, rating 0.733333333333333
 title The Goose that Laid the Golden Eggs, rating 0.7125
@@ -397,9 +400,9 @@ title The Cat & the Mice, rating 0.133333333333333
 title The Mischievous Dog, rating 0.37
 ```
 
-we sturen nu geserialiseerde binaire data over het netwerk. Ik gebruik de localhost om een lopend voorbeeld te hebben. Wijzig gewoon het lokale IP-adres "127.0.0.1" naar wat je maar wilt.
+We sturen nu geserialiseerde binaire data over het netwerk. 
 
-Ik schreef een kleine klasse ("ProtoType") om objecten snel te identificeren tijdens het serialisatie en deserialisatie proces. Het is abstract en vormt onze basisklasse. De klasse "Boek" en "Fabel" zijn bijna ongewijzigd ten opzichte van de vorige berichten. Ik heb enkel een override "ToString" toegevoegd in "Fable" om een mooiere uitvoer te hebben. Beide klassen moeten erven van onze abstracte basisklasse "ProtoType", waardoor vermeden wordt een interface te implementeren en de leesbaarheid van de code meer dan nodig te beïnvloeden.
+We schrijven nu een kleine klasse ("ProtoType") om objecten snel te identificeren tijdens het serialisatie- en deserialisatieproces. De klasse is abstract en vormt onze basisklasse. De klasse "Boek" en "Fabel" zijn bijna ongewijzigd ten opzichte van de vorige berichten. We voegden override "ToString" toe in "Fable" om een mooiere uitvoer te hebben. Beide klassen erven over van onze abstracte basisklasse "ProtoType", waardoor vermeden wordt een interface te implementeren en de leesbaarheid van de code meer dan nodig te beïnvloeden.
 
 ```c#
 public class ProtoBufExample {
@@ -477,11 +480,11 @@ public class ProtoBufExample {
                 new Fable{ title = "The Mischievous Dog", customerRatings = new double[]{ 0.45, 0.5, 0.4, 0.0, 0.5} }
             })
         };
-    } //
+    }
 ```
 
-De server-side moet altijd voor de client gestart worden. Anders zou de client niet onmiddellijk een antwoord van de server krijgen. We zetten een luisteraar op localhost poort 65432 (willekeurige keuze) en wachten op een client verbinding. Ik koos voor het TCP protocol. Het is gemakkelijk te gebruiken en zeer betrouwbaar. We hoeven ons geen zorgen te maken over transmissie problemen. Het nadeel is traagheid. Ik zal dat in de komende berichten behandelen.
-De deserializer aan de server-kant kan niet meteen worden uitgevoerd. We moeten eerst het object type bepalen. En hier maken we gebruik van onze "ProtoType" klasse. De eerste twee bytes van de transmissie vertellen ons het type. Dit is heel belangrijk voor de snelheid van de deserialisatie. Je ziet dat de ProtoBuf.Serializer.DeserializeWithLengthPrefix methode generiek is. De type casting wordt op die manier geminimaliseerd.
+De server moet altijd voor de client gestart worden, anders zou de client niet onmiddellijk een antwoord van de server krijgen. We luisteren op localhost 127.0.0.1 poort 65432 (willekeurige keuze) en wachten op een clientverbinding. We opteerden voor het TCP protocol: dit is gemakkelijk te gebruiken en *reliable* (betrouwbaar). We hoeven ons geen zorgen te maken over transmissieproblemen. Het nadeel van de keuze voor TCP is dat het trager is dan UDP.
+De deserializer aan de server-kant kan niet meteen worden uitgevoerd. We moeten eerst het objecttype bepalen. Hiervoor maken we gebruik van onze "ProtoType" klasse. De eerste twee bytes van de transmissie vertellen ons het type. Dit is heel belangrijk voor de snelheid van de deserialisatie. Je ziet dat de ProtoBuf.Serializer.DeserializeWithLengthPrefix methode generiek is. Type casting wordt op die manier geminimaliseerd.
 
 ```c#
 public class NetworkListener {
@@ -586,12 +589,11 @@ public class NetworkListener {
             _ExitLoop = true;
             if (_Listener != null) _Listener.Stop();
         }
-    } // 
- 
+    }
 } // class
 ```
 
-De client-kant is recht-toe-recht-aan. Er is niet veel verwerking behalve het kiezen van het juiste generic type voor het serialisatieproces. Ik heb een BlockingCollection gebruikt om het wisselen van context makkelijker te maken. Het is niet de snelste oplossing, maar het maakt het passeren van objecten in een thread loop zeker gemakkelijk. Ik ben persoonlijk geen fan van de concurrent collections. Ze zijn niet zo voorspelbaar als een aangepaste oplossing. _Queue.Take(); blokkeert en wacht tot gegevens aankomen. Het is thread-safe en vereist geen object locking.
+De client-kant is recht-toe-recht-aan. Er is niet veel verwerking behalve het kiezen van het juiste generic type voor het serialisatieproces. Ik heb een BlockingCollection gebruikt om het wisselen van context makkelijker te maken. Het is niet de snelste oplossing, maar het maakt het passeren van objecten in een thread loop zeker gemakkelijk. Persoonlijk zijn we geen grote fan van de *concurrent collections*: hun gedrag is niet zo voorspelbaar als dat van een oplossing op maat, van eigen hand. _Queue.Take(); blokkeert en wacht tot gegevens aankomen. Het is thread-safe en vereist geen object locking.
 
 ```c#
 public class NetworkClient {
@@ -670,8 +672,9 @@ public class NetworkClient {
 } // class
 ```
 
-Het hoofdprogramma is best netjes. We krijgen de "Boek" gegevens en sturen die naar localhost. Dan nemen we een enkel verhaal van hetzelfde boek en sturen het opnieuw om te zien of het programma de verschillende types goed behandelt. Et voilà, dat doet het.
-De omkadering (framing) van de geserialiseerde gegevens is zeer belangrijk. Als je het niet inkadert, dan kun je het type niet bepalen. Er zijn rare voorbeelden op het internet. Een snel google onderzoek toonde aan dat men dat cruciale punt vaak niet implementeert en beginners in het ongewisse laat.
+Het hoofdprogramma is best netjes. We krijgen de "Boek" gegevens en sturen die naar localhost. Dan nemen we een enkel verhaal van hetzelfde boek en sturen het opnieuw om te zien of het programma de verschillende types goed behandelt. 
+
+De omkadering (framing) van de geserialiseerde gegevens is zeer belangrijk. Als je deze niet inkadert, dan kun je de types niet bepalen. Er bestaan veel rare voorbeelden op het internet: een snel onderzoek met Google toont dat men dit cruciale punt van framing vaak niet implementeert en beginners in het ongewisse laat.
 
 ```c#
 public static class NetworkTest {
@@ -707,7 +710,6 @@ public static class NetworkTest {
 ```
 
 ```text
-example output:
 Waiting for a client
 New client connecting: 127.0.0.1:65432
 
@@ -728,26 +730,26 @@ client: shutting down
 server/listener: shutting down
 ```
 
-Er is een klein probleem met de OnBook event. We ontvangen gegevens op een thread en blokkeren de thread zolang als nodig is om de event te verwerken. Om thread bottlenecks te vermijden zou je moeten denken aan het doorsturen van "Book" events naar Tasks en deze asynchroon laten afhandelen wat er gedaan moet worden. ThreadPools en de Parallel klasse kunnen ook interessant  zijn in deze context.
+Er is een klein probleem met de OnBook event. We ontvangen gegevens op een thread en blokkeren de thread zolang als nodig is om de event te verwerken. Om thread bottlenecks te vermijden zou je moeten denken aan het doorsturen van "Book" events naar Tasks en deze asynchroon laten afhandelen wat er gedaan moet worden. **ThreadPools** (en de Parallel klasse) kunnen interessant  zijn in deze context.
 
-Zijn we tevreden met onze code? Deze werkt, maar is niet optimaal. We willen in staat zijn om meta-informatie mee te sturen en communicatie bidirectioneel te laten verlopen. Ook is het nodig om de server verschillende clients te laten bedienen en een event kan best afgehandeld worden in een aparte Task. Uitbreiding en refactoring is aan de orde.
+Zijn we tevreden met onze code? Deze werkt, maar is niet optimaal. We willen in staat zijn om **meta-informatie** mee te sturen en communicatie **bidirectioneel** te laten verlopen. Ook is het nodig om de server **meerdere clients** te laten bedienen en een event kan best afgehandeld worden in een aparte **Task**. **Uitbreiding** en **refactoring** zijn aan de orde.
 
-Ik heb de ProtoType klasse verwijderd, omdat overerving niet echt een sterk punt is van Protobuf-Net. Het is mogelijk, maar het gemak van code-onderhoud is een duidelijk argument ertegen. De complexiteit neemt langzaam toe, we kunnen ons geen code veroorloven die moeilijk te veranderen is.
+We verwijderen de ProtoType klasse omdat overerving niet echt een sterk punt is van Protobuf-Net. Het is mogelijk, maar het gemak van code-onderhoud is een duidelijk argument tegen. De complexiteit neemt langzaam toe, we kunnen ons geen code veroorloven die moeilijk te veranderen is.
 
-In theorie zouden we voor elke klasse een Serialize() methode kunnen schrijven, het resultaat zou extreme performance zijn. Je zou de BitConverter klasse kunnen gebruiken om waarden te converteren en dan samen te voegen zonder al te veel overhead te veroorzaken. En door Assembler te gebruiken denk ik dat je het zelfs nog 10 keer sneller zou kunnen maken.
+In theorie zouden we voor elke klasse een Serialize() methode kunnen schrijven, het resultaat zou veel performanter zijn. Je zou de BitConverter klasse kunnen gebruiken om waarden te converteren en dan samen te voegen zonder al te veel overhead te veroorzaken. En door assembler te gebruiken zou je nog een factor 10 kunnen versnellen.
 
-Moderne protocollen verliezen veel tijd door reflectie, die vooral bestaat uit het in kaart brengen van methoden en eigenschappen. En in tegenstelling tot Assembler laten de moderne talen niet toe om b.v. eenvoudig een integer naar een geheugenadres te schrijven en alleen de eerste byte ervan te lezen.
-Je kunt bits roteren of vermenigvuldigen en delen, wat veel minder efficiënt is.
+Moderne protocollen verliezen veel tijd door **reflectie** (introspectie), die vooral bestaat uit het in kaart brengen van methoden en eigenschappen. En in tegenstelling tot assembler laten moderne talen niet toe om b.v. eenvoudig een integer naar een geheugenadres te schrijven en alleen de eerste byte ervan te lezen.
+Je kunt bits roteren of vermenigvuldigen en delen, wat veel efficiënter is.
 
-In C# kun je de Parallel class gebruiken om je prestaties te verbeteren. Natuurlijk moet de verwerkingstijd van elk stukje code aanzienlijk zijn, anders duurt het langer om taken te maken dan om de problemen op te lossen. In trage netwerken kan het zelfs de moeite waard zijn om te overwegen gegevens in te pakken voor ze worden verzonden.
+In C# kan je de Parallel class gebruiken om de performantie van je oplossing te verbeteren. Natuurlijk moet de verwerkingstijd van elk stukje code aanzienlijk zijn, anders duurt het langer om taken te maken dan om de problemen op te lossen. In trage netwerken kan het zelfs de moeite waard zijn om te overwegen gegevens te bufferen voor ze worden verzonden.
 
-Ik heb de ProtoType klasse vervangen door de Header klasse, die het type van het volgende datablok aangeeft en ook een serie-identifier toevoegt. Deze identifier kan worden gebruikt om vitale feedback te ontvangen. De server vertelt de client bijvoorbeeld of de datatransmissie succesvol was of niet. Hij kan ook berekeningsresultaten of foutmeldingen sturen.
+De ProtoType klasse is vervangen door de Header klasse die het type van het volgende datablok aangeeft en ook een identifier toevoegt. Deze identifier kan worden gebruikt om vitale feedback te ontvangen. De server vertelt de client bijvoorbeeld of de datatransmissie succesvol was of niet. Hij kan ook berekeningsresultaten of foutmeldingen sturen.
 
 De gegevensstroom heeft de volgende volgorde: header, data, header, data, header, data ... behalve voor feedback headers; zij hebben geen data blokken nodig. Het enum eType binnen de Header klasse definieert alle mogelijke datatypes: ErrorMessage, Feedback, Book of Fable.
-Zoals eerder gezegd heb ik geen overerving gebruikt voor de Header klasse. De code blijft leesbaar en er is geen spaghetti code om indirecte meervoudige overerving te bereiken.
+Zoals eerder gezegd gebruiken we geen overerving voor de Header klasse. De code blijft leesbaar en er is geen spaghetti code om indirecte meervoudige overerving te bereiken.
 
-In mijn vorige post was de client aan het verzenden en de server aan het ontvangen. Nu is de communicatie bidirectioneel. De client gebruikt twee threads, een om te verzenden en een om te ontvangen. De verzendmethode gebruikt nog steeds de BlockingCollection constructie en een eindeloze lus op een aparte thread.
-De server kan met meerdere clients tegelijk verbonden zijn. Om het eenvoudig te houden heb ik besloten data te versturen zonder van context te wisselen. Dit blokkeert gewoonlijk threads tijdens de IO operatie. Ik heb taken toegevoegd in de gebeurtenis OnMessageBook om een voorbeeld te geven van hoe dit te vermijden. Desondanks gebruikt de send methode een lock op de client om gelijktijdige schrijfacties op de socket te voorkomen. Dit is een slechte praktijk; je moet geen "locks" toepassen op objecten die ook op andere plaatsen gelocked kunnen zijn. Dit valt buiten je bereik, je weet niet of het .Net framework of enige andere code een lock gebruikt op hetzelfde object, wat ongewenst gedrag zou kunnen veroorzaken. In het onderstaande voorbeeld zou het beter zijn geweest om het client object in een andere class te wikkelen en het slot toe te passen op dat buitenste shell object. Maar ik denk dat dit ok is in ons kortere voorbeeld. De code was al lang genoeg.
+De communicatie verloopt voortaan bidirectioneel. De client gebruikt twee threads, een om te verzenden en een om te ontvangen. De verzendmethode gebruikt nog steeds de BlockingCollection constructie en een eindeloze lus op een aparte thread.
+De server kan met meerdere clients tegelijk verbonden zijn. Om het eenvoudig te houden versturen we data zonder van context te wisselen. Dit blokkeert gewoonlijk threads tijdens de IO operatie. We voegen Tasks toe in de event OnMessageBook om een voorbeeld te geven van hoe dit te vermijden. Desondanks gebruikt de send() methode een lock op de client om gelijktijdige schrijfacties op de socket te voorkomen. Dit is een slechte praktijk; je past best geen "locks" toe op objecten die ook op andere plaatsen gelocked kunnen zijn. Dit valt buiten je bereik, je weet niet of het .Net framework of enige andere code een lock gebruikt op hetzelfde object, wat ongewenst gedrag zou kunnen veroorzaken. In het onderstaande voorbeeld zou het beter zijn geweest om het client object in een andere klasse te wikkelen en de lock toe te passen op dat buitenste omkapselende object. 
 
 ```c#
 public static void Send(TcpClient xClient, ProtoBufExample.Header xHeader) {
@@ -1222,7 +1224,6 @@ namespace DemoApp {
 ```
 
 ```text
-example output:
 waiting for a client
 new client connecting: 127.0.0.1:65432
 waiting for a client
@@ -1249,14 +1250,17 @@ client: reader is shutting down
 
 ## Encryptie
 
-Na het serialiseren, opslaan en verzenden van gegevens over het netwerk, zijn we nog steeds bezig met hetzelfde onderwerp. Cryptografie behoort ook tot dat gebied.
+### AES
+
+Na het serialiseren, opslaan en verzenden van gegevens over het netwerk, richten we ons op cryptografie: de versleuteling van de gegevens om voor meer veiligheid te zorgen (minder leesbaar over het netwerk).
+
 Het vereenvoudigde proces is:
 
 ```text
 data => password => encryption => cipher => password => decryption => data
 ```
 
-Ik ga me concentreren op het bekende [AES](http://www.youtube.com/user/TownsendSecurity)-algoritme. Het heeft een goede en betrouwbare geschiedenis. Je kunt het nauwelijks kraken met bijvoorbeeld drie toegestane pogingen per vijf minuten. Zoals gebruikelijk heb ik links toegevoegd aan dit bericht voor verdere uitleg. AES (Advanced Encryption Standard) wordt naar verluidt gebruikt door de Amerikaanse overheid en is aanbevolen door het Amerikaanse National Institute of Standards and Technology (NIST).
+We concentreren ons op het bekende [AES](http://www.youtube.com/user/TownsendSecurity)-algoritme: dit heeft een goede en betrouwbare geschiedenis. Je kunt AES nauwelijks kraken in bijvoorbeeld drie toegestane pogingen per vijf minuten. AES (Advanced Encryption Standard) wordt naar verluidt gebruikt door de Amerikaanse overheid en is aanbevolen door het Amerikaanse National Institute of Standards and Technology (NIST).
 
 Het .Net Framework ondersteunt cryptografie in de System.Security.Cryptography namespace. Het AES-algoritme is te vinden in de klasse AesManaged. Het maakt gebruik van [symmetrische encryptie](https://en.wikipedia.org/wiki/Symmetric-key_algorithm); er is slechts één wachtwoord.
 
@@ -1282,17 +1286,17 @@ private static AesManaged GetAesAlgo() {
    lAlgo.IV = ASCIIEncoding.ASCII.GetBytes("1234567890123456"); // 128 bits = 16 bytes = 16 ASCII characters
    Console.WriteLine("Aes block size is " + lAlgo.BlockSize + " bits");
    return lAlgo;
-} //
+} 
  
 static byte[] Encrypt(SymmetricAlgorithm xAlgo, byte[] xData) {
    ICryptoTransform lEncryptor = xAlgo.CreateEncryptor(xAlgo.Key, xAlgo.IV);
    return lEncryptor.TransformFinalBlock(xData, 0, xData.Length);
-} //
+} 
  
 static byte[] Decrypt(SymmetricAlgorithm xAlgo, byte[] xCipher) {
    ICryptoTransform lDecryptor = xAlgo.CreateDecryptor(xAlgo.Key, xAlgo.IV);
    return lDecryptor.TransformFinalBlock(xCipher, 0, xCipher.Length);
-} //
+} 
  
 public static void Test1() {
    string lText = "Let's encrypt and decrypt this text :)";
@@ -1314,11 +1318,10 @@ public static void Test1() {
       Console.WriteLine("the text was: \"" + lResult + "\"");
    }
    Console.ReadLine();
-} //
+} 
 ```
 
 ```text
-example output:
 text length in characters 38
 text length in bytes 76
 Aes block size is 128 bits
@@ -1329,7 +1332,7 @@ text length in characters now 38
 the text was: “Let’s encrypt and decrypt this text :)”
 ```
 
-De bovenstaande code was voor het opwarmen. De code codeert/decodeert alle gegevens in het geheugen zonder gebruik te maken van een stream. Het volgende voorbeeld gebruikt de FileStream klasse om een bestand op te slaan op het bureaublad. Sommige mensen geven er de voorkeur aan om de geheugenstroom te gebruiken in hun voorbeelden. Ik persoonlijk snap het nut hiervan niet, omdat het geen vereiste is. Ik heb hierboven wel laten zien dat je iets in het geheugen kunt converteren zonder de MemoryStream klasse te gebruiken.
+Deze code codeert/decodeert alle gegevens in het geheugen zonder gebruik te maken van een stream. Het volgende voorbeeld gebruikt de FileStream klasse om een bestand op te slaan op het bureaublad. Sommige mensen geven er de voorkeur aan om de memory stream te gebruiken: dit is echter geen vereiste. Hiervoor zag je al hoe je iets in het geheugen kunt converteren zonder de MemoryStream klasse te gebruiken.
 
 ```c#
 private static AesManaged GetAesAlgo() {
@@ -1340,7 +1343,7 @@ private static AesManaged GetAesAlgo() {
    lAlgo.IV = ASCIIEncoding.ASCII.GetBytes("1234567890123456"); // 128 bits = 16 bytes = 16 ASCII characters
    Console.WriteLine("Aes block size is " + lAlgo.BlockSize + " bits");
    return lAlgo;
-} //
+}
  
 public static void Test2() {
    string lDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\";
@@ -1374,7 +1377,7 @@ public static void Test2() {
    }
    catch (Exception ex) { Console.WriteLine(ex.Message); }
    Console.ReadLine();
-} //
+}
  
 static void EncryptToStream(SymmetricAlgorithm xAlgo, string xFileName, byte[] xData) {
    ICryptoTransform lEncryptor = xAlgo.CreateEncryptor(xAlgo.Key, xAlgo.IV);
@@ -1384,7 +1387,7 @@ static void EncryptToStream(SymmetricAlgorithm xAlgo, string xFileName, byte[] x
          lCryptoStream.Write(xData, 0, xData.Length);
       }
    }
-} //
+}
  
 static byte[] DecryptFromStream(SymmetricAlgorithm xAlgo, string xFileName, out int xLength) {
    ICryptoTransform lDecryptor = xAlgo.CreateDecryptor(xAlgo.Key, xAlgo.IV);
@@ -1396,11 +1399,10 @@ static byte[] DecryptFromStream(SymmetricAlgorithm xAlgo, string xFileName, out 
          return lResult;
       }
    }
-} //
+}
 ```
 
 ```text
-example output:
 text length in characters 38
 text length in bytes 76
 Aes block size is 128 bits
@@ -1412,7 +1414,7 @@ text before encryption: “Let’s encrypt and decrypt this text :)”
 text after decryption: “Let’s encrypt and decrypt this text 🙂 ”
 ```
 
-Ik heb een typische beginnersfout toegevoegd. En om er op te wijzen heb ik een heleboel tekstberichten over de datagroottes afgedrukt. Commentarieer de volgende regels en maak ze leeg om de fout te herstellen:
+Een typische beginnersfout werd toegepast: zie de toegevoegde tekstberichten over de datagroottes. Commentarieer de volgende regels om de fout te repareren:
 
 ```C#
 Console.WriteLine("decrypted text length in bytes " + lDecrypted.Length);
@@ -1432,7 +1434,6 @@ string lResult = UnicodeEncoding.Unicode.GetString(lDecrypted, 0, lLength);
 ```
 
 ```text
-example output:
 text length in characters 38
 text length in bytes 76
 Aes block size is 128 bits
@@ -1446,15 +1447,13 @@ text after decryption: “Let’s encrypt and decrypt this text :)”
 
 De blokgrootte is 128 bits (=16 bytes). 76 bytes zijn geen veelvoud van 16, maar 80 bytes wel. Dit resulteert in een groter bestand, dat padding gebruikt aan het eind. Het nemen van de verkeerde grootte heeft geleid tot een verkeerde gedecodeerde tekst.
 
-Gewoonlijk slaat u geen wachtwoorden op. Wachtwoorden worden gebruikt als sleutels om gegevens te ontcijferen. Als het wachtwoord fout is, dan is de gedecodeerde data fout. Sommige programmeurs hardcoderen wachtwoorden om ze lui te vergelijken met wachtwoordinvoer. Dit is echt een slechte praktijk!
-Hoe dan ook, sommige toepassingen slaan wachtwoorden op om het inloggen te vergemakkelijken. Bijv. uw internet browser heeft zo'n functionaliteit. In dit geval moet je het resultaat zouten. Salt maakt het kraken van wachtwoorden tijdrovender, het houdt criminelen echter niet tegen. Maar alle beetjes helpen. John Doe zal niet in staat zijn om je gezouten wachtwoord te gebruiken.
+Best sla je geen wachtwoorden op. Wachtwoorden worden gebruikt als sleutels om gegevens te ontcijferen. Als het wachtwoord fout is, dan is de gedecodeerde data fout. Sommige programmeurs nemen wachtwoorden op in de source code om ze "lui" te vergelijken met wachtwoordinvoer. Dit is echt een slechte praktijk!
+Hoe dan ook, sommige toepassingen slaan wachtwoorden op om het inloggen te vergemakkelijken: je internet browser heeft dergelijke functionaliteit. In dit geval moet je het resultaat "salt"-en. Salt maakt het kraken van wachtwoorden tijdrovender, het houdt criminelen echter niet tegen. Maar alle beetjes helpen. John Doe zal niet in staat zijn om je salted wachtwoord te gebruiken.
 
-De goede oude hardcore hackers gaven niet veel om wachtwoorden. Het was niet nodig om ze te kraken. Hackers hadden freezer modules die de computer konden bevriezen en toegang gaven tot alle geheugen, inclusief de lopende assembler code. Je hoefde de PC alleen te bevriezen als hij om een wachtwoord vroeg. Je controleerde waar je programmateller stond en deed hetzelfde direct nadat je het wachtwoord had ingevoerd.
-Het enige wat je hoefde te doen was een onvoorwaardelijk branch commando toe te voegen om dit wachtwoord verzoek te omzeilen. Hackers zochten dan naar dezelfde codevolgorde op de schijf en veranderden die dienovereenkomstig. Tegenwoordig werkt het een beetje anders.
-Maar waarom vertel ik dit? Ik wil benadrukken dat je ook uitvoerbare code moet versleutelen om jezelf efficiënt te beschermen. Het is niet genoeg om alleen data te versleutelen. De beste code decodeert zichzelf bit voor bit tijdens runtime.
+De goede oude hardcore hackers stoorden zich niet aan het gebruik van wachtwoorden. Het was vaak niet eens nodig om ze te kraken. Hackers hadden freezer modules die de computer konden bevriezen en toegang gaven tot alle geheugen, inclusief de lopende assembler code. Je hoefde de PC alleen te bevriezen als hij om een wachtwoord vroeg. Je controleerde waar je programmateller stond en voerde een sprong uit in de code om hetzelfde te doen als wat je zou doen nadat je het wachtwoord had ingevoerd. Het enige wat je dus hoefde te doen was een onvoorwaardelijk branch commando toevoegen om het wachtwoordverzoek te omzeilen. Tegenwoordig werkt het een beetje anders.
+Wat leren we hieruit? De uitvoerbare code moet je versleutelen om jezelf efficiënt te beschermen. Het is niet genoeg om alleen data te versleutelen. De beste code decodeert zichzelf bit voor bit at runtime.
 
-Terug naar salt.
-Soms gebruiken gebruikers hetzelfde wachtwoord. Als je deze wachtwoorden met individuele salt waarden in je database opslaat, dan zien ze er wel heel anders uit. Nogmaals, dit maakt het criminele leven van John Doe of zijn eenvoudige verleiding moeilijker. Een statische saltwaarde is dus geen goed idee. Je kunt de saltwaarde beter direct naast je wachtwoord opslaan. Je kunt de saltwaarde zelfs versleutelen met hardcoded algoritmeparameters. Dit maakt het weer een stukje veiliger.
+Terug naar salt. Soms gebruiken gebruikers hetzelfde wachtwoord. Als je deze wachtwoorden met individuele salt waarden in je database opslaat, dan zien ze er wel heel anders uit. Nogmaals, dit maakt het criminele leven van John Doe moeilijker. Een statische saltwaarde is dus geen goed idee. Je kunt de saltwaarde beter direct naast je wachtwoord opslaan. Je kunt de saltwaarde zelfs versleutelen met hardcoded algoritmeparameters. Dit maakt het weer een stukje veiliger.
 
 ```c#
 public static void Test3() {
@@ -1481,7 +1480,6 @@ public static void Test3() {
    else Console.WriteLine("Oh dear, something went wrong!");
    Console.WriteLine();
  
- 
    // static salt
    Console.WriteLine("static salt");
    for (int i = 0; i < 10; i++) {
@@ -1490,7 +1488,7 @@ public static void Test3() {
    }
  
    Console.ReadLine();
-} //
+} 
  
 private const int _Iterations = 2500;
  
@@ -1499,20 +1497,19 @@ private static void GenerateSaltedKey(string xPassword, out byte[] xKey, out byt
    var keyGenerator = new Rfc2898DeriveBytes(xPassword, xKeySize, _Iterations);
    xKey = keyGenerator.GetBytes(xKeySize);
    xSalt = keyGenerator.Salt;
-} //
+} 
  
 private static byte[] GenerateKey128(string xPassword) {
    byte[] lSalt = { 252, 132, 52, 13, 64, 158, 12, 10, 50, 80, 74, 63, 15, 54, 76, 246 }; // 16 bytes == 128 bits
    return new Rfc2898DeriveBytes(xPassword, lSalt, _Iterations).GetBytes(16);
-} //
+} 
  
 private static byte[] GenerateKey128(string xPassword, byte[] xSalt) {
    return new Rfc2898DeriveBytes(xPassword, xSalt, _Iterations).GetBytes(16);
-} //
+} 
 ```
 
 ```text
-example output:
 random salt
 password: MySooperDooperSekr1tPa$$wörd
 key: 139 209 30 237 82 66 102 245 193 89 175 218 62 190 7 8
@@ -1539,18 +1536,17 @@ static salt
 9 static key 103 183 126 80 87 205 118 92 45 195 66 134 124 104 32 206
 ```
 
-Ik heb het aantal iteraties op 2500 gezet (private const int _Iterations = 2500). Dit is een willekeurig getal. Een waarde van boven de 1000 wordt over het algemeen aanbevolen. Het vertelt de sleutel/IV generator hoeveel keer hij moet draaien. Denk aan recursie om een idee te krijgen. Zorg ervoor dat je hetzelfde aantal iteraties gebruikt wanneer je dezelfde resultaten wilt.
+Het aantal iteraties staat op 2500 (private const int _Iterations = 2500). Dit is een willekeurig getal. Een waarde boven de 1000 wordt over het algemeen aanbevolen. Het vertelt de sleutel/IV generator hoeveel keer hij moet draaien. Zorg ervoor dat je hetzelfde aantal iteraties gebruikt wanneer je dezelfde resultaten wilt.
 
-Asymmetrische encryptie
+### Asymmetrische encryptie
 
-Hierbij worden twee sleutels gebruikt: een openbare en een particuliere sleutel.
-Het .NET Framework biedt de klassen RSACryptoServiceProvider en DSACryptoServiceProvider voor asymmetrische encryptie.
+Hierbij worden twee sleutels gebruikt: een openbare en een particuliere sleutel. Het .NET Framework biedt de klassen RSACryptoServiceProvider en DSACryptoServiceProvider voor asymmetrische encryptie.
 
-De openbare sleutel moet bekend zijn om gegevens te kunnen versleutelen. De privésleutel kan worden gebruikt om gegevens te decoderen. Een publieke sleutel kan niet worden gebruikt om gegevens te ontsleutelen. Een goede YouTube introductie over prive en publieke sleutels kan hier gevonden worden.
-De twee sleutels zijn mathematisch aan elkaar gerelateerd. Maar je kunt de private sleutel niet bepalen door de publieke sleutel te kennen en vice versa.
+De openbare sleutel moet bekend zijn om gegevens te kunnen versleutelen. De private sleutel kan worden gebruikt om gegevens te decoderen. Een publieke sleutel kan niet worden gebruikt om gegevens te ontsleutelen.
+De twee sleutels zijn mathematisch aan elkaar gerelateerd, maar je kunt de private sleutel niet bepalen door de publieke sleutel te kennen en vice versa.
 RSA (RSACryptoServiceProvider klasse) is een algoritme voor publieke sleutels met sleutelgroottes van 1024 tot 4096. De sleutelgroottes zijn uiteraard veel groter dan voor het AES-algoritme. Ze dragen echter niet bij tot een grotere veiligheid.
 
-We beginnen met de sleutelgeneraties, die worden geretourneerd in het XML-formaat.
+We beginnen met de sleutelgeneraties: deze worden teruggegeven in XML-formaat.
 
 ```c#
 public static void Test4() {
@@ -1562,17 +1558,17 @@ public static void Test4() {
    Console.WriteLine(Environment.NewLine + " P R I V A T E  K E Y : " + Environment.NewLine);
    Console.WriteLine(lPrivateKey);
    Console.ReadLine();
-} //
+}
  
 private static void GetKeys(out string xPublicKey, out string xPrivateKey) {
    using (RSACryptoServiceProvider lRSA = new RSACryptoServiceProvider()) {
       xPublicKey = lRSA.ToXmlString(false);
       xPrivateKey = lRSA.ToXmlString(true);
    }
-} //
+}
 ```
 
-U hoeft niet met XML te werken. U kunt ook rechtstreeks toegang krijgen tot binaire gegevens door gebruik te maken van de methoden ExportParameters of ExportCspBlob.
+Je hoeft niet met XML te werken. U kunt ook rechtstreeks toegang krijgen tot binaire gegevens door gebruik te maken van de methoden ExportParameters of ExportCspBlob.
 
 ```c#
 private static void GetKeys() {
@@ -1597,7 +1593,7 @@ private static void GetKeys(out string xPublicKey, out string xPrivateKey) {
       xPublicKey = lRSA.ToXmlString(false);
       xPrivateKey = lRSA.ToXmlString(true);
    }
-} //
+}
  
 public static void HowToUseAsymmetricEncryption() {
    string lText = "Let's encrypt and decrypt this text :)";
@@ -1621,12 +1617,12 @@ public static void HowToUseAsymmetricEncryption() {
    string lResult = UnicodeEncoding.Unicode.GetString(lDecrypted);
    Console.WriteLine(lResult);
    Console.ReadLine();
-} //
+}
 ```
 
 Er zijn vele manieren om sleutels op te slaan. Een ervan is om ze op de computer op te slaan, zodat ze van overal toegankelijk zijn. Dit kan worden bereikt door "RSACryptoServiceProvider.UseMachineKeyStore" op true te zetten. Of u kunt CspParameters instantiëren en UseMachineKeyStore in Flags instellen (zie het volgende voorbeeld).
 De eigenschap UseMachineKeyStore is van toepassing op alle code in het huidige toepassingsdomein, terwijl een CspParameters-object alleen van toepassing is op klassen die er expliciet naar verwijzen. Door RSACryptoServiceProvider te instancieren met CspParameters als constructorparameter, worden de sleutels automatisch opgeslagen. Er is geen expliciete Store() methode.
-Om de sleutels te verwijderen gebruikt u gewoon de RSACryptoServiceProvider-instantie, stelt u PersistKeyInCsp in op false en roept u vervolgens de methode Clear() op.
+Om de sleutels te verwijderen gebruik je gewoon de RSACryptoServiceProvider-instantie, stelt u PersistKeyInCsp in op false en roept u vervolgens de methode Clear() op.
 Maak deze twee regels in de code ongedaan en je zult de uitzondering "Key not valid for use in specified state" zien. De sleutels van de nieuwe instantie zijn niet meer dezelfde.
 
 ```c#
@@ -1644,7 +1640,7 @@ private static CspParameters GetCspParameters() {
    //lCspParams.Flags |= CspProviderFlags.UseNonExportableKey;  // you can use the key, but not read or export it
    lCspParams.KeyContainerName = "MySecretKeyContainer";
    return lCspParams;
-} //
+}
  
 public static void HowToUseAsymmetricEncryption2() {
    CspParameters lCspParams;
@@ -1685,21 +1681,20 @@ public static void HowToUseAsymmetricEncryption2() {
    }
  
    Console.ReadLine();
-} //
+}
 ```
 
-Ik zou aanraden om te spelen met de "CspProviderFlags.UseUserProtectedKey" vlag. Een pop-up zou moeten verschijnen wanneer je het commentaar van de lijn in methode GetCspParameters() verwijdert.
+Speel met de "CspProviderFlags.UseUserProtectedKey" vlag. Een pop-up zou moeten verschijnen wanneer je het commentaar van de lijn in methode GetCspParameters() verwijdert.
 
 ![Key](./Encryption1.jpg)
 
-Test ook de "spProviderFlags.UseNonExportableKey" vlag. Ik heb de nondescript regel 
+Test ook de "spProviderFlags.UseNonExportableKey" vlag. Voeg volgende regel toe:
 
 ```c#
 byte[] x = lRSA.ExportCspBlob(true)
 ```
 
- toegevoegd om het effect te demonstreren.
-De leukste uitzonderingsmelding wint de wedstrijd 😉
+om het effect te demonstreren.
 
 https://csharphardcoreprogramming.wordpress.com/2014/02/04/encryption-part-1-basics-aes/
 
@@ -1713,7 +1708,8 @@ Voor veel lokale netwerkberichten zien we een ander beeld. Het kan langer duren 
 Sommige bestanden zoals MP3 of JPG moeten niet worden gecomprimeerd. Ze zijn al gecomprimeerd. Deze bestanden worden niet kleiner. Je besteedt veel tijd aan het comprimeren van gegevens om daarna een groter bestand te hebben.
 
 Het .Net Framework ondersteunt GZip en Zip.
-Vandaag zal ik laten zien hoe GZIP gebruikt kan worden om gegevens eenvoudig te comprimeren/decomprimeren met enkele ingebouwde methodes van het .Net Framework. Ik heb een StopWatch toegevoegd om te laten zien hoeveel tijd je zou besteden aan het inpakken van gegevens. Reken maar uit en kijk hoe redelijk compressie is in vergelijking met je apparaat- of netwerksnelheid.
+
+We zien hoe GZIP gebruikt kan worden om gegevens eenvoudig te comprimeren/decomprimeren met enkele ingebouwde methodes van het .Net Framework. Een StopWatch is toegevoegd om te laten zien hoeveel tijd je zou besteden aan het inpakken van gegevens. Reken maar uit en kijk hoe redelijk compressie is in vergelijking met je apparaat- of netwerksnelheid.
 
 Je zou natuurlijk geen MemoryStream gebruiken om de byte-gegevens te genereren. Je kunt het vervangen door bijvoorbeeld een NetworkStream of een FileStream.
 
@@ -1722,7 +1718,7 @@ Je zou natuurlijk geen MemoryStream gebruiken om de byte-gegevens te genereren. 
 //lDecompressorStream.Read(lData, 0, cDataSize);
 ```
 
-De bovenstaande regels zijn in het volgende voorbeeld van de broncode uitgecommentarieerd. De reden hiervoor is dat het programma geen datatitel gebruikt om de grootte van de ruwe gegevens vooraf te kennen. Daarom kan de uiteindelijke gedecomprimeerde grootte niet worden toegewezen. Het voorbeeld zou goed lopen, omdat de grootte in dit geval bekend is, maar het zou een twijfelachtig voorbeeld zijn.
+De bovenstaande regels zijn in het volgende voorbeeld van de broncode gecommentarieerd. De reden hiervoor is dat het programma geen header gebruikt om de grootte van de ruwe gegevens vooraf te kennen. Daarom kan de uiteindelijke gedecomprimeerde grootte niet worden toegewezen. Het voorbeeld zou goed lopen, omdat de grootte in dit geval bekend is, maar het zou een twijfelachtig voorbeeld zijn.
 
 ```c#
 using System;
@@ -1758,9 +1754,8 @@ public static void Test() {
    Console.WriteLine("iterations: " + cIterations.ToString("#,##0"));
  
    Console.ReadLine();
-} //
- 
- 
+}
+  
 // creates random data with frequent repetitions
 private static byte[] GenerateRandomData(int xDataSize) {
    byte[] lData = new byte[xDataSize];
@@ -1770,9 +1765,8 @@ private static byte[] GenerateRandomData(int xDataSize) {
    }
  
    return lData;
-} //
- 
- 
+}
+  
 private static byte[] Compress(byte[] xData) {
    MemoryStream lTargetStream = new MemoryStream();
    using (GZipStream lCompressorStream = new GZipStream(lTargetStream, CompressionMode.Compress)) {
@@ -1780,7 +1774,7 @@ private static byte[] Compress(byte[] xData) {
    }
  
    return lTargetStream.ToArray();
-} //
+}
  
 private static byte[] Decompress(byte[] xCompressedData) {
    GZipStream lDecompressorStream = new GZipStream(new MemoryStream(xCompressedData), CompressionMode.Decompress);
@@ -1795,11 +1789,10 @@ private static byte[] Decompress(byte[] xCompressedData) {
    lTargetStream.Read(lDecompressedData, 0, lLength);
           
    return lDecompressedData;
-} //      
+}     
 ```
 
 ```text
-example output:
 before: 8 5 6 1 2 3 0 8 8 6 5 5 0 4 4 8 3 2 9 0 … ,length: 10000
 after: 8 5 6 1 2 3 0 8 8 6 5 5 0 4 4 8 3 2 9 0 … ,length: 10000
 compressed size was: 5089 = 50.89%
