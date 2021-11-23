@@ -60,7 +60,10 @@ Voer volgende stappen uit:
    4. Zoek naar `SimpleTcp`
    5. Klik op de eerste hit (die van BrandonPotter) en kies rechts op "Install"
 3. Als alles goed is verlopen zie je bij de references in beide projecten nu ook `SimpleTcp` staan.
-4. Voeg in iedere Program.cs bovenaan `using SimpleTCP;` toe.
+
+![image-20211122101655665](./SimpleTcpNuget1.png)
+
+Opgelet: indien je een .NET Core 3,1, .NET 5.0 of .NET 6.0 applicatie bouwt, is het beter te vertrekken van de source code van SimpleTCP (evouleert blijkbaar niet meer mee).
 
 ### Beide projecten starten
 
@@ -75,7 +78,7 @@ Om je programma de komende tijd te testen wil je uiteraard steeds dat er minsten
 
 Als je nu je programma start (F5) of debugt dan zullen steeds beide projecten uitgevoerd worden.
 
-### Server-code
+### Server code
 
 Telkens de server een string krijgt die eindigt op een enter zal de server deze boodschap op het scherm tonen. Om te voorkomen dat de server afsluit van zodra hij lijn 2 heeft uitgevoerd plaatsen we een ReadLine() achteraan. Op die manier zal de server blijven reageren op events tot de gebruiker op de entertoets duwt om alles af te sluiten:
 
@@ -93,7 +96,7 @@ private static void Server_DelimiterDataReceived(object sender, SimpleTCP.Messag
 }
 ```
 
-### Client-code
+### Client code
 
 ```csharp
 static void Main(string[] args)
@@ -108,6 +111,10 @@ static void Main(string[] args)
 ```
 
 Je kan nu meerdere clients tegelijk starten. Zolang ze allemaal maar op dezelfde poort (1111 in dit geval) verbinden kunnen ze berichten naar de server sturen.
+
+### Snooping
+
+![image-20211122104154090](./SimpleTCPWireshark1.png)
 
 ## Multicasting
 

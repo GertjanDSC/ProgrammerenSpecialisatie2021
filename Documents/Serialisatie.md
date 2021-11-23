@@ -71,7 +71,7 @@ JSON lijkt meer op C#, is het niet (zie hieronder)? Een echt leuke JSON viewer: 
 
 Allereerst moeten we **JavaScriptSerializer** beschikbaar maken. Voeg de referentie "System.Web.Extensions" toe aan je project. De namespace "System.Web.Script.Serialization" is nu beschikbaar.
 
-(Als dit nog in je AssemblyInfo.cs staat, verwijder [assembly: AllowPartiallyTrustedCallersAttribute])
+(Als dit nog in je AssemblyInfo.cs staat, verwijder *[assembly: AllowPartiallyTrustedCallersAttribute]*)
 
 ```json
 {
@@ -126,16 +126,16 @@ Allereerst moeten we **JavaScriptSerializer** beschikbaar maken. Voeg de referen
 ```
 
 ```c#
-public static void LoadObjectJSON() {
+public static void LoadObjectsJSON() {
     string lDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\";
     string lFile = lDesktopPath + "Walmart.json";
  
     JavaScriptSerializer lSerializer = new JavaScriptSerializer();
     string lSerialized = File.ReadAllText(lFile);
-    WalmartWorld lWalmartWolrd = lSerializer.Deserialize<WalmartWorld>(lSerialized);
+    WalmartWorld lWalmartWorld = lSerializer.Deserialize<WalmartWorld>(lSerialized);
  
-    foreach (WalmartItem lItem in lWalmartWolrd.Electronic) Console.WriteLine(lItem);
-    foreach (WalmartItem lItem in lWalmartWolrd.Food) Console.WriteLine(lItem);
+    foreach (WalmartItem lItem in lWalmartWorld.Electronic) Console.WriteLine(lItem);
+    foreach (WalmartItem lItem in lWalmartWorld.Food) Console.WriteLine(lItem);
              
     Console.ReadLine();
 }
@@ -187,7 +187,7 @@ public class WalmartWorld {
     [XmlText]
     [DataMember]
     public string Text { get; set; }
-} // class
+}
  
 [Serializable]
 [DataContract(Name = "WalmartItem")]
@@ -218,34 +218,59 @@ public class WalmartItem {
             Price.ToString("#,##0.00").PadLeft(8) + " " +
             Description +
             (string.IsNullOrEmpty(SomethingElse) ? string.Empty : ("  !!! => " + SomethingElse));
-    } //
-} // class
+    }
+}
  
-public static void SaveObjectsJSON2(WalmartWorld xWalmartWorld) {
+public static void SaveObjectsJSON(WalmartWorld xWalmartWorld) {
     string lDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\";
-    string lFile = lDesktopPath + "Walmart2.json";
+    string lFile = lDesktopPath + "Walmart.json";
  
     using (FileStream lFileStream = new FileStream(lFile, FileMode.OpenOrCreate)) {
         DataContractJsonSerializer lSerializer = new DataContractJsonSerializer(typeof(WalmartWorld));
         lSerializer.WriteObject(lFileStream, xWalmartWorld);
     }
-} //
+}
  
-public static WalmartWorld LoadObjectJSON2() {
+public static WalmartWorld LoadObjectsJSON() {
     string lDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\";
     string lFile = lDesktopPath + "Walmart.json";
  
     DataContractJsonSerializer lSerializer = new DataContractJsonSerializer(typeof(WalmartWorld));
  
     using (FileStream lFileStream = new FileStream(lFile, FileMode.Open)) {
-        WalmartWorld lWalmartWolrd = lSerializer.ReadObject(lFileStream) as WalmartWorld;
+        WalmartWorld lWalmartWorld = lSerializer.ReadObject(lFileStream) as WalmartWorld;
  
-        foreach (WalmartItem lItem in lWalmartWolrd.Electronic) Console.WriteLine(lItem);
-        foreach (WalmartItem lItem in lWalmartWolrd.Food) Console.WriteLine(lItem);
+        foreach (WalmartItem lItem in lWalmartWorld.Electronic) Console.WriteLine(lItem);
+        foreach (WalmartItem lItem in lWalmartWorld.Food) Console.WriteLine(lItem);
                  
         return lWalmartWolrd;
     }
-} //
+}
+```
+
+Voorbeeld json bestand
+
+```json
+{"Electronic":[{"Attribute":null,"Description":"LG","Name":"TV","Price":4500,"SomethingElse":null}],"Food":[{"Attribute":null,"Description":"Douwe Egberts","Name":"Coffee","Price":4.5,"SomethingElse":null}],"Text":null}
+```
+
+Voorbeeld testprogramma
+
+```c#
+static void Main(string[] args)
+{
+  WalmartWorld wallmart = new();
+  wallmart.Electronic = new List<WalmartItem>
+  {
+     new WalmartItem { Name = "TV", Description = "LG", Price = 4500.0 }
+  };
+  wallmart.Food = new List<WalmartItem>
+  {
+     new WalmartItem{ Name = "Coffee", Description = "Douwe Egberts", Price = 4.5 }
+  };
+  SaveObjectsJSON(wallmart);
+  var anotherWallmart = LoadObjectsJSON();
+}
 ```
 
 Je kan een aangepaste naam definiëren voor elk DataMember attribuut. Het JSON-bestand zal dan deze naam gebruiken in plaats van de naam van de property:
@@ -257,30 +282,37 @@ public string Attribute { get; set; }
 
 ## ProtocolBuffers
 
+### Inleidend
+
 De .Net-versie protobuf-net kan [hier](https://github.com/protobuf-net/protobuf-net) worden gedownload.
 
-Op de homepage wordt Protocol Buffers beschreven met de volgende woorden:
+Op de homepage wordt Protocol Buffers beschreven als volgt:
 
-Protocol buffers is de naam van het binaire serialisatieformaat dat Google gebruikt voor veel van hun datacommunicatie. Het is ontworpen met volgende doelen:
+**Protocol Buffers** is de naam van het *binaire serialisatieformaat* dat Google gebruikt voor veel van hun datacommunicatie. Het is ontworpen met volgende doelen:
 
 - klein in omvang - efficiënte gegevensopslag (veel kleiner dan xml)
 - goedkoop te verwerken - zowel op de client als op de server
 - platform onafhankelijk - overdraagbaar tussen verschillende programmeer architecturen
 - uitbreidbaar - om nieuwe gegevens aan oude berichten toe te voegen
 
-Dit is beknopt.
-
 Voeg protobuf-net.dll toe aan je assembly.
 
 Protocol Buffers gebruikt attributen om de te serialiseren typen te identificeren. Het **ProtoMember** attribuut heeft een positief geheel getal nodig. Dit kan pijnlijk zijn, omdat je overlapping moet vermijden als je overerving gebruikt. Maar het gebruik van gehele getallen heeft ook een duidelijk voordeel: het is veel sneller dan strings. Zoals je al weet, draait Protocol Buffers om snelheid.
 
 ```c#
+using ProtoBuf;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+
 [ProtoContract]
 public class Book {
     [ProtoMember(1)]
     public string author;
     [ProtoMember(2)]
-    public List stories;
+    public List<Fable> stories;
     [ProtoMember(3)]
     public DateTime edition;
     [ProtoMember(4)]
@@ -305,8 +337,8 @@ public class Book {
             }
  
         return s.ToString();
-    } //
-} // class
+    }
+}
  
 [ProtoContract]
 public class Fable {
@@ -314,7 +346,7 @@ public class Fable {
     public string title;
     [ProtoMember(2)]
     public double[] customerRatings;
-} // class
+}
  
 public static Book GetData() {
     return new Book {
@@ -330,19 +362,19 @@ public static Book GetData() {
             new Fable{ title = "The Mischievous Dog", customerRatings = new double[]{ 0.45, 0.5, 0.4, 0.0, 0.5} }
     })
     };
-} //
+}
 ```
 
 ```c#
 public static void SerializeData() {
-    MemoryStream lStream = new MemoryStream();
-    BinaryWriter lWriter = new BinaryWriter(lStream); // no "using", because it would close the MemoryStream automatically
+    MemoryStream lStream = new();
+    BinaryWriter lWriter = new(lStream); // no "using", because it would close the MemoryStream automatically
     Book lBook = GetData();
     ProtoBuf.Serializer.Serialize<Book>(lStream, lBook);
     lWriter.Flush();
     lStream.Position = 0;
  
-    using (BinaryReader lReader = new BinaryReader(lStream)) {
+    using (BinaryReader lReader = new(lStream)) {
         for (long i = 0, n = lStream.Length; i < n; i++) {
             byte b = lReader.ReadByte();
             Console.Write(string.Format("{0:X2} ", b));
@@ -353,7 +385,7 @@ public static void SerializeData() {
         Console.WriteLine("number of bytes: " + lStream.Length);
     }
     Console.ReadLine();
-} //
+}
 ```
 
 ```text
@@ -377,8 +409,8 @@ number of bytes: 267
 
 ```c#
 public static void ToAndFro() {
-    using (MemoryStream lStream = new MemoryStream()) {
-        BinaryWriter lWriter = new BinaryWriter(lStream);
+    using (MemoryStream lStream = new()) {
+        BinaryWriter lWriter = new(lStream);
         Book lBook = GetData();
         ProtoBuf.Serializer.Serialize<Book>(lStream, lBook);
         lWriter.Flush();
@@ -389,7 +421,7 @@ public static void ToAndFro() {
     }
  
     Console.ReadLine();
-} //
+}
 ```
 
 ```text
@@ -400,11 +432,17 @@ title The Cat & the Mice, rating 0.133333333333333
 title The Mischievous Dog, rating 0.37
 ```
 
-We sturen nu geserialiseerde binaire data over het netwerk. 
+### Over het netwerk
 
-We schrijven nu een kleine klasse ("ProtoType") om objecten snel te identificeren tijdens het serialisatie- en deserialisatieproces. De klasse is abstract en vormt onze basisklasse. De klasse "Boek" en "Fabel" zijn bijna ongewijzigd ten opzichte van de vorige berichten. We voegden override "ToString" toe in "Fable" om een mooiere uitvoer te hebben. Beide klassen erven over van onze abstracte basisklasse "ProtoType", waardoor vermeden wordt een interface te implementeren en de leesbaarheid van de code meer dan nodig te beïnvloeden.
+We schrijven nu een kleine klasse ("ProtoType") om objecten snel te identificeren tijdens het serialisatie- en deserialisatieproces. De klasse is abstract en vormt onze basisklasse. De klasse "Boek" en "Fabel" zijn bijna ongewijzigd ten opzichte van de vorige berichten. We voegden override ToString() toe in klasse Fable om een mooiere uitvoer te hebben. Beide klassen erven over van onze abstracte basisklasse ProtoType, waardoor vermeden wordt een interface te implementeren en de leesbaarheid van de code meer dan nodig te beïnvloeden.
 
 ```c#
+using ProtoBuf;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+
 public class ProtoBufExample {
  
     public enum eType { Unknown = 0, eBook = 1, eFable };
@@ -418,8 +456,8 @@ public class ProtoBufExample {
             else if (t == typeof(ProtoBufExample.Fable)) objectId = eType.eFable; // to identify the object before deserialization
             else throw new Exception("object type unknown");
             objectIdAsBytes = BitConverter.GetBytes((Int16)objectId);
-        } // constructor
-    } // class 
+        }
+    }
  
     [ProtoContract]
     public class Book : ProtoType {            
@@ -481,12 +519,17 @@ public class ProtoBufExample {
             })
         };
     }
+}
 ```
 
 De server moet altijd voor de client gestart worden, anders zou de client niet onmiddellijk een antwoord van de server krijgen. We luisteren op localhost 127.0.0.1 poort 65432 (willekeurige keuze) en wachten op een clientverbinding. We opteerden voor het TCP protocol: dit is gemakkelijk te gebruiken en *reliable* (betrouwbaar). We hoeven ons geen zorgen te maken over transmissieproblemen. Het nadeel van de keuze voor TCP is dat het trager is dan UDP.
 De deserializer aan de server-kant kan niet meteen worden uitgevoerd. We moeten eerst het objecttype bepalen. Hiervoor maken we gebruik van onze "ProtoType" klasse. De eerste twee bytes van de transmissie vertellen ons het type. Dit is heel belangrijk voor de snelheid van de deserialisatie. Je ziet dat de ProtoBuf.Serializer.DeserializeWithLengthPrefix methode generiek is. Type casting wordt op die manier geminimaliseerd.
 
 ```c#
+using System.Net.Sockets;
+using System.Threading;
+using System.Net;
+
 public class NetworkListener {
                  
     private bool _ExitLoop = true;
@@ -503,7 +546,7 @@ public class NetworkListener {
         Port = xPort;
         IpAddress = xIpAddress;
         ThreadName = xThreadName;
-    } //
+    }
  
     public bool Connect() {
         if (!_ExitLoop) {
@@ -525,12 +568,12 @@ public class NetworkListener {
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
         return false;
-    } //
+    }
  
     public void Disconnect() {
         _ExitLoop = true;
         _NetworkStream.WriteTimeout = 5; // immediate timeout
-    } //
+    }
  
     private void Loop() {
         try {
@@ -590,7 +633,7 @@ public class NetworkListener {
             if (_Listener != null) _Listener.Stop();
         }
     }
-} // class
+}
 ```
 
 De client-kant is recht-toe-recht-aan. Er is niet veel verwerking behalve het kiezen van het juiste generic type voor het serialisatieproces. Ik heb een BlockingCollection gebruikt om het wisselen van context makkelijker te maken. Het is niet de snelste oplossing, maar het maakt het passeren van objecten in een thread loop zeker gemakkelijk. Persoonlijk zijn we geen grote fan van de *concurrent collections*: hun gedrag is niet zo voorspelbaar als dat van een oplossing op maat, van eigen hand. _Queue.Take(); blokkeert en wacht tot gegevens aankomen. Het is thread-safe en vereist geen object locking.
@@ -629,7 +672,7 @@ public class NetworkClient {
     public void Send(ProtoBufExample.ProtoType xObject) {
         if (xObject == null) return;
         _Queue.Add(xObject);
-    } //
+    }
  
     private void Loop() {
         try {
@@ -667,9 +710,8 @@ public class NetworkClient {
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
-    } // 
- 
-} // class
+    }
+}
 ```
 
 Het hoofdprogramma is best netjes. We krijgen de "Boek" gegevens en sturen die naar localhost. Dan nemen we een enkel verhaal van hetzelfde boek en sturen het opnieuw om te zien of het programma de verschillende types goed behandelt. 
@@ -699,14 +741,12 @@ public static class NetworkTest {
  
         lClient.Disconnect();
         lServer.Disconnect();
- 
-        Console.ReadLine();
     }
  
     static void OnBook(object xSender, ProtoBufExample.Book xBook) {
         Console.WriteLine("Book event was raised");
-    } //
-} //
+    }
+}
 ```
 
 ```text
@@ -758,7 +798,8 @@ public static void Send(TcpClient xClient, ProtoBufExample.Header xHeader) {
  
   lock (xClient) {
      NetworkStream lNetworkStream = xClient.GetStream();
-  //....
+
+//....
 ```
 
 Dit lock probleem kan als volgt vermeden worden:
@@ -811,19 +852,18 @@ namespace DemoApp {
             data = xData;
             serialMessageId = (xSerialMessageId == 0) ? Interlocked.Increment(ref _HeaderSerialId) : xSerialMessageId;
             objectType = xObjectType; // we could use "if typeof(T) ...", but it would be slower, harder to maintain and less legible
-         } // constructor
+         }
  
          // parameterless constructor needed for Protobuf-net
          public Header() {
-         } // constructor
- 
-      } // class
+         }
+      }
  
       [ProtoContract]
       public class ErrorMessage {
          [ProtoMember(1)]
          public string Text;
-      } // class
+      }
  
       [ProtoContract]
       public class Book {
@@ -849,8 +889,8 @@ namespace DemoApp {
                }
  
             return s.ToString();
-         } //
-      } // class
+         }
+      }
  
       [ProtoContract]
       public class Fable {
@@ -877,8 +917,8 @@ namespace DemoApp {
                 new Fable{ title = "The Mischievous Dog", customerRatings = new double[]{ 0.45, 0.5, 0.4, 0.0, 0.5} }
             })
          };
-      } //
-   } // class
+      }
+   }
  
    public class PendingFeedbacks {
       private readonly ConcurrentDictionary<int, ProtoBufExample.Header> _Messages = new ConcurrentDictionary<int, ProtoBufExample.Header>();
@@ -912,8 +952,8 @@ namespace DemoApp {
                Console.WriteLine("warning: This message type was not expected.");
                break;
          }
-      } //
-   } // class
+      }
+   }
  
    public static class NetworkTest {
       public static void Test() {
@@ -956,7 +996,7 @@ namespace DemoApp {
          ProtoBufExample.ErrorMessage lErrorMessage = new ProtoBufExample.ErrorMessage() { Text = "The fable was rejected. It is far too short." };
          ProtoBufExample.Header lErrorHeader = new ProtoBufExample.Header(lErrorMessage, ProtoBufExample.eType.eError, xHeader.serialMessageId);
          NetworkListener.Send(xSender, lErrorHeader);
-      } //
+      }
  
       // demo: asynchronous processing
       static void OnMessageBook(TcpClient xSender, ProtoBufExample.Header xHeader, ProtoBufExample.Book xBook) {
@@ -971,9 +1011,8 @@ namespace DemoApp {
          });
  
          Console.WriteLine("Book event was raised");
-      } //
- 
-   } // class
+      }
+   }
  
    public class NetworkListener {
  
@@ -1113,9 +1152,8 @@ namespace DemoApp {
             catch (Exception ex) { Console.WriteLine(ex.Message); }
          }
  
-      } //
- 
-   } // class
+      } 
+   }
  
    public class NetworkClient {
       public int Port { get; private set; }
@@ -1150,14 +1188,14 @@ namespace DemoApp {
          lLoopRead.IsBackground = true;
          lLoopRead.Name = ThreadName + "Read";
          lLoopRead.Start();
-      } //
+      }
  
       public void Disconnect() {
          _ExitLoop = true;
          _Queue.Add(null);
          if (_Client != null) _Client.Close();
          //if (_NetworkStream != null) _NetworkStream.Close();
-      } //
+      }
  
       public void Send(ProtoBufExample.Header xHeader) {
          if (xHeader == null) return;
@@ -1195,8 +1233,7 @@ namespace DemoApp {
          }
          _ExitLoop = true;
          Console.WriteLine("client: writer is shutting down");
-      } //
- 
+      }
  
       private void LoopRead() {
          while (!_ExitLoop) {
@@ -1216,11 +1253,9 @@ namespace DemoApp {
             catch (Exception ex) { Console.WriteLine(ex.Message); }
          }
          Console.WriteLine("client: reader is shutting down");
-      } //
- 
-   } // class
- 
-} // namespace
+      }
+   } 
+}
 ```
 
 ```text
@@ -1273,52 +1308,66 @@ Blokgroottes van 128, 160, 192, 224 en 256 bits worden door het algoritme onders
 
 ```c#
 using System;
-using System.IO;
-using System.Linq;
+//using System.IO;
+//using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-private static AesManaged GetAesAlgo() {
-   AesManaged lAlgo = new AesManaged();
-   lAlgo.BlockSize = 128;
-   lAlgo.KeySize = 128;
-   lAlgo.Key = ASCIIEncoding.ASCII.GetBytes("Bastian/M/K/Ohta"); // 128 bits = 16 bytes = 16 ASCII characters
-   lAlgo.IV = ASCIIEncoding.ASCII.GetBytes("1234567890123456"); // 128 bits = 16 bytes = 16 ASCII characters
-   Console.WriteLine("Aes block size is " + lAlgo.BlockSize + " bits");
-   return lAlgo;
-} 
- 
-static byte[] Encrypt(SymmetricAlgorithm xAlgo, byte[] xData) {
-   ICryptoTransform lEncryptor = xAlgo.CreateEncryptor(xAlgo.Key, xAlgo.IV);
-   return lEncryptor.TransformFinalBlock(xData, 0, xData.Length);
-} 
- 
-static byte[] Decrypt(SymmetricAlgorithm xAlgo, byte[] xCipher) {
-   ICryptoTransform lDecryptor = xAlgo.CreateDecryptor(xAlgo.Key, xAlgo.IV);
-   return lDecryptor.TransformFinalBlock(xCipher, 0, xCipher.Length);
-} 
- 
-public static void Test1() {
-   string lText = "Let's encrypt and decrypt this text :)";
-   byte[] lTextAsBytes = UnicodeEncoding.Unicode.GetBytes(lText);
- 
-   Console.WriteLine("text length in characters " + lText.Length);
-   Console.WriteLine("text length in bytes " + lTextAsBytes.Length);
- 
-   using (SymmetricAlgorithm lAlgo = GetAesAlgo()) {
-      byte[] lEncrypted = Encrypt(lAlgo, lTextAsBytes);
-      Console.WriteLine("encrypted data size in bytes " + lTextAsBytes.Length);
- 
-      byte[] lDecrypted = Decrypt(lAlgo, lEncrypted);
-      Console.WriteLine("decrypted text length in bytes " + lDecrypted.Length);
- 
-      string lResult = UnicodeEncoding.Unicode.GetString(lDecrypted);
-      Console.WriteLine("text length in characters now " + lResult.Length);
-      Console.WriteLine();
-      Console.WriteLine("the text was: \"" + lResult + "\"");
-   }
-   Console.ReadLine();
-} 
+namespace AESSimple
+{
+    internal class Program
+    {
+        private static AesManaged GetAesAlgo()
+        {
+            AesManaged lAlgo = new();
+            lAlgo.BlockSize = 128;
+            lAlgo.KeySize = 128;
+            lAlgo.Key = ASCIIEncoding.ASCII.GetBytes("Bastian/M/K/Ohta"); // 128 bits = 16 bytes = 16 ASCII characters
+            lAlgo.IV = ASCIIEncoding.ASCII.GetBytes("1234567890123456"); // 128 bits = 16 bytes = 16 ASCII characters
+            Console.WriteLine("Aes block size is " + lAlgo.BlockSize + " bits");
+            return lAlgo;
+        }
+
+        static byte[] Encrypt(SymmetricAlgorithm xAlgo, byte[] xData)
+        {
+            ICryptoTransform lEncryptor = xAlgo.CreateEncryptor(xAlgo.Key, xAlgo.IV);
+            return lEncryptor.TransformFinalBlock(xData, 0, xData.Length);
+        }
+
+        static byte[] Decrypt(SymmetricAlgorithm xAlgo, byte[] xCipher)
+        {
+            ICryptoTransform lDecryptor = xAlgo.CreateDecryptor(xAlgo.Key, xAlgo.IV);
+            return lDecryptor.TransformFinalBlock(xCipher, 0, xCipher.Length);
+        }
+
+        public static void Test1()
+        {
+            string lText = "Let's encrypt and decrypt this text :)";
+            byte[] lTextAsBytes = UnicodeEncoding.Unicode.GetBytes(lText);
+
+            Console.WriteLine("text length in characters " + lText.Length);
+            Console.WriteLine("text length in bytes " + lTextAsBytes.Length);
+
+            using (SymmetricAlgorithm lAlgo = GetAesAlgo())
+            {
+                byte[] lEncrypted = Encrypt(lAlgo, lTextAsBytes);
+                Console.WriteLine("encrypted data size in bytes " + lTextAsBytes.Length);
+
+                byte[] lDecrypted = Decrypt(lAlgo, lEncrypted);
+                Console.WriteLine("decrypted text length in bytes " + lDecrypted.Length);
+
+                string lResult = UnicodeEncoding.Unicode.GetString(lDecrypted);
+                Console.WriteLine("text length in characters now " + lResult.Length);
+                Console.WriteLine();
+                Console.WriteLine("the text was: \"" + lResult + "\"");
+            }
+        }
+        static void Main(string[] args)
+        {
+            Test1();
+        }
+    }
+}
 ```
 
 ```text
@@ -1335,16 +1384,6 @@ the text was: “Let’s encrypt and decrypt this text :)”
 Deze code codeert/decodeert alle gegevens in het geheugen zonder gebruik te maken van een stream. Het volgende voorbeeld gebruikt de FileStream klasse om een bestand op te slaan op het bureaublad. Sommige mensen geven er de voorkeur aan om de memory stream te gebruiken: dit is echter geen vereiste. Hiervoor zag je al hoe je iets in het geheugen kunt converteren zonder de MemoryStream klasse te gebruiken.
 
 ```c#
-private static AesManaged GetAesAlgo() {
-   AesManaged lAlgo = new AesManaged();
-   lAlgo.BlockSize = 128;
-   lAlgo.KeySize = 128;
-   lAlgo.Key = ASCIIEncoding.ASCII.GetBytes("Bastian/M/K/Ohta"); // 128 bits = 16 bytes = 16 ASCII characters
-   lAlgo.IV = ASCIIEncoding.ASCII.GetBytes("1234567890123456"); // 128 bits = 16 bytes = 16 ASCII characters
-   Console.WriteLine("Aes block size is " + lAlgo.BlockSize + " bits");
-   return lAlgo;
-}
- 
 public static void Test2() {
    string lDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\";
    string lFileName = lDesktopPath + "Encrypted.bin";
@@ -1376,14 +1415,13 @@ public static void Test2() {
       }
    }
    catch (Exception ex) { Console.WriteLine(ex.Message); }
-   Console.ReadLine();
 }
  
 static void EncryptToStream(SymmetricAlgorithm xAlgo, string xFileName, byte[] xData) {
    ICryptoTransform lEncryptor = xAlgo.CreateEncryptor(xAlgo.Key, xAlgo.IV);
    System.IO.File.Delete(xFileName);
-   using (FileStream lFileStream = new FileStream(xFileName, FileMode.CreateNew)) {
-      using (CryptoStream lCryptoStream = new CryptoStream(lFileStream, lEncryptor, CryptoStreamMode.Write)) {
+   using (FileStream lFileStream = new(xFileName, FileMode.CreateNew)) {
+      using (CryptoStream lCryptoStream = new(lFileStream, lEncryptor, CryptoStreamMode.Write)) {
          lCryptoStream.Write(xData, 0, xData.Length);
       }
    }
@@ -1391,8 +1429,8 @@ static void EncryptToStream(SymmetricAlgorithm xAlgo, string xFileName, byte[] x
  
 static byte[] DecryptFromStream(SymmetricAlgorithm xAlgo, string xFileName, out int xLength) {
    ICryptoTransform lDecryptor = xAlgo.CreateDecryptor(xAlgo.Key, xAlgo.IV);
-   using (FileStream lFileStream = new FileStream(xFileName, FileMode.Open)) {
-      using (CryptoStream lCryptoStream = new CryptoStream(lFileStream, lDecryptor, CryptoStreamMode.Read)) {
+   using (FileStream lFileStream = new(xFileName, FileMode.Open)) {
+      using (CryptoStream lCryptoStream = new(lFileStream, lDecryptor, CryptoStreamMode.Read)) {
          int lLength = (int)lFileStream.Length;
          byte[] lResult = new byte[lLength];
          xLength = lCryptoStream.Read(lResult, 0, lLength);
@@ -1414,17 +1452,19 @@ text before encryption: “Let’s encrypt and decrypt this text :)”
 text after decryption: “Let’s encrypt and decrypt this text 🙂 ”
 ```
 
-Een typische beginnersfout werd toegepast: zie de toegevoegde tekstberichten over de datagroottes. Commentarieer de volgende regels om de fout te repareren:
+Een typische beginnersfout werd toegepast: zie de toegevoegde tekstberichten over de gegevenslengtes. Commentarieer de volgende regels om de fout te repareren:
 
-```C#
+```c#
 Console.WriteLine("decrypted text length in bytes " + lDecrypted.Length);
 //Console.WriteLine("decrypted text length in bytes " + lLength);
  
 string lResult = UnicodeEncoding.Unicode.GetString(lDecrypted);
 //string lResult = UnicodeEncoding.Unicode.GetString(lDecrypted, 0, lLength);
- 
-// CHANGE THE ABOVE LINES TO:
- 
+```
+
+Verander bovenstaande code in:
+
+```C#
 //Console.WriteLine("decrypted text length in bytes " + lDecrypted.Length);
 Console.WriteLine("decrypted text length in bytes " + lLength);
  
@@ -1456,6 +1496,8 @@ Wat leren we hieruit? De uitvoerbare code moet je versleutelen om jezelf effici�
 Terug naar salt. Soms gebruiken gebruikers hetzelfde wachtwoord. Als je deze wachtwoorden met individuele salt waarden in je database opslaat, dan zien ze er wel heel anders uit. Nogmaals, dit maakt het criminele leven van John Doe moeilijker. Een statische saltwaarde is dus geen goed idee. Je kunt de saltwaarde beter direct naast je wachtwoord opslaan. Je kunt de saltwaarde zelfs versleutelen met hardcoded algoritmeparameters. Dit maakt het weer een stukje veiliger.
 
 ```c#
+using System.Linq;
+
 public static void Test3() {
  
    // variable salt
@@ -1486,8 +1528,6 @@ public static void Test3() {
       byte[] lStaticKey = GenerateKey128(lPassword);
       Console.WriteLine(i + " static key " + string.Join(" ", lStaticKey));
    }
- 
-   Console.ReadLine();
 } 
  
 private const int _Iterations = 2500;
@@ -1578,11 +1618,11 @@ private static void GetKeys() {
       byte[] lQ = xPublicKey.Q;
       byte[] lModulus = xPublicKey.Modulus;
       byte[] lExponent = xPublicKey.Exponent;
-      ...
+      // ...
  
       byte[] xPrivateKey = lRSA.ExportCspBlob(true);          
    }
-} //
+}
 ```
 
 We hebben nu twee sleutels. Laten we dat in de praktijk brengen.
@@ -1616,7 +1656,6 @@ public static void HowToUseAsymmetricEncryption() {
  
    string lResult = UnicodeEncoding.Unicode.GetString(lDecrypted);
    Console.WriteLine(lResult);
-   Console.ReadLine();
 }
 ```
 
@@ -1679,8 +1718,6 @@ public static void HowToUseAsymmetricEncryption2() {
       Console.WriteLine(ex.Message + Environment.NewLine);
       Console.WriteLine(ex.StackTrace);
    }
- 
-   Console.ReadLine();
 }
 ```
 
@@ -1695,8 +1732,6 @@ byte[] x = lRSA.ExportCspBlob(true)
 ```
 
 om het effect te demonstreren.
-
-https://csharphardcoreprogramming.wordpress.com/2014/02/04/encryption-part-1-basics-aes/
 
 ## Compressie
 
@@ -1736,7 +1771,6 @@ public static void Test() {
  
    byte[] lSource = GenerateRandomData(cDataSize);
    for (int i = 0, n = cIterations; i < n; i++) {
-      //byte[] lSource = GenerateRandomData(cDataSize);
       byte[] lCompressed = Compress(lSource);
       byte[] lTarget = Decompress(lCompressed);
  
@@ -1752,8 +1786,6 @@ public static void Test() {
    Console.WriteLine();
    Console.WriteLine("time elapsed: " + lWatch.ElapsedMilliseconds.ToString("#,##0") + " ms");
    Console.WriteLine("iterations: " + cIterations.ToString("#,##0"));
- 
-   Console.ReadLine();
 }
   
 // creates random data with frequent repetitions
@@ -1778,8 +1810,6 @@ private static byte[] Compress(byte[] xData) {
  
 private static byte[] Decompress(byte[] xCompressedData) {
    GZipStream lDecompressorStream = new GZipStream(new MemoryStream(xCompressedData), CompressionMode.Decompress);
-   //byte[] lData = new byte[cDataSize];
-   //lDecompressorStream.Read(lData, 0, cDataSize);
    MemoryStream lTargetStream = new MemoryStream();
    lDecompressorStream.CopyTo(lTargetStream);
  
