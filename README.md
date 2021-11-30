@@ -14,7 +14,7 @@
 | 23/11/2021   | [TCP/UDP client/server](./Documents/SimpleTCP.md), [Protocol Buffers, encryptie, compressie](./Documents/Serialisatie.md), [WireShark](https://www.wireshark.org/download.html) |
 | 30/11/2021   | [IOC](./Documents/ioc.md)                                    |
 | 07/12/2021   | Design patterns: [DDD (Domain Driven Development) in de praktijk](./Documents/DDD.md) |
-| 14/12/2021   | Design patterns: [SOLID in de praktijk](./Documents/SOLID.md) |
+| 14/12/2021   | Design patterns: [SOLID in de praktijk](./Documents/SOLID.md), [GRASP](./Documents/grasp.md) |
 | *21/12/2021* | *Inhaalweek*                                                 |
 | 11/01/2022   | Blok                                                         |
 | 18/01/2022   | Eerste kans finale evaluatieoefening                         |

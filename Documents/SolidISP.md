@@ -1,21 +1,18 @@
 # Interface Segregation Principle (ISP)
 
-> Clients mogen niet afhankelijk zijn over interfaces die ze niet gebruiken
+> Clients mogen niet elementen van een interface moeten implementeren die ze niet gebruiken
 
-Clients mogen niet gedwongen worden om interfaces te implementeren die operaties bevatten die ze niet nodig hebben, of nooit zullen gebruiken. Deze interfaces noemen we "fat" interfaces.
+Clients mogen niet gedwongen worden om interfaces te implementeren die operaties bevatten die ze niet nodig hebben, of nooit zullen gebruiken. Deze interfaces noemen we ***fat interfaces***.
 
-In plaats van een fat interface is het beter om deze verder op te delen in meer specifieke interfaces.
+In plaats van een *fat interface* is het beter om deze verder op te delen in meer specifieke interfaces.
 
 ```csharp
 public interface ILog
 {
     void Log(string message);
-
     void OpenConnection();
-
     void CloseConnection();
 }
-
 
 public class DBLogger : ILog
 {
@@ -62,23 +59,19 @@ public class FileLogger : ILog
 public interface ILog
 {
     void Log(string message);     
-
 }
 
 public interface IDBLog :ILog
 {
     void OpenConnection();
-
     void CloseConnection();
 }
 
 public interface IFileLog :ILog
 {
     void CheckFileSize();
-
     void GenerateFileName();
 }
-
 
 public class DBLogger : IDBLog
 {
@@ -111,7 +104,10 @@ public class FileLogger : IFileLog
 }
 ```
 
-Er zijn verschillende redenen waarom interface moeten gesegregeerd zijn. Om functionaliteit naar de clients te verstoppen, zelf documenterend voor andere ontwikkelaars.
+Er zijn verschillende redenen waarom interfaces gesegregeerd moeten zijn:
+
+- Functionaliteit naar clients te verstoppen
+- Zelf documenterend zijn voor andere ontwikkelaars.
 
 ## Hoe ISP detecteren?
 

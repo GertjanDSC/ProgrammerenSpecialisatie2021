@@ -1847,3 +1847,9 @@ time elapsed: 1,274 ms
 iterations: 1,000
 ```
 
+## CrypTool
+
+Zie [portal website](https://www.cryptool.org/en/): bijvoorbeeld CrypTool-Online. 
+
+*CrypTool-Online (CTO) runs in a browser and provides a variety of encryption and cryptanalysis methods including illustrated examples and tools like password generator and password meter.*
+

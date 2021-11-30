@@ -4,14 +4,14 @@
 
 Eigenschappen van SRP zijn:
 
-- coupling
-- cohesion
+- *coupling*
+- *cohesion*
 
-> Cohesion: wat een klasse zou moeten doen. Lage cohesie betekent dat een klasse verschillende zaken doet, en niet gefocust is op de taak die hij zou moeten doen. Terwijl hoge cohesie betekent dat een klasse doet wat hij moet doen, en maar 1 taak uitvoert. Probeer er voor te zorgen dat alle methoden in een klasse betrekking hebben tot 1 doel, maw er een hoge cohesie heerst.
+> ***Cohesion***: compacte, coherente samenhang. Lage cohesie betekent dat een klasse zich bezig houdt met heel uiteenlopende taken, en niet gefocust is op de stricte, zuivere taak die zou moeten gebeuren. Hoge cohesie betekent dat een klasse doet wat er moet gebeuren, niet meer en niet minder. Probeer er voor te zorgen dat alle methoden in een klasse betrekking hebben tot een enkel doel, maw er een hoge cohesie heerst.
 >
-> Coupling: Hangt een klasse van nog andere klassen af. Of hoeveel weet een klasse over de werking (inner working) van een andere klasse af.
+> ***Coupling***: de beperking van de mate waarin een klasse van nog andere klassen afhangt. Hoeveel weet een klasse over de werking (*internals*) van een andere klasse?
 
-**Men streeft naar "low coupling" en "high cohesion"**
+**Men streeft naar "low coupling" en "high cohesion"**.
 
 ### Waarop letten?
 
@@ -28,18 +28,19 @@ Een klasse met hoge cohesie:
 ```csharp
 class EmailMessage
 {
-    private string sendTo;
-    private string subject;
-    private string message;
+    private string _sendTo;
+    private string _subject;
+    private string _message;
+    
     public EmailMessage(string to, string subject, string message)
     {
-        this.sendTo = to;
-        this.subject = subject;
-        this.message = message;
+        this._sendTo = to;
+        this._subject = subject;
+        this._message = message;
     }
     public void SendMessage()
     {
-        // send message using sendTo, subject and message
+        // send message using _sendTo, _subject and _message
     }
 }
 ```
@@ -49,23 +50,26 @@ Een voorbeeld van lage cohesie :
 ```csharp
 class EmailMessage
 {
-    private string sendTo;
-    private string subject;
-    private string message;
-    private string username;
+    private string _sendTo;
+    private string _subject;
+    private string _message;
+    private string _username;
+    
     public EmailMessage(string to, string subject, string message)
     {
-        this.sendTo = to;
-        this.subject = subject;
-        this.message = message;
+        this._sendTo = to;
+        this._subject = subject;
+        this._message = message;
     }
+    
     public void SendMessage()
     {
         // send message using sendTo, subject and message
     }
+    
     public void Login(string username, string password)
     {
-        this.username = username;
+        this._username = _username;
         // code to login
     }
 }
@@ -79,73 +83,76 @@ class EmailMessage
 
 ![hoge cohesie](https://timdams.gitbooks.io/csharpfromantwerp/content/assets/20_se/HighCohesion.PNG)
 
-De Login methode and username klasse variabele heeft niets te maken met de EmailMessage klassen hoofddoel. Daarom zeggen we dat er een lage cohesie is.
+De Login methode and username klasse variabele heeft niets te maken met het hoofddoel van de EmailMessage klasse. Daarom zeggen we dat er een lagere cohesie is dan optimaal.
 
 ## Een voorbeeld van high coupling
 
-Bijvoorbeeld iPods. Eens de batterij kapot is moet je een nieuwe iPod kopen, want de batterij is gesoldeerd in het apparaat, en kan dus niet loskomen. Bij lage koppeling (of loosly coupled) zou je de batterij moeten kunnen vervangen. Deze zelfde 1:1 relatie gaat op in software engineering.
+Eens de batterij kapot is, moet je een nieuwe iPad kopen, want de batterij is gesoldeerd in het apparaat en kan dus niet vervangen worden. Bij lage koppeling (loosly coupled) zou je de batterij kunnen vervangen. Ditzelfde gaat op in software engineering.
 
 Een voorbeeld van high coupling:
 
 ```csharp
-class A
+public class A
 {
-    elementA;
+    public string ElementA;
 
-    MethodA()
+    public string MethodA()
     {
-        if(elementA)
-            return new classB().elementB;
+        if(!string.IsNullOrEmpty(ElementA))
+            return new B().ElementB;
     }
-    MethodC()
+    
+    public string MethodC()
     {
-        new classB().MethodB();
+        return new B().MethodB();
     }
 }
 
-class B
+public class B
 {
-    elementB;
-    MethodB()
+    public string ElementB;
+    
+    public string MethodB()
     {
         //..
     }
 }
 ```
 
-Waarom high coupling? Klasse A instantiëert objecten van klasse B, en heeft toegang tot variabelen (elementB). Op deze manier is klasse A erg afhankelijk van klasse B. Waarom afhankelijk? Als we beslissen om een extra parameter toe te voegen in de constructor van B en de default constructor private te maken. Dan moeten we elk gebruik van klasse B aanpassen (dus aanpassingen in klasse A!).
+Waarom spreken we van *high coupling* of *tight coupling*? Klasse A instantiëert objecten van klasse B, en heeft toegang tot variabelen (elementB). Op deze manier is klasse A erg afhankelijk van klasse B. Waarom afhankelijk? Als we beslissen om een extra parameter toe te voegen in de constructor van B en de default constructor private te maken, dan moeten we elk gebruik van klasse B aanpassen (aanpassingen in klasse A).
 
 ## Wat is de oplossing?
 
-We kunnen tight coupling oplossen door de dependencies te inverteren. Dit is het toevoegen van een extra laag. Bijvoorbeeld een interface toevoegen. Op deze manier zal klasseA enkel afhankelijk zijn van de interface en niet van de actuele implementatie van klasse B.
+We kunnen *tight coupling* oplossen door de afhankelijkheden om te keren: een extra laag wordt geïntroduceerd. We kunnen bijvoorbeeld een interface toevoegen: op deze manier zal klasseA enkel afhankelijk zijn van de interface en niet van de actuele implementatie van klasse B.
 
 ```csharp
-class A
+public class A
 {
-    elementA;
-    ISomeInteface _interface;
+    public string ElementA;
+    
+    private ISomeInteface _interface;
 
-    A(ISomeInterface i)
+    public A(ISomeInterface i)
     {
         _interface = i;
     }
 
-    MethodA()
+    public string MethodA()
     {
-        if(elementA)
-            _interface.elementB;
+        if(!string.IsNullOrEmpty(ElementA))
+            return _interface.ElementB;
     }
 
-    MethodC()
+    public string MethodC()
     {
-        _interface.MethodB();
+        return _interface.MethodB();
     }
 }
 
-interface ISomeInterface
+public interface ISomeInterface
 {
-    MethodB();
-    prop elementB;
+    string MethodB();
+    string ElementB;
 }
 ```
 
@@ -154,21 +161,22 @@ interface ISomeInterface
 ```csharp
 public class Werknemer
 {
-    Database db;
+    Database _db;
+    
     public Werknemer()
     {
-        db = new Database();
+        _db = new Database();
     }
-    void Insert(){
-
+    
+    void Insert()
+    {
         try {
-
             string sql = "insert into werknemers(voornaam,achternaam,stad) values ('Tom', 'Peeters', 'Antwerpen')";
-            db.query(sql);
+            _db.query(sql);
         }
         catch(Exception e)
         {
-            //Log error
+            // Log error
             System.IO.File.WriteAllText(@"c:\Error.txt", e.ToString());
         }
     }
@@ -185,31 +193,32 @@ public class Werknemer
 }
 ```
 
-De werknemer klasse is nu verantwoordelijk voor CRUD operaties, maar ook voor het loggen van errors. Dus meer dan 1 verantwoordelijkeheid. Indien we beslissen om niet meer naar een bestand te loggen, moeten we de klasse aanpassen.
+De werknemer klasse is verantwoordelijk voor CRUD operaties, maar ook voor het loggen van errors: meer dan 1 verantwoordelijkheid. Indien we beslissen om niet meer naar een bestand te loggen, moeten we de klasse aanpassen.
 
 Daarom is het beter om dit als volgt te coderen:
 
 ```csharp
 public class Werknemer
 {
-    Database db;
-    FileLogger logger;
+    Database _db;
+    FileLogger _logger;
+    
     public Werknemer()
     {
-        db = new Database();
-        logger = new FileLogger();
+        _db = new Database();
+        _logger = new FileLogger();
     }
-    void Insert(){
-
-        try {
-
+    void Insert()
+    {
+        try 
+        {
             string sql = "insert into werknemers(voornaam,achternaam,stad) values ('Tom', 'Peeters', 'Antwerpen')";
-            db.query(sql);
+            _db.query(sql);
         }
         catch(Exception e)
         {
             //Log error
-            logger.Log(e.ToString());
+            _logger.Log(e.ToString());
         }
     }  
 }
@@ -227,7 +236,7 @@ public class FileLogger
 }
 ```
 
-Met deze `FileLogger` verhoog je de "coupling" graad, en moet je een extra laag toevoegen, bijvoorbeeld een interface.
+Met deze versie van de klasse `FileLogger` verhoog je de "coupling" graad, en voeg je met andere woorden best een extra laag toe, bijvoorbeeld een interface:
 
 ```csharp
 public interface ILogger
@@ -242,7 +251,8 @@ public class FileLogger:ILogger
 public class Werknemer
 {
     ILogger log;
-    public Werknemer(ILogger _log){
+    public Werknemer(ILogger _log)
+    {
         log = _log
     }
 }
@@ -252,17 +262,18 @@ static void Main(string[] args)
 
     ILogger log = new FileLogger();
     Werknemer wn = new Werknemer(log);
-
 }
 ```
 
-Single responsibility is niet enkel op klasse maar ook op method niveau.
+Single responsibility speelt niet enkel op klasse-niveau maar ook op method-niveau.
 
 ### Single Responsibility op method niveau
 
 #### Probleemstelling
 
-Er is je gevraagd om software te schrijven voor een online video shop. Het programma berekent en print de rekening van een klant bij onze online shop. Onderstaande paragraaf geeft ons de voorbeeldcode van het programma. We zullen deze oplossing grondig analyseren en bekijken hoe we de code kunnen verbeteren. Aan het programma wordt meegegeven welke film de klant heeft gehuurd, en voor hoe lang. Daarna wordt de rekening gemaakt – afhankelijk van hoe lang de film gehuurd geweest is, en welk type film (nieuwe release, kinder, gewone). UML notatie:
+Er is je gevraagd om software te schrijven voor een online video shop. Het programma berekent en print de rekening van een klant bij onze online shop. Onderstaande paragraaf geeft ons de voorbeeldcode van het programma. We zullen deze oplossing  analyseren en bekijken hoe we de code kunnen verbeteren. Aan het programma wordt meegegeven welke film de klant heeft gehuurd, en voor hoe lang. Daarna wordt de rekening gemaakt – afhankelijk van hoe lang de film gehuurd geweest is, en welk type film (nieuwe release, kinder, gewone). 
+
+UML:
 
 ![movie architectuur](https://timdams.gitbooks.io/csharpfromantwerp/content/assets/20_se/moviearchitectuur.PNG)
 
@@ -297,7 +308,6 @@ static void Main(string[] args)
     { 
         Console.WriteLine( cust.Statement() ); 
     } 
-
 }
 ```
 
@@ -348,7 +358,7 @@ public class Rental
 
 ### Customer klasse
 
-Deze klasse stelt de klant van de winkel voor
+Deze klasse representeert de klant van de winkel:
 
 ```csharp
 public class Customer
@@ -504,8 +514,6 @@ foreach (Rental r in _rentals)
     thisAmount = AmountFor(r); 
     //...
 ```
-
-(zie volledige C# code - project SoftwareArchitectuur2) [TODO]
 
 #### Analyse van AmountFor functie
 
@@ -729,13 +737,11 @@ public double GetCharge(int daysRented)
 }
 ```
 
-## SRP, the law of demeter
+## SRP, the "Law of Demeter"
 
 Dit is het principe van "least knowledge", is een object-oriented software design principe. Een methode van een object mag enkel wie oproepen:
 
-```text
 - het object zelf
 - een argument van de methode
-- elk object dat in de methode gecreerd is
-- alle properties, variabelen van het object zelf
-```
+- elk object dat in de methode aangemaakt is
+- alle properties en variabelen van het object zelf

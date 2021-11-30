@@ -9,7 +9,7 @@ TOPROCESS:
 >
 > de IS-A relatie zou vervangen moeten worden door IS-VERVANGBAAR DOOR
 
-Als voorbeeld werken we met een klasse vierkant die overerft van Rechthoek. De klasse Rechthoek heeft eigenschappen als "width" en "height", en vierkant erft deze over. Maar als voor de klasse vierkant de width OF height gekend is, ken je de waarde van de andere ook. En dit is tegen het principe van Liskov.
+Als voorbeeld werken we met een klasse vierkant die overerft van Rechthoek. De klasse Rechthoek heeft eigenschappen als "Width" en "Height", en vierkant erft deze over. Maar als voor de klasse vierkant de breedte OF de hoogte gekend is, ken je de waarde van de andere ook: dit is tegen het principe van Liskov.
 
 ```csharp
 public class Rechthoek
@@ -24,7 +24,7 @@ public class Rechthoek
 }
 ```
 
-De klasse Vierkant erft over van Rechthoek (maar is in programmeren een vierkant wel een rechthoek?) Een vierkant is een rechthoek met gelijke breedte en hoogte, en we kunnen de properties virtual maken in de klasse Rechthoek om dit te realiseren. Rare implementatie, niet? Maar kijk nu naar de client code..
+De klasse Vierkant erft over van Rechthoek (maar is in programmeren een vierkant wel een rechthoek). Een vierkant is een rechthoek met gelijke breedte en hoogte, en we kunnen de *properties* *virtual* maken in de klasse Rechthoek om dit te realiseren. Rare implementatie, niet? 
 
 ```csharp
 public class Vierkant:Rechthoek
@@ -73,13 +73,13 @@ Client code:
 }
 ```
 
-De gebruiker weet dat r een Rechthoek is dus is hij in de veronderstelling dat hij de width en height kan aanpassen zoals in de parent klasse. Dit in acht genomen zal de gebruiker verrast zijn om 100 te zien ipv 50.
+De gebruiker weet dat r een Rechthoek is dus is hij in de veronderstelling dat hij de breedte en hoogte kan aanpassen zoals in de *parent* klasse. Dit in acht genomen zal de gebruiker verrast zijn om 100 te zien ipv 50.
 
 ## Oplossen van het LSP probleem
 
-- Code dat niet **vervangbaar** is zorgt ervoor dat polymorfisme niet werkt
-- Client code (en dit geval de Main) veronderstelt dat basis klassen kunnen vervangen worden door hun afgeleide klassen (Rechthoek r = new Vierkant())
-- Het oplossen van LSP door switch cases zorgt voor een onderhoudsnachtmerrie!
+- Code die niet **vervangbaar** is, zorgt ervoor dat polymorfisme niet werkt
+- Client code (en dit geval de Main) veronderstelt dat basisklassen kunnen vervangen worden door hun afgeleide klassen (Rechthoek r = new Vierkant())
+- Het oplossen van LSP door switch cases brengt een onderhoudsnachtmerrie met zich mee!
 
 ```csharp
 public abstract class Shape

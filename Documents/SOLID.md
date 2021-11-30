@@ -2,9 +2,9 @@
 
 ### Inleiding
 
-Software ontwikkelaars worden geconfronteerd met ontwerpproblemen. Professionals zullen echter merken dat bepaalde soorten van ontwerpproblemen steeds terugkomen. Eenmaal je een probleem herkent als een variant van een probleem dat je vroeger al eens hebt opgelost, kan je gebruik maken van de inzichten die je al verworven hebt. Je ziet bepaalde patronen terugkeren.
+Software ontwikkelaars worden vaak geconfronteerd met ontwerpproblemen. Professionals stellen echter vast dat bepaalde soorten van ontwerpproblemen steeds terugkomen. Eenmaal je een probleem herkent als een variant van een probleem dat je vroeger al eens hebt opgelost, kan je gebruik maken van de inzichten die je al verworven hebt. Je ziet bepaalde patronen (patterns) terugkeren ... .
 
-### Wat is nu precies een ontwerppatroon of design pattern
+### Wat is nu precies een ontwerppatroon (design pattern)
 
 > Een ontwerppatroon is een standaardoplossing voor een vaak voorkomend ontwerpprobleem. Deze patronen zijn belangrijk omdat ze je de moeite kunnen besparen om telkens opnieuw het warm water uit te vinden. Bovendien heeft elk patroon een eigen naam, wat ervoor zorgt dat het heel eenvoudig wordt om bepaalde complexe ideeën in een oogwenk te communiceren aan een andere programmeur.
 
@@ -14,7 +14,7 @@ Sinds het begin van het computertijdperk is probleem-oplossend denken ingrijpend
 
 #### Programmeren: the sequel
 
-In het begin programmeerden we met assembly, en was elk programma beperkt tot een honderdtal lijnen. Elke programmeur had zijn eigen stijl volgens intuïtie.
+In het begin programmeerden we met *assembly*, en was elk programma beperkt tot een honderdtal lijnen. Elke programmeur had een eigen stijl volgens intuïtie.
 
 #### Programmeren: flow based
 
@@ -30,7 +30,7 @@ Object-georiënteerd programmeren gebeurt intuïtief en identificeert natuurlijk
 
 #### Vandaag...
 
-Door de toenemende concurrentie moet je als programmeur tegenwoordig zeer dynamisch (Agile Principe) zijn. Ook is de gemiddelde levensduur van een product drastisch verlaagd. Organisaties moeten snel op marktveranderingen kunnen antwoorden. Ook worden business strategieën snel aangepast wat wil zeggen dat bijvoorbeeld een goed software design zeer belangrijk is om snel op deze veranderingen in te kunnen inspelen. Software moet snel ontwikkeld kunnen worden en staat dicht bij de klant ( deze kan al vaak worden betrokken bij de ontwikkeling van gepersonaliseerde software).
+Door de toenemende concurrentie moet je als programmeur tegenwoordig zeer dynamisch (Agile) zijn. Ook is de gemiddelde levensduur van een product drastisch verlaagd. Organisaties moeten snel op marktveranderingen kunnen antwoorden. Ook worden business strategieën snel aangepast wat wil zeggen dat bijvoorbeeld een goed software design zeer belangrijk is om snel op deze veranderingen in te kunnen inspelen. Software moet snel ontwikkeld kunnen worden en staat dicht bij de klant (deze kan al vaak worden betrokken bij de ontwikkeling van gepersonaliseerde software).
 
 #### Object oriented
 

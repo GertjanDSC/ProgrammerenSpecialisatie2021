@@ -405,7 +405,7 @@ Op deze manier moet de Order klasse niet weten of we een email notificatie sture
 
 # Strategy patroon
 
-We gaan verder met het voorbeeld van Single Responsibility op method niveau.
+We gaan verder met het voorbeeld van Single Responsibility op *method*-niveau.
 
 ### De conditionele logica van PrijsCode veranderen met behulp van Polymorfisme
 
@@ -608,6 +608,6 @@ public class NewReleasePrice:Price
 }
 ```
 
-Dit strategy patroon invoegen gaf ons heel wat werk, maar de winst is dat ik prijzen gemakkelijk kan veranderen en nieuwe prijsklassen kan aanmaken zonder andere code te wijzigen. Want de rest van de implementatie weet niets van dit state pattern! Voor grote complexe projecten betekent dat heel wat winst.
+Dit strategy patroon invoegen bezorgde ons heel wat werk, maar de winst is dat we prijzen gemakkelijk kunnen wijzigen en nieuwe prijsklassen kunnen aanmaken zonder andere code te wijzigen, want de rest van de implementatie weet niets van dit *state pattern*! Voor grote complexe projecten betekent dat heel wat winst.
 
 Alle bovenstaande veranderingen moeten leiden tot makkelijker te onderhouden code. Een heel verschil met proceduraal programmeren, maar wanneer je dit onder knie hebt, zal je veel gemakkelijker tests kunnen schrijven en veranderingen implementeren!
