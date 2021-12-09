@@ -1,0 +1,53 @@
+﻿using Stock.Domain.Contracts;
+using System;
+using System.Net;
+using System.Net.Mail;
+
+namespace Stock.Infrastructure.Mailer
+{
+    public class SmtpMailer : IEmailService
+    {        
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public string User { get; set; }
+        public string Password { get; set; }
+
+        public void Send(string from, string[] to, string subject, string html)
+        {
+            using (SmtpClient smtpClient = new())
+            {
+                var basicCredential = new NetworkCredential(User, Password);
+                using (MailMessage message = new())
+                {
+                    MailAddress fromAddress = new(from);
+
+                    smtpClient.Host = Host;
+                    smtpClient.Port = Port;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = basicCredential;
+
+                    message.From = fromAddress;
+                    message.Subject = subject;
+                    // Set IsBodyHtml to true means you can send HTML email.
+                    message.IsBodyHtml = true;
+
+                    message.Body = html;
+                    foreach (var t in to)
+                    {
+                        message.To.Add(t);
+                    }
+
+                    try
+                    {
+                        smtpClient.Send(message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Domain.Services.Logger.Exception(ex);
+                    }
+                }
+            }
+        }
+    }
+}
