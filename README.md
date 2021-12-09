@@ -1,6 +1,10 @@
 # Programmeren Specialisatie FLEX Semester 1 AVOND (2021 - 2022)
 
+Dit is een test.
+
 ## 1. Planning
+
+Updated
 
 | Datum        | Inhoud                                                       |
 | ------------ | ------------------------------------------------------------ |
@@ -11,10 +15,10 @@
 | 26/10/2021   | [Async, threads, tasks (1)](./Documents/Threading_1.md)      |
 | 09/11/2021   | Design patterns: [WPF MVVM](./Documents/MVVM.md), [live charting](./Documents/LiveCharting.md) |
 | 16/11/2021   | [Async, threads, tasks (2)](./Documents/Threading_2.md)      |
-| 23/11/2021   | [TCP/UDP client/server](./Documents/SimpleTCP.md), [Protocol Buffers, encryptie, compressie](./Documents/Serialisatie.md), [WireShark](https://www.wireshark.org/download.html) |
-| 30/11/2021   | [IOC](./Documents/ioc.md)                                    |
-| 07/12/2021   | Design patterns: [DDD (Domain Driven Development) in de praktijk](./Documents/DDD.md) |
-| 14/12/2021   | Design patterns: [SOLID in de praktijk](./Documents/SOLID.md), [GRASP](./Documents/grasp.md) |
+| 23/11/2021   | [TCP/UDP client/server](./Documents/SimpleTCP.md)            | 
+| 30/11/2021   | [Protocol Buffers, encryptie, compressie](./Documents/Serialisatie.md),[WireShark](https://www.wireshark.org/download.html)  |
+| 07/12/2021   | [IOC](./Documents/Ioc.md)                                    |
+| 14/12/2021   | Design patterns: [DDD (Domain Driven Development)](./Documents/DDD.md), [SOLID](./Documents/SOLID.md), [GRASP](./Documents/grasp.md) |
 | *21/12/2021* | *Inhaalweek*                                                 |
 | 11/01/2022   | Blok                                                         |
 | 18/01/2022   | Eerste kans finale evaluatieoefening                         |
