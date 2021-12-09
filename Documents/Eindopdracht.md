@@ -3,7 +3,7 @@
 ## Technische richtlijnen
 
 * Respecteer de **"10 geboden"** vermeld in de cursus.
-* Gebruik je github.com account en git om je applicatie te ontwikkelen, maar dien je eindoplossing ook tijdig in onder Chamilo.
+* Gebruik je dev.azure.com account en git om je applicatie te ontwikkelen, maar dien je eindoplossing ook tijdig in onder Chamilo.
 * Gebruik DDD (Domein Driven Development) en design pattern MVVM bij WPF.
 * Gebruik Entity Framework.
 * Gebruik logger https://serilog.net/ via nuget package manager:
@@ -69,11 +69,13 @@
 
    ![image-20210929141600457](./image-20210929141600457.png)
 
-   Negeer voorlopig kolom "Advies".
+   Negeer kolom "Advies" in bovenstaand voorstel.
 
 5. De gebruiker kan de frequentie instellen waarmee de huidige waarde van de portefeuille berekend wordt; de berekende waarden worden telkens opgeslagen in de database als "historische gegevens", met een tijdstip, zodat een grafiek getoond kan worden van de evolutie van een aandeel en de evolutie van een portefeuille overheen een selecteerbare periode  van 1 week, 1 maand, een half jaar, het voorbije deel van het huidige jaar, 1 jaar, 5 jaar.
 
    ![image-20210929141909573](./image-20210929141909573.png)
+ 
+   Deze visuele voorstelling is maar een voorstel; vertrek van het "Live Chart" voorbeeld dat tijdens de cursus aangereikt werd, om tot je eigen eventueel afwijkende visuele voorstelling te komen.
 
 6. De gebruiker kan als optie instellen of prijzen getoond worden in de originele munt van de transactie of in een gekozen munt (bijvoorbeeld altijd in EUR). Deze instellingen worden eveneens bewaard in de databank.
 

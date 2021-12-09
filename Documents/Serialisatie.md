@@ -12,7 +12,7 @@ Duurt het verzenden van gegevens langer dan het coderen/verpakken van gegevens? 
 
 [Protocol Buffers](https://developers.google.com/protocol-buffers) is waarschijnlijk de beste vriend van de "binary number cruncher". Het is een gratis (Apache Licentie) platform-overschrijdend product. Er is ook een specifieke versie voor de .Net omgeving. Protocol Buffers is niet de snelste tool op de markt, maar alle snellere tools (zoals bijvoorbeeld [kryo](https://github.com/EsotericSoftware/kryo)) zijn er meer uitsluitend voor Java. Protocol Buffers wordt ondersteund door vele programmeertalen. De snelheid is behoorlijk goed.
 
-Terug naar JSON:
+Terug naar XML versus JSON:
 
 ```xml
 <person>
@@ -32,7 +32,7 @@ Terug naar JSON:
 </person>
 ```
 
-wordt in JSON iets als:
+of:
 
 ```xml
 <person firstName="John" lastName="Smith" age="25">
@@ -44,7 +44,7 @@ wordt in JSON iets als:
 </person>
 ```
 
-JSON lijkt meer op C#, is het niet (zie hieronder)? Een echt leuke JSON viewer: [online json](http://www.jsoneditoronline.org/).
+wordt in JSON iets als:
 
 ```json
 {
@@ -68,6 +68,10 @@ JSON lijkt meer op C#, is het niet (zie hieronder)? Een echt leuke JSON viewer: 
     ]
 }
 ```
+
+JSON lijkt meer op C#, niet (zie hieronder)? Een leuke JSON viewer: [online json](http://www.jsoneditoronline.org/).
+
+Hoe lezen we dit in met behulp van het .NET framework en wat C# code?
 
 Allereerst moeten we **JavaScriptSerializer** beschikbaar maken. Voeg de referentie "System.Web.Extensions" toe aan je project. De namespace "System.Web.Script.Serialization" is nu beschikbaar.
 
@@ -141,8 +145,6 @@ public static void LoadObjectsJSON() {
 }
 ```
 
-
-
 ```c#
 public static void SaveObjectsJSON(WalmartWorld xWalmartWorld) {
     string lDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\";
@@ -164,10 +166,10 @@ Milk            1.43 from happy cows
 baked beans     1.35 very British
 ```
 
-Helaas zien we dezelfde puinhoop als in het geval van XML: er zijn verschillende klassen die zich bezighouden met JSON in het .Net framework.
+Helaas zien we wat het .NET framework betreft dezelfde puinhoop als bij XML: er zijn verschillende klassen die zich bezighouden met JSON in het .Net framework.
 Er is bijvoorbeeld een serializer in de System.Runtime.Serialization.Json namespace genaamd **DataContractJsonSerializer**. Deze is bedoeld voor gebruik met WCF client applicaties en maakt wel gebruik van DataContractAttribute en DataMemberAttribute om de te serialiseren gegevens te identificeren. Als je geen van deze attributen toevoegt, wordt de data genegeerd. Voor het gebruik van DataContractJsonSerializer voeg je de "System.Runtime.Serialization" referentie toe aan je project.
 
-Laten we onze Walmart klassen uitbreiden en de vereiste attributen toevoegen. Je kunt de XML attributen verwijderen als je niet meer met XML wilt werken. Je kunt ze in de code laten staan om de achterdeur open te houden voor een snelle en eenvoudige XML conversie. De XML attributen hebben geen invloed op het programma, het betreft alleen wat extra bytes in je programmacode.
+Laten we onze Walmart klassen uitbreiden en attributen toevoegen. Je kunt de XML attributen verwijderen als je niet meer met XML wilt werken. Je kunt ze in de code laten staan om de achterdeur open te houden voor een snelle en eenvoudige XML conversie. De XML attributen hebben geen invloed op het programma, het betreft alleen wat extra bytes in je programmacode.
 
 Pas op voor een kleine typefout. Als je DataContractSerializer gebruikt in plaats van DataContractJsonSerializer, dan maak je per ongeluk XML en geen JSON aan.
 
@@ -248,13 +250,13 @@ public static WalmartWorld LoadObjectsJSON() {
 }
 ```
 
-Voorbeeld json bestand
+Voorbeeld van het aangemaakte json bestand:
 
 ```json
 {"Electronic":[{"Attribute":null,"Description":"LG","Name":"TV","Price":4500,"SomethingElse":null}],"Food":[{"Attribute":null,"Description":"Douwe Egberts","Name":"Coffee","Price":4.5,"SomethingElse":null}],"Text":null}
 ```
 
-Voorbeeld testprogramma
+Voorbeeld van een testprogramma:
 
 ```c#
 static void Main(string[] args)
@@ -279,6 +281,8 @@ Je kan een aangepaste naam definiëren voor elk DataMember attribuut. Het JSON-b
 [DataMember(Name = "UseWhateverYouLike")]
 public string Attribute { get; set; }
 ```
+
+Wat is het grote nadeel van het gebruik van attributen? Je code lijkt weliswaar elegant, maar is "verrijkt", dus het betreft geen eenvoudige, simpele, zuivere C# "domein"-code meer.
 
 ## ProtocolBuffers
 

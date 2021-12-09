@@ -19,11 +19,13 @@ Op het oog misschien niet zo’n spectaculaire verbetering, maar toch zijn er ze
 - De code is geautomatiseerd te testen doordat het gedrag van de IOC-container in de unittest eenvoudig is aan te passen. Bovendien is bijvoorbeeld Moq makkelijk toe te passen!
 - De code werkt middels interfaces waardoor het gedrag van dit proces is aan te passen zonder de code te wijzigen.
 
-Dat laatste punt wordt zichtbaar doordat een hoop IOC-raamwerken de mogelijkheid hebben om hun gedrag via configuratie in te stellen. We geven een voorbeeld op basis van Microsoft Unity, een raamwerk waarmee we verderop kennis zullen maken:
+Dat laatste punt wordt zichtbaar doordat een hoop IOC-raamwerken de mogelijkheid hebben om hun gedrag via configuratie in te stellen. We geven een voorbeeld op basis van Microsoft Unity, een framework waarmee we verderop kennis zullen maken:
 
 ![ioc 3](./IOC/inversion4.png)
 
 Met andere woorden: inversion of control is een absolute aanrader om in je gereedschapskist als ontwikkelaar te hebben.
+
+## Terminologie
 
 Vaak gebeurt het dat informaticaconcepten moeilijker te begrijpen zijn, terwijl ze op zich eenvoudig in elkaar steken als principe en we er soms zonder het te beseffen gebruik van maken.
 
@@ -37,15 +39,29 @@ Laten we bovenstaande buzz-words begrijpen. De volgende afbeelding verduidelijkt
 
 ![ioc 5](./IOC/principles-and-patterns.png)
 
-Zoals geïllustreerd zijn IoC en DIP ontwerpprincipes die best aangewend worden bij het implementeren van toepassingen. Omdat het principes zijn, reiken ze "beste praktijken" (best practices) aan, maar geven ze geen specifieke details over de implementatie. Dependency Injection (DI) is een patroon en IoC-container is een raamwerk.
+Zoals geïllustreerd zijn IoC en DIP ontwerpprincipes die best aangewend worden bij het implementeren van toepassingen. Omdat het principes zijn, reiken ze "beste praktijken" (*best practices*) aan, maar geven ze geen specifieke details over de implementatie. Dependency Injection (DI) is een patroon en IoC-container is een raamwerk.
 
 Laten we elke term toelichten vooraleer we op details ingaan.
+
+### Afhankelijkheid (dependency)
+
+![img](./IOC/dependency.png)
+
+Stel dat A B nodig heeft, dan is B een "afhankelijkheid" (dependency) van A.
 
 ### Inversie van controle
 
 IoC is een ontwerpprincipe dat de omkering van controle in een object-georiënteerd ontwerp aanbeveelt om een ​​losse koppeling tussen toepassingsklassen te bereiken. In dit geval verwijst "controle" naar alle aanvullende verantwoordelijkheden die een klasse heeft, uitgenomen de hoofdverantwoordelijkheid, zoals controle over de stroom van een applicatie of controle over het creëren en binden van het afhankelijke object (onthoud SRP - Single Responsibility Principle).
 
-Als je TDD (Test Driven Development) wilt doen, dan moet je het IoC-principe gebruiken, zonder welke TDD niet mogelijk is.
+Als je TDD (Test Driven Development) wil toepassen, dan moet je het IoC-principe gebruiken, zoniet is TDD niet mogelijk.
+
+Om zeker te maken dat klasse A een object kent van klasse B, heeft klasse A volgende opties:
+
+![img](./IOC/dependency-management-ways.png)
+
+De laatste optie is "IoC" aangezien A actief niets onderneemt.
+
+## Principes, patronen en frameworks
 
 ### Principe van inversie-afhankelijkheid
 
@@ -53,11 +69,11 @@ Het DIP-principe helpt bij het bereiken van losse koppeling tussen klassen. Het 
 
 DIP suggereert dat modules op hoger niveau niet afhankelijk mogen zijn van modules op lager niveau. Beiden moeten afhangen van een abstractie.
 
-Het DIP-principe is uitgevonden door Robert Martin (ook bekend als **Uncle Bob**). Hij is een van de grondleggers van de SOLID-principes.
+Het DIP-principe is uitgevonden door **Robert Martin** (ook bekend als **Uncle Bob**). Hij is een van de grondleggers van de SOLID-principes.
 
 ### Afhankelijkheidsinjectie
 
-Dependency Injection (DI) is een ontwerppatroon dat het IoC-principe implementeert om de creatie van afhankelijke objecten om te keren.
+*Dependency Injection* (DI) is een ontwerppatroon dat het IoC-principe implementeert om de creatie van afhankelijke objecten om te keren.
 
 ### IoC-container
 
@@ -71,7 +87,7 @@ Bij IoC draait alles om het omkeren van controle. Stel dat je met een auto naar 
 
 Het IoC-principe helpt bij het ontwerpen van losjes gekoppelde klassen en maakt deze testbaar, onderhoudbaar en uitbreidbaar.
 
-## Basics: manieren om Dependency Injection te doen
+## Basics: manieren om aan Dependency Injection te doen
 
 Je herinnert je zeker nog je schooldagen? Soms worden er events georganiseerd en vaak wonen we saaie lezingen bij.
 
@@ -94,11 +110,10 @@ Dit probleem moet opgelost worden aangezien we anders niet in staat zijn om ande
 
 De oplossing kan zijn om de controle van het organiseren van events eruit te trekken en op een andere plek te positioneren. Dit noemen we **Inversion of Control** (IOC): een andere entiteit dan College organiseert events.
 
-Wat is het principe van IOC?
+> Een makkelijke manier om het principe van IoC te onthouden:
+> **Don't Call Us, We Will Call You**
 
-**Don't Call Us, We Will Call You**
-
-Met andere woorden, de hoofdklasse mag geen concrete implementatie hebben van een geaggregeerde klasse maar moet gebruik maken van een abstractie van die klasse door gebruik te maken van een interface of abstracte klasse.
+> Anders gezegd: de hoofdklasse mag geen concrete implementatie hebben van een geaggregeerde klasse maar moet gebruik maken van een abstractie van die klasse door gebruik te maken van een interface of abstracte klasse.
 
 ### Dependency Injection
 
@@ -117,17 +132,18 @@ Het object van de concrete class die de implementatie voor zijn rekening neemt, 
 ```csharp
 class College  
 {  
-        private IEvent _events;  
+        private IEvent _event;  
+
         public College(IEvent ie)  
         {  
-            _events = ie;
+            _event = ie;
         }  
-  
+
        public void GetEvents()  
         {  
-            this._events.LoadEventDetail();  
+            this._event.LoadEventDetail();  
         }  
-  
+
 }
 ```
 
@@ -146,12 +162,13 @@ Ken het object toe aan een property van het type *interface*.
 ```csharp
 class College  
 {  
-        private IEvent _events;  
+        private IEvent _event; 
+ 
         public IEvent MyEvent  
         {  
             set  
             {  
-                _events = value;  
+                _event = value;  
             }  
         }  
 }
@@ -188,19 +205,20 @@ coll.GetEvent(new FootballEvent());
 
 4. Injectie via een Service Locator
 
-Een **service locator** kan ageren als een eenvoudige *runtime mapper*. Deze laat toe om *at runtime* zonder hercompilatie te vereisen van de applicatie en zelfs zonder te moeten herstarten een bepaald object als implementatie van een interface te kiezen.
+Een **service locator** kan ageren als een eenvoudige *runtime mapper*. Deze laat toe om een bepaald object als implementatie van een interface te kiezen *at runtime* zonder hercompilatie te vereisen van de applicatie en zelfs zonder te moeten herstarten .
 
 ```csharp
 class College  
     {  
-        private IEvent _events = null;  
-        EventLocator el = new EventLocator();  
+        private IEvent _event = null;  
+        private EventLocator el = new EventLocator(); 
+ 
         public College(int index)  
         {  
-            this._events = el.LocateEvent(index);  
+            this._event = el.LocateEvent(index);  
         }  
     }  
-  
+
     class EventLocator  
     {  
         public IEvent LocateEvent(int index)  
@@ -224,7 +242,7 @@ coll.GetEvents();
 
 ### Voordelen
 
-- ontkoppeling van classes.
+- ontkoppeling van klassen.
 - door ontkoppeling wordt de herbruikbaarheid van code vergroot.
 - betere onderhoudbaarheid en testbaarheid van code.
 
@@ -274,18 +292,21 @@ Laten we bekijken wat er beter kan.
 
 CustomerBusinessLogic en DataAccess zijn nauw verbonden omdat CustomerBusinessLogic een referentie naar DataAccess bevat - hard coded. CustomerBusinessLogic creëert ook een object DataAccess en beheert de levensduur van het object.
 
-Problemen in de bovenstaande voorbeeldklassen:
+Problemen in de bovenstaande klassen:
 
-CustomerBusinessLogic en DataAccess zijn nauw gekoppelde klassen. Wijzigingen in de DataAccess-klasse leiden zo tot wijzigingen in de CustomerBusinessLogic-klasse. Als we bijvoorbeeld een methode in de DataAccess-klasse toevoegen, verwijderen of hernoemen, moeten we de CustomerBusinessLogic-klasse overeenkomstig wijzigen.
+CustomerBusinessLogic en DataAccess zijn nauw gekoppeld. Wijzigingen in de DataAccess-klasse leiden zo tot wijzigingen in de CustomerBusinessLogic-klasse. Als we bijvoorbeeld een methode in de DataAccess-klasse toevoegen, verwijderen of hernoemen, moeten we de CustomerBusinessLogic-klasse overeenkomstig wijzigen.
 Stel dat de klantgegevens afkomstig zijn uit verschillende databases of webservices en dat we in de toekomst mogelijk verschillende klassen moeten maken, dan zal dit aanleiding geven tot veranderingen in de CustomerBusinessLogic-klasse. De CustomerBusinessLogic-klasse maakt een object van de DataAccess-klasse. Er kunnen meerdere klassen zijn die de DataAccess-klasse gebruiken en objecten ervan maken. Dus, als je de naam van de klas verandert, dan moet je alle plaatsen in je broncode vinden waar je er objecten van hebt gemaakt en wijzigingen in de hele code aanbrengen. Zo ontstaat repetitieve code voor het maken van objecten van dezelfde klasse en het behouden van afhankelijkheden.
 Omdat de CustomerBusinessLogic-klasse een object van de concrete DataAccess-klasse maakt, kan deze niet onafhankelijk worden getest (TDD). De DataAccess-klasse kan niet worden vervangen door een nep-klasse (dummy of mock).
-Om alle bovenstaande problemen op te lossen en een losjes gekoppeld ontwerp te krijgen, kunnen we de IoC- en DIP-principes combineren. Onthoud dat IoC een principe is, geen patroon. Het geeft alleen ontwerprichtlijnen op hoog niveau, maar legt geen implementatie op. Je bent vrij om het IoC-principe te implementeren zoals je dat wilt.
+
+Om alle bovenstaande problemen op te lossen en een losjes gekoppeld ontwerp te krijgen, kunnen we de IoC- en DIP-principes combineren. Onthoud dat IoC een **principe** is, geen patroon. Het geeft alleen ontwerprichtlijnen op hoog niveau, maar legt geen implementatie op. Je bent vrij om het IoC-principe te implementeren zoals je dat wilt.
 
 Het volgende patroon implementeert bijvoorbeeld het IoC-principe, maar er zijn alternatieven.
 
 ![ioc 7](./IOC/ioc-patterns.png)
 
-Laten we het Factory-patroon gebruiken om IoC te implementeren, als de eerste stap naar losjes gekoppelde klassen.
+### Factory
+
+Laten we het Factory-patroon gebruiken om IoC te implementeren, als de eerste stap naar losser gekoppelde klassen.
 
 Maak eerst een eenvoudige Factory-klasse die een object van de DataAccess-klasse teruggeeft:
 
@@ -304,7 +325,6 @@ Gebruik deze DataAccessFactory-klasse nu in de CustomerBusinessLogic-klasse om e
 ```csharp
 public class CustomerBusinessLogic
 {
-
     public CustomerBusinessLogic()
     {
     }
@@ -312,7 +332,6 @@ public class CustomerBusinessLogic
     public string GetCustomerName(int id)
     {
         DataAccess _dataAccess =  DataAccessFactory.GetDataAccessObj();
-
         return _dataAccess.GetCustomerName(id);
     }
 }
@@ -322,9 +341,9 @@ Zoals je kan zien, gebruikt de CustomerBusinessLogic-klasse de DataAccessFactory
 
 Dit is een eenvoudige implementatie van IoC en de eerste stap op weg naar een volledig los gekoppeld ontwerp. We kunnen echter geen volledige losjes gekoppeld ontwerp realiseren door alleen IoC te gebruiken. Naast IoC moeten we ook DIP, het Strategy-patroon en DI (Dependency Injection) gebruiken.
 
-In de volgende stap bekijken we wat het Dependency Inversion Principle (DIP) is. DIP is een van de SOLID object-georiënteerde principes uitgevonden door Robert Martin (ook bekend als *Uncle Bob*).
+In de volgende stap bekijken we wat het Dependency Inversion Principle (DIP) is. DIP is een van de SOLID object-georiënteerde principes uitgevonden door Robert Martin (ook bekend als *Uncle Bob*, zie hierboven).
 
-DIP-definitie
+### DIP-definitie
 
 Modules op hoger niveau mogen niet afhankelijk zijn van modules op lager niveau. Beide moeten afhangen van een abstractie (bijvoorbeeld een interface of abstract class). Abstracties mogen niet afhankelijk zijn van details (concrete implementaties). Details (concrete implementaties) moeten afhangen van abstractie (bijvoorbeeld een interface of abstract class).
 
@@ -357,7 +376,8 @@ public class DataAccess
     {
     }
 
-    public string GetCustomerName(int id) {
+    public string GetCustomerName(int id) 
+    {
         return "Dummy Customer Name"; // get it from DB in real app
     }
 }
@@ -371,7 +391,7 @@ Volgens de DIP-definitie mag een module op hoger niveau niet afhankelijk zijn va
 
 De tweede regel in DIP is: "Abstracties mogen niet afhangen van details (concrete implementaties). Details (concrete implementaties) moeten afhangen van abstracties".
 
-Wat is een abstractie?
+**Wat is een abstractie?**
 
 Abstractie en inkapseling (encapsulation) zijn belangrijke principes van object-georiënteerd programmeren. Er zijn veel verschillende definities van verschillende oorsprong.
 
@@ -484,11 +504,11 @@ Toch hebben we nog geen volledig losjes gekoppelde klassen omdat de CustomerBusi
 
 Dependency Injection (DI) is een ontwerppatroon dat wordt gebruikt om IoC te implementeren. Hiermee kunnen afhankelijke objecten buiten een klasse worden gemaakt en deze objecten op verschillende manieren aan een klasse worden doorgegeven. Met DI verplaatsen we het maken en binden van de afhankelijke objecten buiten de klasse die ervan afhangt.
 
-Het Dependency Injection-patroon omvat 3 soorten klassen.
+Het Dependency Injection-patroon omvat 3 soorten klasse:
 
-- Client class: De "client"-klasse (afhankelijke klasse) is een klasse die afhankelijk is van de service-klasse.
-- Service class: de "service"-klasse (afhankelijkheid) is een klasse die een dienst levert aan de client-klasse.
-- Injector class: De injector-klasse injecteert het service-klasse object in de client-klasse.
+- **Client**: De "client"-klasse (afhankelijke klasse) is een klasse die afhankelijk is van de service-klasse.
+- **Service**: de "service"-klasse (afhankelijkheid) is een klasse die een dienst levert aan de client-klasse.
+- **Injector**: De injector-klasse injecteert het service-klasse object in de client-klasse.
 
 De volgende afbeelding illustreert de relatie tussen deze klassen:
 
@@ -686,15 +706,15 @@ public class CustomerService
 
 ### Unity: inleiding
 
-Tot dusver hebben we verschillende principes en patronen gebruikt om losjes gekoppelde klassen te bereiken. Bij professionele projecten zijn er veel afhankelijke klassen en het implementeren van deze patronen kost veel tijd. Hier helpt de IoC-container (ook bekend als de DI-container) ons.
+Tot dusver hebben we verschillende principes en patronen gebruikt om losjes gekoppelde klassen te bereiken. Bij professionele projecten zijn er veel afhankelijke klassen en **het implementeren van deze patronen kost veel tijd**. Hier helpt de IoC-container (ook bekend als de DI-container) ons.
 
-Een IoC Container is een raamwerk voor het implementeren van automatische afhankelijkheidsinjectie. Het beheert het maken van objecten, beheert de lifecycle van deze objecten, maakt dus een object van de opgegeven klasse en injecteert ook alle afhankelijkheidsobjecten via een constructor, een eigenschap of een methode en verwijdert deze op het juiste moment. Dit wordt gedaan zodat we geen objecten handmatig hoeven te maken en beheren.
+Een IoC Container is een **raamwerk voor het implementeren van automatische afhankelijkheidsinjectie**. Het beheert het maken van objecten, beheert de lifecycle van deze objecten, maakt dus een object van de opgegeven klasse en injecteert ook alle afhankelijkheidsobjecten via een constructor, een eigenschap of een methode en verwijdert deze op het juiste moment. Dit wordt gedaan zodat we geen objecten handmatig hoeven te maken en beheren.
 
 Een IoC Container moet gemakkelijke ondersteuning bieden voor de volgende DI-levenscyclusaspecten:
 
-- **Registreren**: de container moet weten welke afhankelijkheid moet worden geïnstantieerd wanneer deze een bepaald type tegenkomt. Dit proces heet registratie. Kortom, het moet een manier bevatten om type mapping te registreren.
-- **Ophalen**: bij het gebruik van de IoC-container hoeven we geen objecten handmatig te maken. De container doet het voor ons. Dit heet resolutie. De container moet enkele methoden bevatten om het opgegeven type op te halen; de container maakt een object van het opgegeven type, injecteert de vereiste afhankelijkheden indien aanwezig en geeft het object terug.
-- **Wegwerpen**: De container moet de levensduur van de afhankelijke objecten beheren. De meeste IoC-containers bevatten verschillende lifetime managers om de levenscyclus van een object te beheren en te verwijderen.
+- **Registration**: de container moet weten welke afhankelijkheid moet worden geïnstantieerd wanneer deze een bepaald type tegenkomt. Dit proces heet registratie. Kortom, het moet een manier bevatten om type mapping te registreren.
+- **Resolution**: bij het gebruik van de IoC-container hoeven we geen objecten handmatig te maken. De container doet het voor ons. Dit heet resolutie. De container moet enkele methoden bevatten om het opgegeven type op te halen; de container maakt een object van het opgegeven type, injecteert de vereiste afhankelijkheden indien aanwezig en geeft het object terug.
+- **Destruction**: De container moet de levensduur van de afhankelijke objecten beheren. De meeste IoC-containers bevatten verschillende lifetime managers om de levenscyclus van een object te beheren en te verwijderen.
 
 Er zijn veel open source en commerciële IoC containers beschikbaar voor .NET.
 
@@ -726,7 +746,7 @@ Eerst moeten we een project maken om Unity te gebruiken. Dit kan een project van
 
 Voer een naam in voor het project en een locatie en klik op OK. Dit zal een nieuw console-project creëren.
 
-![ioc 4](./unity2.png)
+![ioc 4](./IOC/unity2.png)
 
 Nu moeten we Unity in dit project installeren om Unity dependency injection in het project te kunnen gebruiken. Klik dus met de rechtermuisknop op het projectknooppunt in de solution explorer en selecteer "NuGet-pakketten beheren", zoals hieronder wordt weergegeven.
 
@@ -740,9 +760,7 @@ Klik nu op de knop Installeren in het rechterdeelvenster, zoals hieronder weerge
 
 Hiermee worden alle referenties van Unity aan uw project toegevoegd, zoals hieronder wordt weergegeven.
 
-![ioc 4](./IOC/unity5.png)
-
-Nu zijn we klaar om Unity te gebruiken. Hier zullen we leren hoe we type mapping kunnen registreren en ophalen (resolving) met Unity.
+![ioc 4](./IOC/unity5.png)Nu zijn we klaar om Unity te gebruiken. Hier zullen we leren hoe we type mapping kunnen registreren en ophalen (resolving) met Unity.
 
 Zoals we hebben geleerd in het hoofdstuk over IoC-containers moet elke container een manier bieden om afhankelijkheden te registreren en op te halen. Unity biedt de RegisterType() en Resolve()-methods.
 
@@ -813,7 +831,7 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
+Running BMW - 1 Mile
 ```
 
 In het bovenstaande voorbeeld hebben we een object gemaakt en doorgegeven van klasse BMW tijdens het maken van een object van de Driver-klasse. Daarom hebben we de afhankelijkheid van de Driver-klasse handmatig geïnjecteerd. Nu zullen we de Unity-container gebruiken om op verschillende manieren afhankelijkheden te registreren en op te halen.
@@ -832,7 +850,7 @@ var container = new UnityContainer();
 
 Vervolgens moeten we de type mapping registreren.
 
-##### Registreren
+##### Registration
 
 Voordat Unity de afhankelijkheden oplost, moeten we de type mapping registreren bij de container, zodat deze het juiste object voor het gegeven type kan maken. Gebruik de RegisterType()-methode om een ​​typetoewijzing te registreren. In feite configureert het welke klasse moet worden geïnstantieerd voor welke interface of basisklasse. Als we bijvoorbeeld willen dat Unity-container een object van de BMW-klasse maakt en levert wanneer het een afhankelijkheid van de ICar-interface moet leveren, dan moeten we het eerst registreren zoals hieronder getoond.
 
@@ -847,7 +865,7 @@ De RegisterType-methode bevat veel overloads: we verwijzen in dit opzicht door n
 
 Na registratie kunnen we de Resolve()-methode gebruiken.
 
-##### Resolving
+##### Resolution
 
 Unity maakt een object van de opgegeven klasse en injecteert automatisch de afhankelijkheden met behulp van de Resolve()-methode. We kunnen nu de Driver-klasse instantiëren met behulp van Unity-container zonder het new sleutelwoord te gebruiken:
 
@@ -863,7 +881,7 @@ drv.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
+Running BMW - 1 Mile
 ```
 
 In het bovenstaande voorbeeld maakt Unity-container een object van de Driver-klasse met behulp van de container.Resolve<Driver>()-methode. De Driver-klasse is afhankelijk van ICar. Container.Resolve<Driver>() zal dan ook automatisch een Driver object maken met daarin een object van klasse BMW geinjecteerd via de constructor. Dit gebeurt volledig achter de schermen.
@@ -906,7 +924,7 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Audi draait - 1 mijl
+Running Audi - 1 Mile
 ```
 
 Unity injecteert elke keer Audi omdat het als laatste is geregistreerd.
@@ -976,7 +994,7 @@ Running Audi - 2 Mile
 Running Audi - 3 Mile
 ```
 
-Resolve<T>() voert standaard constructie-injectie uit om afhankelijkheden te injecteren en retourneert een object van het opgegeven type.
+Resolve<T>() voert standaard constructie-injectie uit om afhankelijkheden te injecteren en geefteen object terug van het opgegeven type.
 
 ```csharp
 var container = new UnityContainer();
@@ -989,10 +1007,10 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
+Running BMW - 1 Mile
 ```
 
-#### Meerdere parameters
+#### Meer parameters
 
 Je kan ook meerdere parameters in de constructor injecteren:
 
@@ -1029,7 +1047,7 @@ public class Driver
 
     public void RunCar()
     {
-        Console.WriteLine("Running {0} with {1} - {2} mile ", _car.GetType().Name , _key.GetType().Name,  _car.Run());
+        Console.WriteLine("Running {0} with {1} - {2} Mile", _car.GetType().Name , _key.GetType().Name,  _car.Run());
     }
 }
 ```
@@ -1047,10 +1065,10 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Audi draaien met AudiKey - 1 mijl
+Running Audi with AudiKey - 1 Mile
 ```
 
-##### Meerdere constructors
+##### Meer constructors
 
 Als een klasse meerdere constructors bevat, gebruik dan het [InjectionConstructor] attribuut om aan te geven welke constructor moet worden gebruikt voor constructie-injectie:
 
@@ -1071,7 +1089,7 @@ public class Driver
 
     public void RunCar()
     {
-        Console.WriteLine("Running {0} - {1} mile ", _car.GetType().Name, _car.Run());
+        Console.WriteLine("Running {0} - {1} Mile", _car.GetType().Name, _car.Run());
     }
 }
 ```
@@ -1105,15 +1123,19 @@ public class Driver
 
     public void RunCar()
     {
-        Console.WriteLine("{0} is running {1} - {2} mile ",
+        Console.WriteLine("{0} is running {1} - {2} Mile",
                         _name, _car.GetType().Name, _car.Run());
     }
 }
 ```
 
-Gebruik dan de klasse InjectionConstructor om de parameterwaarden van de constructor te configureren. Geef een object van de InjectionConstructor-klasse door aan methode RegisterType() om meerdere parameterwaarden op te geven.
+Gebruik de klasse InjectionConstructor om de parameterwaarden van de constructor te configureren. Geef een object van de InjectionConstructor-klasse door aan methode RegisterType() om meerdere parameterwaarden op te geven.
 
-Let op: InjectionConstructor is afgeleid van de InjectionMember klasse. InjectionMember is een abstracte klasse die kan worden gebruikt om het injectietype te configureren. Er zijn drie subklassen van InjectionMember: InjectionConstruction om constructie-injectie te configureren, InjectionProperty om property-injectie te configureren en InjectionMethod om methode-injectie te configureren.
+Let op: InjectionConstructor is afgeleid van de InjectionMember klasse. InjectionMember is een abstracte klasse die kan worden gebruikt om het injectietype te configureren. 
+Er zijn drie subklassen van InjectionMember: 
+1. InjectionConstruction om constructie-injectie te configureren
+1. InjectionProperty om property-injectie te configureren
+1. InjectionMethod om methode-injectie te configureren.
 
 ```csharp
 var container = new UnityContainer();
@@ -1127,7 +1149,7 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Steve loopt Audi - 1 mijl
+Steve is running Audi - 1 Mile
 ```
 
 #### Lifetime managers
@@ -1143,14 +1165,14 @@ var container = new UnityContainer()
 
 Overzicht van lifetime managers:
 
-| Lifetime manager | Omschrijving |
-| ------------------- | ------------ |
-| TransientLifetimeManager | Maakt elke keer dat je de methode Resolve() of ResolveAll() aanroept, een nieuw object van het gevraagde type.|
-| ContainerControlledLifetimeManager | Maakt de eerste keer dat je de methode Resolve() of ResolveAll() aanroept een singleton-object en retourneert vervolgens hetzelfde object bij volgende Resolve- of ResolveAll-aanroepen.|
-| HierarchicalLifetimeManager | Zie ContainerControlledLifetimeManager; het enige verschil is dat de onderliggende container zijn eigen singleton-object kan maken. De bovenliggende en onderliggende containers delen niet hetzelfde singleton-object.|
-| PerResolveLifetimeManager | Vergelijkbaar met de TransientLifetimeManager, maar hergebruikt hetzelfde object voor het geregistreerde type in de recursieve objectgrafiek.|
-| PerThreadLifetimeManager | Creëert een enkelvoudig object per thread en retourneert dus verschillende objecten uit de container in verschillende threads.|
-| ExternallyControlledLifetimeManager | Behoudt slechts een zwakke referentie naar objecten die gemaakt worden wanneer je de methode Resolve() of ResolveAll() aanroept, bewaakt niet de lifetime van de sterke objecten die het creëert, en stelt jou of de garabage collector in staat de levensduur van de objecten te bepalen. Zo kan kan je je eigen aangepaste lifetime manager maken.|
+| Lifetime manager                    | Omschrijving                                                                                                                                                                                                                                                                                                                                         |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TransientLifetimeManager            | Maakt elke keer dat je de methode Resolve() of ResolveAll() aanroept, een nieuw object van het gevraagde type.                                                                                                                                                                                                                                       |
+| ContainerControlledLifetimeManager  | Maakt de eerste keer dat je de methode Resolve() of ResolveAll() aanroept een singleton-object en retourneert vervolgens hetzelfde object bij volgende Resolve- of ResolveAll-aanroepen.                                                                                                                                                             |
+| HierarchicalLifetimeManager         | Zie ContainerControlledLifetimeManager; het enige verschil is dat de onderliggende container zijn eigen singleton-object kan maken. De bovenliggende en onderliggende containers delen niet hetzelfde singleton-object.                                                                                                                              |
+| PerResolveLifetimeManager           | Vergelijkbaar met de TransientLifetimeManager, maar hergebruikt hetzelfde object voor het geregistreerde type in de recursieve objectgrafiek.                                                                                                                                                                                                        |
+| PerThreadLifetimeManager            | Creëert een enkelvoudig object per thread en retourneert dus verschillende objecten uit de container in verschillende threads.                                                                                                                                                                                                                       |
+| ExternallyControlledLifetimeManager | Behoudt slechts een zwakke referentie naar objecten die gemaakt worden wanneer je de methode Resolve() of ResolveAll() aanroept, bewaakt niet de lifetime van de sterke objecten die het creëert, en stelt jou of de garabage collector in staat de levensduur van de objecten te bepalen. Zo kan kan je je eigen aangepaste lifetime manager maken. |
 
 ##### TransientLifetimeManager
 
@@ -1214,8 +1236,8 @@ driver2.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
-Running BMW - 2 mijl
+Running BMW - 1 Mile
+Running BMW - 2 Mile
 ```
 
 Unity-container maakt een enkele instantie van de BMW klasse en injecteert deze in alle instanties van Driver.
@@ -1235,7 +1257,7 @@ driver1.RunCar();
 
 var driver2 = container.Resolve<Driver>();
 driver2.RunCar();
-  
+
 var driver3 = childContainer.Resolve<Driver>();
 driver3.RunCar();
 
@@ -1246,8 +1268,8 @@ driver4.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
-Running BMW - 2 mijl
+Running BMW - 1 Mile
+Running BMW - 2 Mile
 Running BMW - 1 Mile
 Running BMW - 2 Mile
 ```
@@ -1346,7 +1368,7 @@ public class Driver
 
     public void RunCar()
     {
-        Console.WriteLine("Running {0} - {1} mile ", 
+        Console.WriteLine("Running {0} - {1} Mile", 
                             this.Car.GetType().Name, this.Car.Run());
     }
 }
@@ -1371,7 +1393,7 @@ public class Driver
 
     public void RunCar()
     {
-        Console.WriteLine("Running {0} - {1} mile ", this.Car.GetType().Name, this.Car.Run());
+        Console.WriteLine("Running {0} - {1} Mile", this.Car.GetType().Name, this.Car.Run());
     }
 }
 ```
@@ -1387,8 +1409,7 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
-Benoemde toewijzing
+Running BMW - 1 Mile
 ```
 
 We kunnen een naam specificeren in het [Dependency ("name")] attribuut, die dan gebruikt kan worden om de property-waarde in te stellen.
@@ -1405,7 +1426,7 @@ public class Driver
 
     public void RunCar()
     {
-        Console.WriteLine("Running {0} - {1} mile ", this.Car.GetType().Name, this.Car.Run());
+        Console.WriteLine("Running {0} - {1} Mile", this.Car.GetType().Name, this.Car.Run());
     }
 }
 ```
@@ -1422,7 +1443,7 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Audi rennen - 1 mijl
+Running Audi - 1 Mile
 ```
 
 Met Unity-container kunnen we ook een property-injectie configureren at runtime met de RegisterType()-methode als een methode niet is gemarkeerd met het [Dependency] kenmerk. Je kan een object van de klasse InjectionProperty doorgeven aan de methode RegisterType () om een ​​property-naam en een parameterwaarde op te geven.
@@ -1442,7 +1463,7 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
+Running BMW - 1 Mile
 ```
 
 ### Method injection
@@ -1500,7 +1521,7 @@ public class Driver
 
     public void RunCar()
     {
-        Console.WriteLine("Running {0} - {1} mile ", _car.GetType().Name, _car.Run());
+        Console.WriteLine("Running {0} - {1} Mile", _car.GetType().Name, _car.Run());
     }
 }
 ```
@@ -1525,7 +1546,7 @@ public class Driver
 
     public void RunCar()
     {
-        Console.WriteLine("Running {0} - {1} mile ", _car.GetType().Name, _car.Run());
+        Console.WriteLine("Running {0} - {1} Mile", _car.GetType().Name, _car.Run());
     }
 }
 ```
@@ -1541,7 +1562,7 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
+Running BMW - 1 Mile
 ```
 
 - Runtime-configuratie
@@ -1553,10 +1574,10 @@ Let op: De InjectionMethod is afgeleid van de InjectionMember klasse. InjectionM
 ```csharp
 var container = new UnityContainer();
 
-//run-time configuration
+// run-time configuration
 container.RegisterType<Driver>(new InjectionMethod("UseCar", new Audi()));
 
-//to specify multiple parameters values
+// to specify multiple parameters values
 container.RegisterType<Driver>(new InjectionMethod("UseCar", new object[] { new Audi() }));
 
 var driver = container.Resolve<Driver>();
@@ -1566,7 +1587,7 @@ driver.RunCar();
 Uitvoer:
 
 ```console
-Audi draait - 1 mijl
+Running Audi - 1 Mile
 ```
 
 ### Override constructor injection, property injection, method injection
@@ -1637,7 +1658,7 @@ container.RegisterType<Driver>(new InjectionProperty("Car", new BMW()));
 var driver1 = container.Resolve<Driver>();
 driver1.RunCar();
 
-//Override the default value of the Car property
+// Override the default value of the Car property
 var driver2 = container.Resolve<Driver>(
     new PropertyOverride("Car", new Audi()
 );
@@ -1648,8 +1669,8 @@ driver2.RunCar();
 Uitvoer:
 
 ```console
-BMW - 1 mijl
-Audi - 1 mijl
+BMW - 1 Mile
+Audi - 1 Mile
 ```
 
 #### DependencyOverride
@@ -1663,7 +1684,7 @@ var container = new UnityContainer()
 var driver1 = container.Resolve<Driver>();
 driver1.RunCar();
 
-//Override the dependency
+// Override the dependency
 var driver2 = container.Resolve<Driver>(new DependencyOverride<ICar>(new Audi())
 driver2.RunCar();
 ```
@@ -1671,6 +1692,10 @@ driver2.RunCar();
 Uitvoer:
 
 ```console
-Running BMW - 1 mijl
-Running Audi - 1 mijl
+Running BMW - 1 Mile
+Running Audi - 1 Mile
 ```
+
+# IoC Container: een poor man's implementatie
+
+Zie directory "Examples".

@@ -1,6 +1,6 @@
 # 1. Inleiding
 
-Om vlot met de eindopdracht te kunnen beginnen en eraan door te werken, wordt een basis aangereikt. Bekijk de aanzet van het project onder [github](https://github.com/lucvervoort/ProgrammerenSpecialisatie2021/tree/main/Examples/Stock).
+Om vlot met de eindopdracht te kunnen beginnen en eraan door te werken, wordt een basis aangereikt. Bekijk de aanzet van het project onder [Azure DevOps](https://dev.azure.com/lucvervoort0708/_git/Programmeren%20Specialisatie?path=/Examples/Stock).
 
 # 2. ECB muntwaarden
 
