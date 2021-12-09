@@ -1,6 +1,8 @@
 ﻿using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
 using Stock.Domain;
+using Stock.Infrastructure.Logger;
+using Stock.Infrastructure.Mailer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,6 +33,20 @@ namespace WpfApp.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // IoC: injecting services
+            Services.Logger = new SeriLogger(); // new ConsoleLogger(this.GetType());
+            Services.Mailer = new SmtpMailer
+            {
+                Host = "smtp.telenet.be",
+                Port = 587,
+                User = "u054238",
+                Password = "ver001"
+            };
+
+            Services.Mailer.Send("lcvervoort@telenet.be", new string[] { "luc.vervoort@gmail.com" }, "Mijn titel", "<html><body><H1>Test</H1><p>Since the days of Louis Daguerre the principle of photography has remained the same.</p></body></html>");
+
+
+
             lblCursorPosition.Text = "[" + DateTime.Now.ToString() + "] Loading shares...";
 
             // De volgende aandelen moeten uit de databank komen via EF:

@@ -13,12 +13,14 @@ namespace Stock.Domain
 
         public Dictionary<string, IReadOnlyList<Candle>> GetHistoricalData(DateTime from, DateTime to, Period period = Period.Daily)
         {
+            Services.Logger.Trace("-> StockManager::GetHistoricalData");
             var result = new Dictionary<string, IReadOnlyList<Candle>>();
             foreach (var d in Shares.Keys)
             {
                 var shareData = StockQueryProvider.GetHistoricalData(d, from, to, period);
                 result.Add(d, shareData);
             }
+            Services.Logger.Trace("<- StockManager::GetHistoricalData");
             return result;
         }
 

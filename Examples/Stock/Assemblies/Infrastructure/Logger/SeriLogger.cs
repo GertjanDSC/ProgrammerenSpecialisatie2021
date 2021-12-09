@@ -34,25 +34,18 @@ namespace Stock.Infrastructure.Logger
                 .WriteTo.Conditional(_ => true, wt => wt.Console())
                 .WriteTo.MongoDBBson(cfg =>
                 {
-                    // custom MongoDb configuration
-                    //var mongoDbSettings = new MongoClientSettings
-                    //{
-                    //    UseTls = false,
-                    //    AllowInsecureTls = true,
-                    //    Credential = MongoCredential.CreateCredential("DBNAME", "USER", "PASSWORD"),
-                    //    Server = new MongoServerAddress("127.0.0.1",27017)
-                    //};
-
                     var mongoDbInstance = new MongoClient(
                         "mongodb://127.0.0.1:27017/")
-                    .GetDatabase("local");
-
+                    .GetDatabase("logs");
                     // sink will use the IMongoDatabase instance provided
                     cfg.SetMongoDatabase(mongoDbInstance);
                 })
                 .CreateLogger();
 
             // See: https://marketplace.visualstudio.com/items?itemName=gluca.log-view-l4n
+            // use VSCode, View > Command Palette > Inspect SeriLog events (after opening a trust window)
+            // mongodb://127.0.0.1/logs (as url)
+            // logs (for collection)
         }
 
         ~SeriLogger()
