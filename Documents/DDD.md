@@ -2,14 +2,19 @@
 
 ![DDD](./DDDImages/DDD_1.png)
 
-Eric Evans heeft het goed uitgelegd vanuit theoretisch oogpunt.
+Eric Evans is de authoriteit aangaande DDD vanuit theoretisch oogpunt.
 
-- Laten we eens kijken waarom DDD zo geweldig is:
-- Ontwikkeling is domein gericht, niet UI/Database gericht
-- De domeinlaag vangt alle bedrijfslogica op, waardoor je servicelaag erg dun wordt, d.w.z. slechts een toegangspoort tot je domein via DTO's
-- Domein georiënteerde ontwikkeling maakt het mogelijk om een echte service georiënteerde architectuur te implementeren, d.w.z. dat uw services herbruikbaar zijn omdat ze niet UI/Presentatie laag specifiek zijn 
+## Waaron is DDD zo fantastisch?
+
+- Ontwikkeling is domeingericht, niet UI/Database gericht
+- De domeinlaag vangt alle bedrijfslogica op, waardoor je "service"-laag erg dun wordt, d.w.z. slechts een toegangspoort tot je domein biedt via DTO's
+- Domeingeoriënteerde ontwikkeling maakt het mogelijk om een echte service georiënteerde architectuur te implementeren, d.w.z. dat uw services herbruikbaar zijn omdat ze niet UI/Presentatie laag specifiek zijn 
 - Unit tests zijn gemakkelijk te schrijven omdat code horizontaal schaalt en niet verticaal, waardoor je methodes dun en gemakkelijk testbaar zijn
-- DDD is een verzameling patronen en principes: dit geeft ontwikkelaars een kader om mee te werken, waardoor iedereen in het ontwikkelteam dezelfde richting op kan gaan
+- DDD is een verzameling van patronen en principes: dit geeft ontwikkelaars een kader om mee te werken, waardoor iedereen in het ontwikkelteam dezelfde richting kan opgaan.
+
+## Waarvoor staat DTO?
+
+Data Transfer Object: "anemic" objects.
 
 Code:
 
@@ -42,9 +47,9 @@ Code:
   }
 ```
 
-Bovenstaande code vertegenwoordigt anemische klassen. Sommige ontwikkelaars zouden hier stoppen, en deze klassen gebruiken om gegevens door te geven aan de service en dan deze gegevens te binden aan de UI. Laten we verder gaan en onze modellen "volwassen" maken.
+Bovenstaande code vertegenwoordigt "anemische" klassen (enkel properties, referenties naar andere objecten). Sommige ontwikkelaars zouden het hierbij houden, en deze klassen gebruiken om gegevens door te geven aan de service en dan deze gegevens rechtstreeks te binden aan de UI. Laten we verder gaan.
 
-Wanneer een klant online winkelt, kiest hij eerst artikelen, hij kijkt rond, en uiteindelijk zal hij een aankoop doen. Dus hebben we iets nodig dat de producten bewaart, laten we het een winkelwagen noemen, dit object zal geen identiteit hebben en het zal vergankelijk zijn.
+Wanneer een klant online winkelt, kiest hij eerst artikelen, daarna kijkt hij verder rond, en uiteindelijk zal hij een aankoop doen. We moeten met andere woorden deze artikelen ergens bewaren, laten we dit een winkelwagen noemen, een object dat geen identiteit heeft en vergankelijk is.
 
 Cart is ons **value object**:
 
@@ -55,9 +60,9 @@ public class Cart
 }
 ```
 
-De winkelwagen bevat gewoon een lijst met producten. De klant kan deze producten afrekenen als hij er klaar voor is.
+De winkelwagen bevat gewoon een lijst met producten. De klant kan deze producten afrekenen als hij daar klaar voor is.
 
-We kunnen het bovenstaande gebruiken als een business case "De klant kan deze producten afrekenen wanneer hij er klaar voor is".
+We kunnen het bovenstaande gebruiken als een business use case: "De klant kan deze producten afrekenen wanneer hij er klaar voor is".
 
 Voorbeeldcode:
 
@@ -82,7 +87,7 @@ Purchase purchase = customer.Checkout(cart);
 
 Wat is hier aan de hand? De klant checkt het product uit en krijgt een aankoopbon terug. Normaal gesproken in de zakelijke context krijg je een ontvangstbewijs terug, dit geeft basisinformatie over de aankoop, kortingen, en fungeert als een garantie die ik kan gebruiken om terug te verwijzen naar mijn aankoop.
 
-Ik zou Purchase kunnen hernoemen tot Receipt, maar wacht, wat betekent aankoop in de zakelijke context?
+We kunnen Purchase herdopen tot Receipt, maar wacht, wat betekent aankoop in de zakelijke context?
 
 "Verwerven door betaling van geld of een equivalent daarvan; kopen."
 
@@ -118,7 +123,7 @@ public class Customer
 }
 ```
 
-Ok, dus nu wanneer de klant uitcheckt uit een winkelwagentje, zal de aankoop worden toegevoegd aan de aankoop collectie en ook geretourneerd, zodat het verder kan worden gebruikt in onze logica. Dit is geweldig, maar een andere software engineer kan naar binnen gaan en ons domein compromitteren. Ze kunnen gewoon Orders direct aan de klant toevoegen zonder uit te checken, d.w.z. Customer.Orders.Add(...).
+Ok, dus nu wanneer de klant uitcheckt uit een winkelwagentje, zal de aankoop worden toegevoegd aan de aankoop collectie en ook teruggegeven, zodat het verder kan worden gebruikt in onze logica. Dit is geweldig, maar een andere software engineer kan naar binnen gaan en ons domein compromitteren. Ze kunnen gewoon Orders direct aan de klant toevoegen zonder uit te checken, d.w.z. Customer.Orders.Add(...).
 
 Verdere verfijning:
 
@@ -449,9 +454,9 @@ Waar heeft de handler toegang toe? Alle interfaces van de infrastructuurlaag. Di
 
 # DDD - Specification Pattern
 
-Het specification pattern is fantastisch, [lees David Fancher](http://davefancher.com/2012/07/03/specifications-expression-trees-and-nhibernate/).
+Het *specification pattern* is fantastisch, [lees David Fancher](http://davefancher.com/2012/07/03/specifications-expression-trees-and-nhibernate/).
 
-Kortom, met het specificatiepatroon kunt u zakelijke query's aan elkaar rijgen.
+Met het specificatiepatroon kan je zakelijke query's aan elkaar rijgen.
 
 Voorbeeld:
 
@@ -569,10 +574,10 @@ IEnumerable<Customer> customers = customerRepository.Find(spec);
 
 **Samenvatting:**
 
-- Met de specificatie kunt u gegevens op een abstracte manier bevragen, d.w.z. u kunt geheugenverzamelingen of een RDBMS bevragen. Dit zorgt voor persistentie/infrastructuur onwetendheid.
-- Specification kapselt een bedrijfsregel in een spec in.
-- Specificatie patroon staat je toe om je business rules aan elkaar te ketenen.
-- Specificatie maakt je domeinlaag DRY d.w.z. je hoeft niet steeds opnieuw dezelfde LINQ te schrijven.
+- Met de specificatie kan je gegevens op een abstracte manier bevragen, d.w.z. je kan collections in memory of een RDBMS bevragen. Dit zorgt voor abstractie t.o.v. persistentie/infrastructuur.
+- Specificatie kapselt een bedrijfsregel in een spec in.
+- Het specificatiepatroon staat je toe om je business rules aan elkaar te klinken als een ketel.
+- Specificatie maakt je domeinlaag **DRY** d.w.z. je hoeft niet steeds opnieuw dezelfde LINQ te schrijven.
 - Specificaties zijn eenvoudig te unit-testen.
 - Specificaties worden opgeslagen in de domeinlaag, dit zorgt voor volledige zichtbaarheid.
 - Specificaties zijn super elegant.
@@ -925,8 +930,8 @@ CheckOutResultDto checkoutResult = this.cartService.CheckOut(this.customer.id);
 
 **Samenvatting:**
 
-- Application Service is een toegangspoort tot uw Domain Model Layer via Dto's (Data Transfer Objects)
-- Applicatie Service moet geen domein logica inkapselen, het moet echt dun zijn 
+- Application Service is een toegangspoort tot uw Domain Model Layer via Dto's.
+- Applicatie Service moet geen domein logica inkapselen, het moet echt dun zijn .
 - De methode van de applicatieservice moet slechts één ding doen en dat goed doen met één gebied van het domein, meng het niet om "het meer prestatie-efficiënt te maken voor de applicatie die het gebruikt".
 - Om toegang te krijgen tot Application Service stel je een interface en Dto's beschikbaar voor input en output (het is belangrijk om je Domain Entity niet bloot te stellen in een onbewerkt formaat, Dto is een proxy en beschermt je domein)
 - Presenter (mobiele app, desktop of web), moet verschillende services aanroepen om gegevens te verkrijgen die het nodig heeft en deze te manipuleren om aan de UI te voldoen. Dit lijkt misschien inefficiënt, of verspillend in het begin. Je zult je realiseren dat het eigenlijk net zo snel is (zo niet sneller), makkelijker te testen en te onderhouden. 
@@ -934,13 +939,10 @@ CheckOutResultDto checkoutResult = this.cartService.CheckOut(this.customer.id);
 
 **Tips:**
 
-- Gebruik AutoMapper om je Domain Entity naar Dto's te mappen, verspil je tijd niet met handmatige mapping. Het maakt je implementatie code onoverzichtelijk en onderhoud wordt een nachtmerrie. 
+- Gebruik AutoMapper of een andere IoC container om je Domain Entity naar een Dto te mappen, verspil je tijd niet met handmatige mapping. Het maakt je implementatie code onoverzichtelijk en onderhoud wordt een nachtmerrie. 
 - Denk niet aan schermen als het gaat om het blootstellen van Application Services, het is een API, denk hoe een mobiele app er toegang toe zou krijgen, of hoe externe potentiële klanten het zouden gebruiken.
 - Realiseer je dat je uiteindelijk applicatieservices zult schrijven die passen bij je UI. Dit is niet meer dan natuurlijk omdat dit is wat je al een tijdje doet. Het zal een paar keer duren voordat u uw denkwijze verandert.
 - Application Service kan direct worden geconsumeerd als je geen distributie nodig hebt, d.w.z. je MVC app zal gewoon direct naar de Application Service verwijzen, je kunt dan gewoon fouten proberen op te vangen in je Controller.
 - Applicatie Service kan worden blootgesteld via Web Service (Distributed Interface Layer). Deze verdere abstractie geeft je de mogelijkheid om fouten te "proberen en op te vangen" zodat ze op een vriendelijker manier kunnen worden blootgesteld. Bovendien kunt u zo uw applicatie toekomstbestendig maken, bijv. door versiebeheer.
 
-# DDD - Read Model Services
-
-# DDD - Event Logging & Sourcing for Auditing
 
