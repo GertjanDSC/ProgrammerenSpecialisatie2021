@@ -110,6 +110,17 @@ public abstract class Vorm
 }
 ```
 
+Beter is eigenlijk nog: we maken een interface die net hetzelfde doet:
+
+```csharp
+public interface Vorm
+{
+    double Oppervlakte();
+}
+```
+
+Bij het gebruik van de interface is het onder andere zo dat het keyword "override" moet weggelaten worden.
+
 De andere klassen leiden af van vorm:
 
 ```csharp
