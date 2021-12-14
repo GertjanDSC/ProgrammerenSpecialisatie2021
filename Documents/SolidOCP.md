@@ -1,10 +1,10 @@
 # Open-Closed Principe (OCP)
 
-Het *open/closed* principe stelt dat klasses of functies "open" moeten zijn voor uitbreiding, maar "gesloten" voor wijziging!
+Het *open/closed* principe stelt dat klasses of methodes "open" moeten zijn voor uitbreiding, maar "gesloten" voor wijziging!
 
 > Open for extension, closed for modification
 
-Gesloten voor wijziging betekent dat het gedrag naar buiten toe niet veranderd mag worden en dat broncode niet aangepast moet worden.
+"Gesloten voor wijziging" betekent dat het gedrag naar buiten toe niet veranderd mag worden: broncode mag enkel zodanig gewijzigd worden dat het gedrag naar buiten toe hetzelfde blijft. 
 
 Een typisch voorbeeld:
 
