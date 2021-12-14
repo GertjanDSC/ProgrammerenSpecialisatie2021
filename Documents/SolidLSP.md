@@ -243,16 +243,14 @@ Nog beter is het overerving behoorlijk te gebruiken:
 
 ```csharp
 //Solution 3: Proper inheritance
-class Bird 
+public class Bird 
 {
-public:
     virtual void Draw();
     virtual void SetLocation(double longitude, double latitude);
 };
 
 public class FlighingBird : public Bird 
 {
-public:
     virtual void SetAltitude(double altitude);
 };
 ```
