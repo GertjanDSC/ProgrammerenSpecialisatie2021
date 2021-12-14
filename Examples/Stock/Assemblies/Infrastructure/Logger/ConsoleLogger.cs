@@ -59,6 +59,7 @@ namespace Stock.Infrastructure.Logger
 
             Console.ForegroundColor = newColor;
             System.Diagnostics.Debug.WriteLine($"[{DateTime.Now:MM/dd HH:mm:ss}] " + message);
+            Console.WriteLine($"[{DateTime.Now:MM/dd HH:mm:ss}] " + message);
             Console.ForegroundColor = oldColor;
         }
     }

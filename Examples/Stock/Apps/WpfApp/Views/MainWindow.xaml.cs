@@ -34,8 +34,8 @@ namespace WpfApp.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // IoC: injecting services
-            Services.Logger = new ConsoleLogger(this.GetType()); // new SeriLogger(); //
-            Services.Mailer = new SmtpMailer
+            Services.Logger = new SeriLogger(); // new ConsoleLogger(this.GetType()); 
+            Services.Mailer = new DiagnosticsMailer // SmtpMailer
             {
                 Host = "smtp.telenet.be",
                 Port = 587,
@@ -43,9 +43,8 @@ namespace WpfApp.Views
                 // Password = ""
             };
 
+            // Example of an actual email that is sent:
             Services.Mailer.Send("lcvervoort@telenet.be", new string[] { "luc.vervoort@gmail.com" }, "Mijn titel", "<html><body><H1>Test</H1><p>Since the days of Louis Daguerre the principle of photography has remained the same.</p></body></html>");
-
-
 
             lblCursorPosition.Text = "[" + DateTime.Now.ToString() + "] Loading shares...";
 

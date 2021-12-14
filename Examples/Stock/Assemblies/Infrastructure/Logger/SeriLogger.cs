@@ -12,16 +12,18 @@ namespace Stock.Infrastructure.Logger
         {
             
             // JSON file:
+
             Log.Logger = new LoggerConfiguration().
                             MinimumLevel.Debug().
                             Enrich.WithProperty("Application", "Stock").
                             Enrich.WithThreadId().
                             Enrich.WithMemoryUsage().
+                            Enrich.WithAssemblyName().
                             // Adds time to stock file name:
                             WriteTo.File(new CompactJsonFormatter(), @"logs\stock.json", rollingInterval: RollingInterval.Hour).
                             WriteTo.Debug().
                             CreateLogger();
-            /*
+            /*            
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .Enrich.FromLogContext()
@@ -45,7 +47,7 @@ namespace Stock.Infrastructure.Logger
             // See: https://marketplace.visualstudio.com/items?itemName=gluca.log-view-l4n
             // use VSCode, View > Command Palette > Inspect SeriLog events (after opening a trust window)
             // mongodb://127.0.0.1/logs (as url)
-            // logs (for collection)
+            // logs (for collection)    
             */
         }
 
@@ -82,6 +84,6 @@ namespace Stock.Infrastructure.Logger
         public void Warning(string message)
         {
             Log.Warning(message);
-        }
+        }        
     }
 }

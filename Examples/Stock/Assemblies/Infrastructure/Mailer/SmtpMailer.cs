@@ -1,10 +1,12 @@
 ﻿using Stock.Domain.Contracts;
 using System;
+// For emailing:
 using System.Net;
 using System.Net.Mail;
 
 namespace Stock.Infrastructure.Mailer
 {
+
     public class SmtpMailer : IEmailService
     {        
         public string Host { get; set; }
@@ -12,11 +14,11 @@ namespace Stock.Infrastructure.Mailer
         public string User { get; set; }
         public string Password { get; set; }
 
-        public void Send(string from, string[] to, string subject, string html)
+        public void Send(string from, string[] to, string subject, string content, bool isHtml = true)
         {
             using (SmtpClient smtpClient = new())
             {
-                var basicCredential = new NetworkCredential(User, Password);
+                var basicCredentials = new NetworkCredential(User, Password);
                 using (MailMessage message = new())
                 {
                     MailAddress fromAddress = new(from);
@@ -25,14 +27,14 @@ namespace Stock.Infrastructure.Mailer
                     smtpClient.Port = Port;
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = true;
-                    smtpClient.Credentials = basicCredential;
+                    smtpClient.Credentials = basicCredentials;
 
                     message.From = fromAddress;
                     message.Subject = subject;
                     // Set IsBodyHtml to true means you can send HTML email.
-                    message.IsBodyHtml = true;
+                    message.IsBodyHtml = isHtml;
 
-                    message.Body = html;
+                    message.Body = content;
                     foreach (var t in to)
                     {
                         message.To.Add(t);
