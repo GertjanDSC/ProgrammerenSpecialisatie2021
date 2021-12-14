@@ -1,6 +1,6 @@
 # Liskov Substitution Design Principle
 
-> Subtypes moeten vervangbaar zijn door hun super types (parent class).
+> Subtypes moeten vervangbaar zijn door hun super type (parent class).
 
 > A program that uses an interface must not be confused by an implementation of that interface.
 
@@ -8,7 +8,7 @@
 
 Anders gesteld: de IS-A relatie zou vervangen moeten worden door IS-VERVANGBAAR-DOOR. Het Liskov principe is een manier om ervoor te zorgen dat overerving correct gebruikt wordt.
 
-Als voorbeeld werken we met een klasse vierkant die overerft van Rechthoek. De klasse Rechthoek heeft eigenschappen als "Width" en "Height", en vierkant erft deze over. Maar als voor de klasse vierkant de breedte OF de hoogte gekend is, ken je de waarde van de andere ook: dit is tegen het principe van Liskov.
+Als voorbeeld werken we met een klasse Vierkant dat overerft van een klasse Rechthoek. De klasse Rechthoek heeft eigenschappen als "Width" en "Height", en klasse Vierkant erft deze over. Maar als voor de klasse Vierkant de breedte OF de hoogte gekend is, ken je de waarde van de andere ook en dit is tegen het principe van Liskov.
 
 ```csharp
 public class Rechthoek
@@ -23,10 +23,10 @@ public class Rechthoek
 }
 ```
 
-De klasse Vierkant erft over van Rechthoek (maar is in programmeren een vierkant wel een rechthoek). Een vierkant is een rechthoek met gelijke breedte en hoogte, en we kunnen de *properties* *virtual* maken in de klasse Rechthoek om dit te realiseren. Rare implementatie, niet? 
+De klasse Vierkant erft over van de klasse Rechthoek. Een vierkant is een rechthoek met gelijke breedte en hoogte, en we kunnen de *properties* *virtual* maken in de klasse Rechthoek om dit te realiseren. Rare implementatie, niet? 
 
 ```csharp
-public class Vierkant:Rechthoek
+public class Vierkant: Rechthoek
 {
     public override int Width
     {
@@ -72,7 +72,7 @@ Client code:
 }
 ```
 
-De gebruiker weet dat r een Rechthoek is dus is hij in de veronderstelling dat hij de breedte en hoogte kan aanpassen zoals in de *parent* klasse. Dit in acht genomen zal de gebruiker verrast zijn om 100 te zien ipv 50.
+De gebruiker weet dat r een Rechthoek is, dus is hij in de veronderstelling dat hij de breedte en hoogte kan aanpassen zoals in de *parent* klasse. Dit in acht genomen, zal de gebruiker verrast zijn om 100 te zien ipv 50.
 
 ## Oplossen van het LSP probleem
 
@@ -86,10 +86,11 @@ public abstract class Shape
     public abstract int BerekenOpp();
 }
 
-public class Rechthoek : Shape
+public class Rechthoek: Shape
 {
     public int Width { get; set; }
     public int Height { get; set; }
+    
     public override int BerekenOpp()
     {
         return Width * Height;
@@ -99,6 +100,7 @@ public class Rechthoek : Shape
 public class Vierkant : Shape
 {
     public int Side { get; set; }
+    
     public override int BerekenOpp()
     {
         return Side * Side;
@@ -185,19 +187,19 @@ public void DoeIets(Bird b)
 Nog een voorbeeld om het Liskov principe goed te begrijpen. Stel, we willen vogels tekenen op een scherm, voor een game. Volgende klasse lijkt logisch:
 
 ```csharp
-class Bird 
+public abstract class Bird 
 {
 public:
-    virtual void SetLocation(double longitude, double latitude) = 0;
-    virtual void SetAltitude(double altitude) = 0;
-    virtual void Draw() = 0;
+    virtual void SetLocation(double longitude, double latitude);
+    virtual void SetAltitude(double altitude);
+    virtual void Draw();
 };
 ```
 
 De eerste versie van de game is een groot succes. Versie 2 voegt 12 vogeltypes toe en is een nog groter succes. In versie 3 wordt beslist penguins toe te voegen. Hierbij treedt echter een probleem op:
 
 ```csharp
-void Penguin::SetAltitude(double altitude)
+void SetAltitude(double altitude)
 {
     //altitude can't be set because penguins can't fly
     //this function does nothing
@@ -210,9 +212,9 @@ Een aanlokkelijke oplossing, maar een foute, lijkt de volgende te zijn:
 
 ```csharp
 //Solution 1: The wrong way to do it
-void ArrangeBirdInPattern(Bird* aBird)
+void ArrangeBirdInPattern(Birdo aBird)
 {
-    Pengiun* aPenguin = dynamic_cast<Pengiun*>(aBird);
+    Pengiun aPenguin = aBird as Penguin;
     if(aPenguin)
         ArrangeBirdOnGround(aPenguin);
     else
@@ -228,7 +230,7 @@ Een betere oplossing is:
 //Solution 2: An OK way to do it
 void ArrangeBirdInPattern(Bird* aBird)
 {
-    if(aBird->isFlightless())
+    if(aBird->IsFlightless())
         ArrangeBirdOnGround(aBird);
     else
         ArrangeBirdInSky(aBird);
@@ -244,13 +246,13 @@ Nog beter is het overerving behoorlijk te gebruiken:
 class Bird 
 {
 public:
-    virtual void Draw() = 0;
-    virtual void SetLocation(double longitude, double latitude) = 0;
+    virtual void Draw();
+    virtual void SetLocation(double longitude, double latitude);
 };
 
-class FlighingBird : public Bird 
+public class FlighingBird : public Bird 
 {
 public:
-    virtual void SetAltitude(double altitude) = 0;
+    virtual void SetAltitude(double altitude);
 };
 ```
