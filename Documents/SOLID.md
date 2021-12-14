@@ -36,7 +36,7 @@ Door de toenemende concurrentie moet je als programmeur tegenwoordig zeer dynami
 
 De basisgedachte achter object georiënteerd programmeren is dat mensen een beetje van de realiteit proberen te modelleren zodat het model in de vorm van een werkend programma kan worden gegoten. Je kan je object model beschouwen als een blackbox. Bijvoorbeeld een auto als blackbox betekent dat je een handvol pedalen, schakelaars hebt die fungeren als interface. Duwen op de rem betekent dat je auto mindert, maar je hoeft niet te weten hoe dat gebeurt, enkel maar wat er gebeurt. Dit principe heet encapsulatie.
 
-> Encapsulatie: je probeert zoveel mogelijk zaken af te schermen van de rest.
+> Encapsulatie: je probeert zoveel mogelijk zaken af te schermen.
 
 Bijvoorbeeld een auto kan starten, maar je weet niet wat er allemaal moet gebeuren om de auto te starten. Dit noemen we een interface.
 
@@ -48,7 +48,7 @@ Bijvoorbeeld een auto kan starten, maar je weet niet wat er allemaal moet gebeur
 
 Als voorbeeld kunnen we een auto nemen.Een auto catalogeren we als een klasse, want bestaat uit een aantal eigenschappen, zoals de kleur van de auto, het aantal pk, benzine of diesel motor, enzovoort. Maar ook het starten, stoppen, schakelen van de wagen worden als eigenschappen bezien.
 
-Een object betekent bijvoorbeeld een nieuwe renault met een rode kleur, 100pk en dieselmotor.
+Een object betekent bijvoorbeeld een nieuwe Renault met een rode kleur, 100pk en dieselmotor.
 
 De auto is de klasse die beschrijft hoe een auto er voor onze probleemstelling moet uit zien, terwijl de renault een instantie van de klasse is, of ook wel object genoemd. Wat betekent dat dit een effectieve auto is die je kan gebruiken.
 
@@ -64,10 +64,22 @@ Een klasse kan bestaan uit:
 
 ### SOLID
 
-S.O.L.I.D. zijn 5 principes die ons helpen om een goede software architectuur te schrijven (door Robert C. Martin)
+[S.O.L.I.D.](https://blog.cleancoder.com/uncle-bob/2020/10/18/Solid-Relevance.html) zijn 5 principes die ons helpen om een goede software architectuur te schrijven (Robert C. Martin - Uncle Bob)
 
 - [S : SRP (Single responsibility principle)](./SolidSRP.md)
 - [O : OCP (Open closed principle)](./SolidOCP.md)
 - [L : LSP (Liskov substitution principle)](./SolidLSP.md)
 - [I : ISP (Interface segregation principle)](./SolidISP.md)
 - [D : DIP (Dependency inversion principle)](./SolidDIP.md)
+
+### Praktische implementatie
+
+#### Algemeen
+
+Zie de fantastische website [refactoring guru](https://refactoring.guru/design-patterns/csharp).
+
+#### Mediator
+
+* [MediatR](https://github.com/jbogard/MediatR)
+* [Brighter](https://www.goparamore.io/)
+

@@ -1,13 +1,12 @@
 # Liskov Substitution Design Principle
 
-TOPROCESS:
-
-- [bron](https://lassala.net/2010/11/04/a-good-example-of-liskov-substitution-principle/)
-- !!!!! [bron](http://www.tomdalling.com/blog/software-design/solid-class-design-the-liskov-substitution-principle/)
-
 > Subtypes moeten vervangbaar zijn door hun super types (parent class).
->
-> de IS-A relatie zou vervangen moeten worden door IS-VERVANGBAAR DOOR
+
+> A program that uses an interface must not be confused by an implementation of that interface.
+
+> Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it.
+
+Anders gesteld: de IS-A relatie zou vervangen moeten worden door IS-VERVANGBAAR-DOOR. Het Liskov principe is een manier om ervoor te zorgen dat overerving correct gebruikt wordt.
 
 Als voorbeeld werken we met een klasse vierkant die overerft van Rechthoek. De klasse Rechthoek heeft eigenschappen als "Width" en "Height", en vierkant erft deze over. Maar als voor de klasse vierkant de breedte OF de hoogte gekend is, ken je de waarde van de andere ook: dit is tegen het principe van Liskov.
 
@@ -131,28 +130,28 @@ Een ander voorbeeld:
 ```csharp
 public interface ICar 
 {
-     void drive();
-     void playRadio();
-     void addLuggage();
+     void Drive();
+     void PlayRadio();
+     void AddLuggage();
 }
 ```
 
-Wat gebeurt er als we een Formule 1 auto hebben:
+Wanneer we een Formule 1 wagen implementeren, ziet deze er ongeveer als volgt uit:
 
 ```csharp
 public class FormulaOneCar: ICar 
 {
-    public void drive() 
+    public void Drive() 
     {
         //Code to make it go super fast
     }
 
-    public void addLuggage() 
+    public void AddLuggage() 
     {
         throw new NotSupportedException("No room to carry luggage, sorry."); 
     }
 
-    public void playRadio() 
+    public void PlayRadio() 
     {
         throw new NotSupportedException("Too heavy, none included."); 
     }
@@ -172,12 +171,86 @@ Bijvoorbeeld:
 ```csharp
 public void DoeIets(Bird b)
 {
-    if(b is Pinguin) {
+    if(b is Pinguin) 
+    {
         //Doe iets met de pinguin
     }
-    else {
+    else 
+    {
         //Doe iets anders
     }
 }
 ```
 
+Nog een voorbeeld om het Liskov principe goed te begrijpen. Stel, we willen vogels tekenen op een scherm, voor een game. Volgende klasse lijkt logisch:
+
+```csharp
+class Bird 
+{
+public:
+    virtual void SetLocation(double longitude, double latitude) = 0;
+    virtual void SetAltitude(double altitude) = 0;
+    virtual void Draw() = 0;
+};
+```
+
+De eerste versie van de game is een groot succes. Versie 2 voegt 12 vogeltypes toe en is een nog groter succes. In versie 3 wordt beslist penguins toe te voegen. Hierbij treedt echter een probleem op:
+
+```csharp
+void Penguin::SetAltitude(double altitude)
+{
+    //altitude can't be set because penguins can't fly
+    //this function does nothing
+}
+```
+
+Wanneer een methode niets anders kan doen dan een Exception opwerpen, schend je waarschijnlijk het Liskov principe!
+
+Een aanlokkelijke oplossing, maar een foute, lijkt de volgende te zijn:
+
+```csharp
+//Solution 1: The wrong way to do it
+void ArrangeBirdInPattern(Bird* aBird)
+{
+    Pengiun* aPenguin = dynamic_cast<Pengiun*>(aBird);
+    if(aPenguin)
+        ArrangeBirdOnGround(aPenguin);
+    else
+        ArrangeBirdInSky(aBird);
+}
+```
+
+Zo creeer je eigenlijk een onderhoudsnachtmerrie: er kunnen talloze testen bijkomen.
+
+Een betere oplossing is:
+
+```csharp
+//Solution 2: An OK way to do it
+void ArrangeBirdInPattern(Bird* aBird)
+{
+    if(aBird->isFlightless())
+        ArrangeBirdOnGround(aBird);
+    else
+        ArrangeBirdInSky(aBird);
+}
+```
+
+Zelfs al lijkt de oplossing aanvaardbaar, toch is deze niet meer dan een sticker op de wonde.
+
+Nog beter is het overerving behoorlijk te gebruiken:
+
+```csharp
+//Solution 3: Proper inheritance
+class Bird 
+{
+public:
+    virtual void Draw() = 0;
+    virtual void SetLocation(double longitude, double latitude) = 0;
+};
+
+class FlighingBird : public Bird 
+{
+public:
+    virtual void SetAltitude(double altitude) = 0;
+};
+```

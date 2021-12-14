@@ -1,6 +1,6 @@
-﻿using MongoDB.Driver;
-using Serilog;
-//using Serilog.Formatting.Compact;
+﻿using Serilog;
+using Serilog.Formatting.Compact;
+//using MongoDB.Driver;
 using Stock.Domain.Contracts;
 using System;
 
@@ -10,7 +10,7 @@ namespace Stock.Infrastructure.Logger
     {
         public SeriLogger()
         {
-            /*
+            
             // JSON file:
             Log.Logger = new LoggerConfiguration().
                             MinimumLevel.Debug().
@@ -21,7 +21,7 @@ namespace Stock.Infrastructure.Logger
                             WriteTo.File(new CompactJsonFormatter(), @"logs\stock.json", rollingInterval: RollingInterval.Hour).
                             WriteTo.Debug().
                             CreateLogger();
-            */
+            /*
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .Enrich.FromLogContext()
@@ -46,6 +46,7 @@ namespace Stock.Infrastructure.Logger
             // use VSCode, View > Command Palette > Inspect SeriLog events (after opening a trust window)
             // mongodb://127.0.0.1/logs (as url)
             // logs (for collection)
+            */
         }
 
         ~SeriLogger()
@@ -75,7 +76,7 @@ namespace Stock.Infrastructure.Logger
 
         public void Trace(string message)
         {
-            Log.Debug(message);
+            Log.Verbose(message);
         }
 
         public void Warning(string message)

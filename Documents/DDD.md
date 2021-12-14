@@ -2,7 +2,7 @@
 
 ![DDD](./DDDImages/DDD_1.png)
 
-Eric Evans is de authoriteit aangaande DDD vanuit theoretisch oogpunt.
+Eric Evans is de authoriteit aangaande DDD.
 
 ## Waaron is DDD zo fantastisch?
 
@@ -11,6 +11,136 @@ Eric Evans is de authoriteit aangaande DDD vanuit theoretisch oogpunt.
 - Domeingeoriënteerde ontwikkeling maakt het mogelijk om een echte service georiënteerde architectuur te implementeren, d.w.z. dat uw services herbruikbaar zijn omdat ze niet UI/Presentatie laag specifiek zijn 
 - Unit tests zijn gemakkelijk te schrijven omdat code horizontaal schaalt en niet verticaal, waardoor je methodes dun en gemakkelijk testbaar zijn
 - DDD is een verzameling van patronen en principes: dit geeft ontwikkelaars een kader om mee te werken, waardoor iedereen in het ontwikkelteam dezelfde richting kan opgaan.
+
+## Aggregate Root
+
+Het punt waarvandaan je de structuur aanspreekt:
+
+![Class structure](DDDAggregateRoot.png)
+
+Een voorbeeld:
+
+![Car Aggregate Root](DDDAggregateRootCar.png)
+
+## Entity en Value Object
+
+Een Entity heeft een eigen identiteit en geschiedenis (life cycle).
+
+```csharp
+// Entity
+public class Person
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public Address Address { get; set; }
+}
+ 
+// Value Object
+public class Address
+{
+    public string City { get; set; }
+    public string ZipCode { get; set; }
+}
+```
+
+Basis voor een entiteit:
+
+```csharp
+public abstract class Entity
+{
+    public virtual long Id { get; protected set; }
+
+    protected Entity()
+    {
+    }
+
+    protected Entity(long id)
+    {
+        Id = id;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is not Entity other)
+            return false;
+
+        if (ReferenceEquals(this, other))
+            return true;
+
+        if (GetUnproxiedType(this) != GetUnproxiedType(other))
+            return false;
+
+        if (Id.Equals(default) || other.Id.Equals(default))
+            return false;
+
+        return Id.Equals(other.Id);
+    }
+
+    public static bool operator ==(Entity a, Entity b)
+    {
+        if (a is null && b is null)
+            return true;
+
+        if (a is null || b is null)
+            return false;
+
+        return a.Equals(b);
+    }
+
+    public static bool operator !=(Entity a, Entity b)
+    {
+        return !(a == b);
+    }
+
+    public override int GetHashCode()
+    {
+        return (this.GetType().ToString() + Id).GetHashCode();
+    }
+}
+```
+
+Basis voor een Value Object: merk op, er is geen property Id voorzien.
+
+```csharp
+public abstract class ValueObject<T>
+    where T : ValueObject<T>
+{
+    public override bool Equals(object obj)
+    {
+        var valueObject = obj as T;
+ 
+        if (ReferenceEquals(valueObject, null))
+            return false;
+ 
+        return EqualsCore(valueObject);
+    }
+ 
+    protected abstract bool EqualsCore(T other);
+ 
+    public override int GetHashCode()
+    {
+        return GetHashCodeCore();
+    }
+ 
+    protected abstract int GetHashCodeCore();
+ 
+    public static bool operator ==(ValueObject<T> a, ValueObject<T> b)
+    {
+        if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
+            return true;
+ 
+        if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+            return false;
+ 
+        return a.Equals(b);
+    }
+ 
+    public static bool operator !=(ValueObject<T> a, ValueObject<T> b)
+    {
+        return !(a == b);
+    }
+}
+```
 
 ## Waarvoor staat DTO?
 
@@ -51,7 +181,7 @@ Bovenstaande code vertegenwoordigt "anemische" klassen (enkel properties, refere
 
 Wanneer een klant online winkelt, kiest hij eerst artikelen, daarna kijkt hij verder rond, en uiteindelijk zal hij een aankoop doen. We moeten met andere woorden deze artikelen ergens bewaren, laten we dit een winkelwagen noemen, een object dat geen identiteit heeft en vergankelijk is.
 
-Cart is ons **value object**:
+Cart is ons **Value Object**:
 
 ```c#
 public class Cart
@@ -289,7 +419,7 @@ Purchase purchase = customer.Checkout(cart);
 
 # DDD - Domain Events
 
-Wanneer er iets gebeurd is in het domein, kan er een domein gebeurtenis worden opgeroepen. Het kan gaan van een triviale verandering van een eigenschap tot een algemene verandering van de objecttoestand. Dit is een fantastische manier om een actuele gebeurtenis in uw domein te beschrijven, b.v. klant heeft uitgecheckt, klant is aangemaakt, enz.
+Wanneer er iets gebeurd is in het domein, kan er een domain event worden opgeroepen. Het kan gaan van een triviale verandering van een eigenschap tot een algemene verandering van de objecttoestand. Dit is een fantastische manier om een actuele gebeurtenis in uw domein te beschrijven, b.v. klant heeft uitgecheckt, klant is aangemaakt, enzovoort.
 
 We breiden ons voorbeeld uit:
 
@@ -456,7 +586,7 @@ Waar heeft de handler toegang toe? Alle interfaces van de infrastructuurlaag. Di
 
 Het *specification pattern* is fantastisch, [lees David Fancher](http://davefancher.com/2012/07/03/specifications-expression-trees-and-nhibernate/).
 
-Met het specificatiepatroon kan je zakelijke query's aan elkaar rijgen.
+Met het specification pattern kan je zakelijke queries aan elkaar rijgen.
 
 Voorbeeld:
 
@@ -726,7 +856,7 @@ https://github.com/iammukeshm/OnionArchitecture
 
 # DDD - Domain Service
 
-Domain Service mag niet worden verward met Application Service of Web Service. Domain Service leeft in de Domain Model Layer. In tegenstelling tot Applicatie- of Webdienst, moet Domain Service niet elke keer aangeroepen worden om toegang te krijgen tot de Domain Model Layer. Je kunt de interface van je repository aanroepen in de applicatielaag en de domeinentiteit direct ophalen.
+Domain Service mag niet worden verward met Application Service of Web Service. Domain Service leeft in de Domain Model Layer. In tegenstelling tot Application of Web Service, moet Domain Service niet elke keer aangeroepen worden om toegang te krijgen tot de Domain Model Layer. Je kunt de interface van je repository aanroepen in de applicatielaag en de domeinentiteit direct ophalen.
 
 **Vereiste:**
 Uw bedrijf is verantwoordelijk voor het innen en betalen van Belasting Toegevoegde Waarde (BTW) op basis van uw bedrijfslocatie, de locatie van uw klant en het type product dat u verkoopt.
@@ -798,7 +928,8 @@ public interface ICartService
      CheckOutResultDto CheckOut(Guid customerId);
  }
  
-//Dto's are Data Transfer Objects, they are very important as they allow you to input and get the output from Application Services without exposing the actual Domain.
+// Dto's are Data Transfer Objects, they are very important as they allow you to input and get the 
+// output from Application Services without exposing the actual Domain.
  public class CartDto
  {
      public Guid CustomerId { get; set; }
@@ -936,7 +1067,6 @@ CheckOutResultDto checkoutResult = this.cartService.CheckOut(this.customer.id);
 - Om toegang te krijgen tot Application Service stel je een interface en Dto's beschikbaar voor input en output (het is belangrijk om je Domain Entity niet bloot te stellen in een onbewerkt formaat, Dto is een proxy en beschermt je domein)
 - Presenter (mobiele app, desktop of web), moet verschillende services aanroepen om gegevens te verkrijgen die het nodig heeft en deze te manipuleren om aan de UI te voldoen. Dit lijkt misschien inefficiënt, of verspillend in het begin. Je zult je realiseren dat het eigenlijk net zo snel is (zo niet sneller), makkelijker te testen en te onderhouden. 
 
-
 **Tips:**
 
 - Gebruik AutoMapper of een andere IoC container om je Domain Entity naar een Dto te mappen, verspil je tijd niet met handmatige mapping. Het maakt je implementatie code onoverzichtelijk en onderhoud wordt een nachtmerrie. 
@@ -945,4 +1075,20 @@ CheckOutResultDto checkoutResult = this.cartService.CheckOut(this.customer.id);
 - Application Service kan direct worden geconsumeerd als je geen distributie nodig hebt, d.w.z. je MVC app zal gewoon direct naar de Application Service verwijzen, je kunt dan gewoon fouten proberen op te vangen in je Controller.
 - Applicatie Service kan worden blootgesteld via Web Service (Distributed Interface Layer). Deze verdere abstractie geeft je de mogelijkheid om fouten te "proberen en op te vangen" zodat ze op een vriendelijker manier kunnen worden blootgesteld. Bovendien kunt u zo uw applicatie toekomstbestendig maken, bijv. door versiebeheer.
 
+## Domain events
 
+Zie [Microsoft documentation](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-events-design-implementation).
+
+![Domain events](DDDEvents.png)
+
+![Multiple handlers](DDDEvents2.png)
+
+![Domain event dispatcher using IoC](DDDEvents3.png)
+
+Een mooi basisvoorbeeld van DDD: [Domain Events with MediatR](https://github.com/cfrenzel/DomainEventsWithMediatR).
+
+<!--
+## Voor gevorderden
+
+Zie bijvoorbeeld [.NET Core REST API CQRS with raw SQL and DDD using Clean Architecture](https://github.com/kgrzybek/sample-dotnet-core-cqrs-api). 
+-->

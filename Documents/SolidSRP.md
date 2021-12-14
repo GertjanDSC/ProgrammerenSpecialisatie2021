@@ -1,6 +1,8 @@
 ## Single Responsibility Principle
 
-> Een klasse heeft slechts 1 bestaansreden en kan maar 1 reden hebben om te veranderen
+> Een klasse heeft slechts een enkele bestaansreden en kan maar een enkele reden hebben om te veranderen
+
+> Gather together the things that change for the same reasons. Separate things that change for different reasons.
 
 Eigenschappen van SRP zijn:
 

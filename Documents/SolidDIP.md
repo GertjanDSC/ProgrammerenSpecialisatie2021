@@ -2,6 +2,8 @@
 
 > High level modules mogen niet afhankelijk zijn van low level modules. Ze mogen enkel afhankelijk zijn van abstractie.
 
+> Depend in the direction of abstraction. High level modules should not depend upon low level details.
+
 ### Wat zijn dependencies?
 
 > Een dependency is iets dat misschien kan veranderen tijdens de levenscyclus van je code.
