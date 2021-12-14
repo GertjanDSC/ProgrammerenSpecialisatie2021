@@ -833,11 +833,10 @@ public class CustomerCreatedHandle : Handles<CustomerCreated>
 
 **Samenvatting:**
 
-- Infrastructuur bevat implementatie klassen die daadwerkelijk praten met de infrastructuur IO, Sql, Msmq, enz.
+- Infrastructuur bevat implementatie klassen die daadwerkelijk praten met de infrastructuur IO, Sql, Msmq, enzovoort.
 - Het domein is het hart van de applicatie, niet de infrastructuur (dit kan moeilijk te begrijpen zijn als je uit een DBA achtergrond komt).
 - Infrastructuur is niet belangrijk in Domein-ontwerp ontwerp, het faciliteert de applicatie ontwikkeling niet het leidt het.
-- Infrastructuur zou geen domein logica moeten bevatten, alle domein logica zou in het domein moeten zitten. (Ik garandeer je dat als je voor het eerst begint, je er logica in stopt zonder dat je het weet)
-
+- Infrastructuur zou geen domein logica moeten bevatten, alle domein logica zou in het domein moeten zitten. (Ik garandeer je dat als je voor het eerst begint, je er logica in stopt zonder dat je het weet).
 
 **Tips:**
 

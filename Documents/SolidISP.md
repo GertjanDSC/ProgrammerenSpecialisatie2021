@@ -114,12 +114,11 @@ Er zijn verschillende redenen waarom interfaces gesegregeerd moeten zijn:
 1. Implementeer je sommige methodes van een interface niet, dan voldoe je niet aan ISP.
 2. Als je klasse refereert naar een andere klasse, maar gebruikt in beperkte mate deze gerefereerde klasse, dan voldoe je niet aan ISP.
 
-> Kom je code tegen zoals bovenstaande: if( b is Pinguin) ... else , is dit een teken dat je niet aan ISP voldoet, en bijgevolg je code flexibeler moet schrijven.
->
-> Kom je code tegen waarbij methoden afgeleid van een basis klasse niet geïmplementeerd worden: vb.
+Kom je code tegen zoals bovenstaande: if( b is Pinguin) ... else , is dit een teken dat je niet aan ISP voldoet, en bijgevolg je code flexibeler moet schrijven.
+Kom je code tegen waarbij methoden afgeleid van een basis klasse niet geïmplementeerd worden: vb.
 
 ```csharp
-public void addLuggage() 
+public void AddLuggage() 
 {
     throw new NotSupportedException("No room to carry luggage, sorry."); 
 }

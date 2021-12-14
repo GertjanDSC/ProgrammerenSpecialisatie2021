@@ -1,6 +1,6 @@
 ## Single Responsibility Principle
 
-> Een klasse heeft slechts een enkele bestaansreden en kan maar een enkele reden hebben om te veranderen
+> Een klasse heeft slechts een (!) enkele bestaansreden en kan maar om een (!) enkele reden gewijzigd worden.
 
 > Gather together the things that change for the same reasons. Separate things that change for different reasons.
 
@@ -9,7 +9,7 @@ Eigenschappen van SRP zijn:
 - *coupling*
 - *cohesion*
 
-> ***Cohesion***: compacte, coherente samenhang. Lage cohesie betekent dat een klasse zich bezig houdt met heel uiteenlopende taken, en niet gefocust is op de stricte, zuivere taak die zou moeten gebeuren. Hoge cohesie betekent dat een klasse doet wat er moet gebeuren, niet meer en niet minder. Probeer er voor te zorgen dat alle methoden in een klasse betrekking hebben tot een enkel doel, maw er een hoge cohesie heerst.
+> ***Cohesion***: compacte, coherente samenhang. Lage cohesie betekent dat een klasse zich bezig houdt met heel uiteenlopende taken, en niet gefocust is op de strikte, zuivere taak die zou moeten gebeuren. Hoge cohesie betekent dat een klasse doet wat er moet gebeuren, niet meer en niet minder. Probeer er voor te zorgen dat alle methoden in een klasse betrekking hebben tot een enkel doel, m.a.w. er een hoge cohesie heerst.
 >
 > ***Coupling***: de beperking van de mate waarin een klasse van nog andere klassen afhangt. Hoeveel weet een klasse over de werking (*internals*) van een andere klasse?
 
@@ -47,7 +47,7 @@ class EmailMessage
 }
 ```
 
-Een voorbeeld van lage cohesie :
+Een voorbeeld van lage cohesie:
 
 ```csharp
 class EmailMessage
@@ -89,9 +89,9 @@ De Login methode and username klasse variabele heeft niets te maken met het hoof
 
 ## Een voorbeeld van high coupling
 
-Eens de batterij kapot is, moet je een nieuwe iPad kopen, want de batterij is gesoldeerd in het apparaat en kan dus niet vervangen worden. Bij lage koppeling (loosly coupled) zou je de batterij kunnen vervangen. Ditzelfde gaat op in software engineering.
+Eens de batterij kapot is, moet je een nieuwe iPad kopen, want de batterij is gesoldeerd in het apparaat en kan dus niet vervangen worden. Bij lage koppeling (*loosly coupled*) zou je de batterij kunnen vervangen. Ditzelfde gaat op bij software engineering.
 
-Een voorbeeld van high coupling:
+Een voorbeeld van *high coupling*:
 
 ```csharp
 public class A
@@ -267,21 +267,18 @@ static void Main(string[] args)
 }
 ```
 
-Single responsibility speelt niet enkel op klasse-niveau maar ook op method-niveau.
+Single responsibility speelt niet enkel op klasse-niveau, maar ook op method-niveau.
 
-### Single Responsibility op method niveau
+### Single Responsibility op method-niveau
 
 #### Probleemstelling
 
-Er is je gevraagd om software te schrijven voor een online video shop. Het programma berekent en print de rekening van een klant bij onze online shop. Onderstaande paragraaf geeft ons de voorbeeldcode van het programma. We zullen deze oplossing  analyseren en bekijken hoe we de code kunnen verbeteren. Aan het programma wordt meegegeven welke film de klant heeft gehuurd, en voor hoe lang. Daarna wordt de rekening gemaakt – afhankelijk van hoe lang de film gehuurd geweest is, en welk type film (nieuwe release, kinder, gewone). 
+Er is je gevraagd om software te schrijven voor een online video shop. Het programma berekent en print de rekening van een klant bij onze online shop. Onderstaande paragraaf geeft ons de voorbeeldcode van het programma. We zullen deze oplossing  analyseren en bekijken hoe we de code kunnen verbeteren. Aan het programma wordt meegegeven welke film de klant heeft gehuurd, en voor hoe lang. Daarna wordt de rekening gemaakt – afhankelijk van hoe lang de film gehuurd geweest is, en van om welk type film het gaat (nieuwe release, kinderfilm, ...). 
 
 UML:
+![movie architectuur](SRP1.png)
 
-![movie architectuur](https://timdams.gitbooks.io/csharpfromantwerp/content/assets/20_se/moviearchitectuur.PNG)
-
-### Voorbeeld van de MAIN functie
-
-(altijd goed om je architectuur uit te testen door in je main een voorbeeld applicatie te laten draaien)
+### Voorbeeld van de *Main* functie
 
 ```csharp
 static void Main(string[] args) 
@@ -313,12 +310,12 @@ static void Main(string[] args)
 }
 ```
 
-### Movie klasse .. een simpele klasse
+### Movie klasse
 
 ```csharp
 public class Movie 
 { 
-    public  const int CHILDRENS = 2; 
+    public  const int CHILDREN = 2; 
     public  const int REGULAR = 0; 
     public  const int NEW_RELEASE = 1;      
 
@@ -336,7 +333,7 @@ public class Movie
 
 ### Rental klasse
 
-Deze klasse stelt voor hoe lang een klant een bepaalde film gehuurd heeft.
+Deze klasse stelt voor hoe lang een klant een bepaalde film gehuurd heeft:
 
 ```csharp
 public class Rental 
@@ -403,7 +400,7 @@ public class Customer
                     thisAmount += r.DaysRented * 3;
                     break;
 
-                case Movie.CHILDRENS:
+                case Movie.CHILDREN:
                     thisAmount += 1.5;
                     if (r.DaysRented > 3)
                     {
@@ -430,25 +427,25 @@ public class Customer
 
 Voor een dergelijke (*simpele*) applicatie is design/architectuur niet zo belangrijk. We zien echter dat dit niet echt object georiënteerde code is, wat een invloed heeft op het gemak waarmee de toepassing kan uitgebreid en veranderd worden.
 
-Enkele bemerkingen: de statement functie in onze Customer klasse is te lang en doet te veel. Veel zaken die we hier in doen, zouden naar andere klasses overgedragen moeten worden.
+Enkele bemerkingen: de *Statement* moethode in onze Customer klasse is te lang en doet te veel. Veel zaken die we hier in doen, zouden naar andere klassen overgedragen moeten worden.
 
 Ook al werkt ons programma (mooi geschreven code of lelijke code speelt echt geen rol voor een compiler), we moeten ons steeds het volgende afvragen: als in onze applicatie toevoegingen of veranderingen moeten aangebracht worden, moet er *iemand* zijn die dit kan klaar spelen, en een zwak gedesigned systeem is moeilijk te veranderen. Het vergt dan heel wat analysetijd van de programmeur om je programma te doorgronden.
 
-Een voorbeeld van verandering: stel dat je klant vraagt om je rekening ook op een webpagina in HTML af te drukken. Welke impact heeft dit op je programma? Als we naar onze code kijken, merken we dat voor dergelijke vraagstelling het niet mogelijk is code te hergebruiken. Dus moeten we een nieuwe functie maken, die veel gedrag van de reeds bestaande statement functie kopieert. Op zich nog niet echt een probleem, want met wat copy-paste werk kan je de statement functie dupliceren en hernoemen naar htmlstatement() en de result string aanpassen met bijvoorbeeld: `result+=”<b>”blabla</b>”`.
+Een voorbeeld van verandering: stel dat je klant vraagt om je rekening ook op een webpagina in HTML af te drukken. Welke impact heeft dit op je programma? Als we naar onze code kijken, merken we dat voor dergelijke vraagstelling het niet mogelijk is code te hergebruiken. Dus moeten we een nieuwe methode maken, die veel gedrag van de reeds bestaande statement methode kopieert. Op zich nog niet echt een probleem, want met wat copy-paste werk kan je de *Statement* methode dupliceren en hernoemen naar *HtmlStatement* en de result string aanpassen met bijvoorbeeld: `result+=”<b>”blabla</b>”`.
 
-Maar bedenk eens wat je allemaal moet doen als één regel in het rekening maken verandert? Je moet zowel aanpassingen maken in de statement als de htmlstatement functie, wat gegarandeerd fouten (bugs) zal introduceren!
+Maar bedenk eens wat je allemaal moet doen als één regel in het rekening maken verandert? Je moet zowel aanpassingen maken in de statement als de *HtmlStatement* methode, wat gegarandeerd fouten (bugs) zal introduceren!
 
-Nog een andere opmerking. Als de winkel beslist om de classificatie (gewone film, kinder, nieuwe release) te veranderen, maar nog niet zeker is hoe, kan het zijn dat ze je vragen de mogelijke ideeën uit te testen. Dat heeft dan ook een invloed op hoe kosten voor films en huurpunten worden berekend. Als professionele software ontwikkelaar in spe ga ik je reeds verwittigen dat dergelijke veranderingen heel regelmatig voorkomen!
+Nog een andere opmerking. Als de winkel beslist om de classificatie (gewone film, kinderfilm, nieuwe release) te veranderen, maar nog niet zeker is hoe, kan het zijn dat ze je vragen de mogelijke ideeën uit te testen. Dat heeft dan ook een invloed op hoe kosten voor films en huurpunten worden berekend. Als professionele software ontwikkelaar in spe moet je verwachten dat dergelijke veranderingen heel regelmatig voorkomen!
 
-De `statement()` functie is de plaats waar de veranderingen in classificatie en berekeningen gebeuren. Dus ook niet te vergeten consistente veranderingen te maken in de `htmlstatement()` functie. Als de berekeningsmethodes steeds complexer worden, zal het met ons design ook steeds moeilijker worden om deze veranderingen door te voeren.
+De `Statement()` methode is de plaats waar de veranderingen in classificatie en berekeningen gebeuren. Dus ook niet te vergeten consistente veranderingen te maken in de `HtmlStatement()` methode. Als de berekeningsmethodes steeds complexer worden, zal het met ons design ook steeds moeilijker worden om deze veranderingen door te voeren.
 
 Wat nu volgt zijn voorstellen om onze software architectuur stap voor stap te veranderen totdat we object georiënteerde code hebben geschreven die ons in staat stelt dergelijke veranderingen op een *makkelijke* manier te realiseren.
 
-### Analyseren van de statement functie
+### Analyseren van de Statement methode
 
-Tracht steeds korte functies/methodes te schrijven. Tracht lange functies onder te verdelen in kleinere delen. Kleinere stukken code zijn veel eenvoudiger te onderhouden! Om een functie te verdelen tracht je bij elkaar horende blokken te vinden. Een goede manier is om naar lokale scope variabelen te zoeken. Bijvoorbeeld thisAmount en Rental r, waarbij r niet wordt veranderd, terwijl thisAmount wel. Elke variabele die niet wordt veranderd, kunnen we als argument doorgeven. Indien er variabelen zijn die wel worden veranderd kunnen we, indien er maar 1 is, deze terug retourneren.
+Tracht steeds korte functies/methodes te schrijven. Tracht lange functies onder te verdelen in kleinere delen. Kleinere stukken code zijn veel eenvoudiger te onderhouden! Om een methode te verdelen tracht je bij elkaar horende blokken te vinden. Een goede manier is om naar lokale scope variabelen te zoeken. Bijvoorbeeld thisAmount en Rental r, waarbij r niet wordt veranderd, terwijl thisAmount wel. Elke variabele die niet wordt veranderd, kunnen we als argument doorgeven. Indien er variabelen zijn die wel worden veranderd kunnen we, indien er maar 1 is, deze terug retourneren.
 
-We zoeken in onze statement() functie naar deze lijnen code:
+We zoeken in onze *Statement* methode naar deze lijnen code:
 
 ```csharp
 switch( r.GetMovie().PriceCode ) 
@@ -475,7 +472,7 @@ switch( r.GetMovie().PriceCode )
 }
 ```
 
-En maken hiervoor een aparte functie:
+... en maken hiervoor een aparte methode:
 
 ```csharp
 private double AmountFor(Rental r) 
@@ -507,7 +504,7 @@ private double AmountFor(Rental r)
 }
 ```
 
-Terwijl we in de statement functie deze verandering maken:
+Terwijl we in de *statement* methode deze verandering aanbrengen:
 
 ```csharp
 foreach (Rental r in _rentals) 
@@ -517,9 +514,9 @@ foreach (Rental r in _rentals)
     //...
 ```
 
-#### Analyse van AmountFor functie
+#### Analyse van AmountFor methode
 
-Als we naar onze nieuwe AmountFor(Rental r) functie kijken, valt het op dat we hier met Rental data werken, en eigenlijk geen data van de customer klasse gebruiken. In de meeste gevallen moeten functies/methodes in die klasse staan vanwaar ze data gebruiken, dus in dit geval van de Rental klasse.
+Als we naar onze nieuwe AmountFor(Rental r) methode kijken, valt het op dat we hier met Rental data werken, en eigenlijk geen data van de customer klasse gebruiken. In de meeste gevallen moeten functies/methodes in die klasse staan vanwaar ze data gebruiken, dus in dit geval van de Rental klasse.
 
 ```csharp
 public double GetCharge() 
@@ -551,7 +548,7 @@ public double GetCharge()
 }
 ```
 
-Bij deze heb ik ook de naam van de functie veranderd in GetCharge(), omwille van de duidelijkheid. Tracht altijd naamgevingen te gebruiken die direct duidelijk maken wat je programmeert. Dus in de Customer klasse staat nu
+We veranderden ook de naam van de methode in GetCharge(), omwille van de duidelijkheid. Tracht altijd naamgevingen te gebruiken die direct duidelijk maken wat je programmeert. Dus in de Customer klasse staat nu:
 
 ```csharp
 public string Statement() 
@@ -569,11 +566,10 @@ public string Statement()
     // etc.
 ```
 
-Het klasse diagramma is nu veranderd naar:
+Het klassendiagramma is nu veranderd naar:
+![movie architectuur](srp2.png)
 
-![movie architectuur](https://timdams.gitbooks.io/csharpfromantwerp/content/assets/20_se/moviearchitectuur2.PNG)
-
-Als we terug naar de statement() functie kijken dan is de variabele thisAmount redundant, en veranderen we naar:
+Als we terug naar de *Statement* methode kijken dan is de variabele thisAmount redundant, en dus wijzigen we de code:
 
 ```csharp
 public string Statement() 
@@ -599,9 +595,9 @@ public string Statement()
 }
 ```
 
-Best is om tijdelijke variabelen te verwijderen, omdat je makkelijk vergeet waarvoor ze dienen. Je zou in bovenstaand geval toch kunnen kiezen voor een temporary variabele thisAmount, omdat de getCharge() tweemaal wordt opgeroepen dus tweemaal een berekening maakt, als we dan naar performantie kijken.
+Best is om tijdelijke variabelen te verwijderen omdat je makkelijk vergeet waarvoor ze dienen. Je zou in bovenstaand geval toch kunnen kiezen voor een tijdelijke variabele thisAmount, omdat getCharge() tweemaal wordt opgeroepen, dus tweemaal een berekening maakt, vanuit performantieoogpunt.
 
-In de Customer klasse:
+De Customer klasse:
 
 ```csharp
 private double getTotalCharge() 
@@ -617,7 +613,7 @@ private double getTotalCharge()
 }
 ```
 
-Met de statement functie als:
+De *Statement* methode:
 
 ```csharp
 public string Statement() 
@@ -641,7 +637,7 @@ public string Statement()
 
 #### HTMLStatement() functie
 
-In plaats van tekst te loggen wil ik mijn prijsberekening naar een HTML pagina schrijven. Dit is nu vrij simpel, en bij veranderingen in de prijsberekening moet ik de customer klasse niet meer aanpassen!
+In plaats van tekst te loggen willen we onze prijsberekening naar een HTML pagina wegschrijven. Dit is nu vrij simpel, en bij veranderingen in de prijsberekening moeten we de *Customer* klasse niet meer aanpassen!
 
 ```csharp
 public string HtmlStatement() 
@@ -662,7 +658,7 @@ public string HtmlStatement()
 }
 ```
 
-Bij een verandering aan de berekening, of toevoeging van nieuwe types films worden de statement functies niet meer gewijzigd, waardoor we duidelijk meer onderhoudvriendelijke code hebben geschreven.
+Bij een verandering aan de berekening, of toevoeging van nieuwe types films worden de statement functies niet meer gewijzigd, waardoor we duidelijk meer onderhoudsvriendelijke code hebben geschreven.
 
 ```csharp
 public double GetCharge() 
@@ -694,9 +690,9 @@ public double GetCharge()
 }
 ```
 
-Het valt hier op dat we in de Rental klasse met een Movie object werken. Logischerwijze zou deze functie beter in de movie klasse staan. Het is een slecht idee om een switch te doen op een attribuut van een ander object!
+Het valt hier op dat we in de *Rental* klasse met een *Movie* object werken. Logischerwijze zou deze functie beter in de movie klasse staan. Het is een slecht idee om een switch te doen op een attribuut van een ander object!
 
-We moeten dan wel het aantal huurdagen meegeven als parameter van deze nieuwe functie. Dus eigenlijk gebruikt deze functie 2 stukken data – type film, en aantal huurdagen. Waarom dan toch naar Movie klasse brengen, en daysRented meegeven als argument? Wel , de voorgestelde veranderingen gingen om type film (wat te doen als nieuw type wordt geïntroduceerd ), daarom is het logisch om de type informatie zo compact mogelijk te bundelen (in 1 functie ipv 2 functies (als je het type zou doorgeven als parameter)).
+We moeten dan wel het aantal huurdagen meegeven als parameter van deze nieuwe functie. Dus eigenlijk gebruikt deze methode twee stukken data – type film, en aantal huurdagen. Waarom dan toch naar *Movie* klasse brengen, en daysRented meegeven als argument? Wel, de voorgestelde veranderingen gingen om het type film (wat te doen als een nieuw type wordt geïntroduceerd), daarom is het logisch om deze type informatie zo compact mogelijk te bundelen (in een enkele methode i.p.v. twee methoden (als je het type zou doorgeven als parameter)).
 
 De Rental klasse:
 
@@ -739,11 +735,23 @@ public double GetCharge(int daysRented)
 }
 ```
 
-## SRP, the "Law of Demeter"
+## The "Law of Demeter"
 
-Dit is het principe van "least knowledge", is een object-oriented software design principe. Een methode van een object mag enkel wie oproepen:
+De *Wet van Demeter* is een kleine verzameling regels die bepaalt hoe objecten met elkaar moeten omgaan. De wet helpt de grenzen tussen objecten te definiëren en te bepalen wie wat controleert en bezit. Door dit ontwerpprincipe toe te passen krijgt elk object zijn eigen persoonlijke ruimte en wordt voorkomen dat objecten andere "micromanagen".
+
+De LoD reikt bruikbare en kwantificeerbare regels aan voor het structureren van software die helpen de SOLID principes mogelijk te maken. Het definieert welke methoden en variabelen een object mag aanroepen.
+
+LoD is gebaseerd op *least knowledge*, een object-oriented software design principe. Een methode van een object mag enkel aanroepen:
 
 - het object zelf
-- een argument van de methode
-- elk object dat in de methode aangemaakt is
-- alle properties en variabelen van het object zelf
+- een argument van de methode zelf
+- elk object dat in de methode zelf aangemaakt is
+- alle properties en variabelen waarvan het object zelf eigenaar is
+- een globale variabele.
+
+Dit houdt in dat elke actie die dit object onderneemt, moet gebeuren door het manipuleren van voorwerpen die niet meer dan een enkele graad van het object verwijderd zijn. Een ouder kan zijn kinderen vertellen wat ze moeten doen, maar mag zijn kleinkinderen niet vertellen wat ze moeten doen. Een manager mag en moet zijn directe ondergeschikten managen, maar mag zeker niet diens ondergeschikten managen.
+
+Wat interessant is aan LoD is hoe mooi de wet vele andere praktijken van object georiënteerd ontwerpen impliceert. De wet dwingt inkapseling af door veranderingen in subobjecten te isoleren. Dit helpt op zijn beurt om betere modellen te maken van objecten in de echte wereld door druk uit te oefenen op de ontwikkelaar om het interface ontwerp te verbeteren.
+
+* SRP: "Heb slechts één reden voor verandering" - Het breken van LoD breekt het principe van SRP omdat wanneer een subobject verandert, je object ook zou moeten veranderen.
+* Dependency Inversion: depend upon abstractions, not concretions” - door niet in de ingewanden van een object te reiken, ben je gedwongen om af te hangen van een abstractie, niet van de details van het object.
