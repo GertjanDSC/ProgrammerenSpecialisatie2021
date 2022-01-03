@@ -20,10 +20,9 @@ Updated
 | 07/12/2021   | [IOC](./Documents/Ioc.md)                                    |
 | 14/12/2021   | Design patterns: [SOLID](./Documents/SOLID.md)               |
 | *21/12/2021* | *Inhaalweek*                                                 |
-| 11/01/2022   | Blok                                                         |
-| 18/01/2022   | Eerste kans finale evaluatieoefening                         |
-| 25/01/2022   | Blok                                                         |
-| 01/02/2022   | Tweede kans finale evaluatieoefening                         |
+| 11/01/2022   | Eerste kans finale evaluatieoefening                         |
+| 18/01/2022   | Blok                                                         |
+| 25/01/2022   | Tweede kans finale evaluatieoefening                         |
 
 * Git
   * [Cheat sheet](./Documents/GitCheatSheet.pdf)
